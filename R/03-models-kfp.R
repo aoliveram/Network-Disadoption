@@ -243,13 +243,13 @@ build_dis_modern <- function(pp, kind) {
 
 # ---- battery runner: handles both PC (named E_PC etc) and modern (named E etc) ----
 run_PC_disadopt_battery <- function(pan, label, with_cov = FALSE) {
-  pan$t <- factor(pan$t); pan$village_fe <- factor(pan$village)
+  pan$t <- factor(pan$t); pan$community_fe <- factor(pan$village)
   if (with_cov) pan <- merge(pan, covar, by="i", all.x = TRUE)
   base <- if (with_cov) "+ children + age + agemar" else ""
-  fmla <- function(x) as.formula(sprintf("event ~ t + village_fe + %s %s", x, base))
+  fmla <- function(x) as.formula(sprintf("event ~ t + community_fe + %s %s", x, base))
   out <- list(
-    F0   = fit_logit(if (with_cov) event ~ t + village_fe + children + age + agemar
-                     else event ~ t + village_fe, pan),
+    F0   = fit_logit(if (with_cov) event ~ t + community_fe + children + age + agemar
+                     else event ~ t + community_fe, pan),
     A1   = fit_logit(fmla("E_PC"), pan),
     C1   = fit_logit(fmla("has_PC"), pan),
     D1   = fit_logit(fmla("Nc_PC"), pan),
@@ -279,13 +279,13 @@ run_PC_disadopt_battery <- function(pan, label, with_cov = FALSE) {
 }
 
 run_mod_disadopt_battery <- function(pan, label, with_cov = FALSE) {
-  pan$t <- factor(pan$t); pan$village_fe <- factor(pan$village)
+  pan$t <- factor(pan$t); pan$community_fe <- factor(pan$village)
   if (with_cov) pan <- merge(pan, covar, by="i", all.x = TRUE)
   base <- if (with_cov) "+ children + age + agemar" else ""
-  fmla <- function(x) as.formula(sprintf("event ~ t + village_fe + %s %s", x, base))
+  fmla <- function(x) as.formula(sprintf("event ~ t + community_fe + %s %s", x, base))
   out <- list(
-    F0   = fit_logit(if (with_cov) event ~ t + village_fe + children + age + agemar
-                     else event ~ t + village_fe, pan),
+    F0   = fit_logit(if (with_cov) event ~ t + community_fe + children + age + agemar
+                     else event ~ t + community_fe, pan),
     A1   = fit_logit(fmla("E"), pan),
     C1   = fit_logit(fmla("has"), pan),
     D1   = fit_logit(fmla("Nc"), pan),
@@ -330,13 +330,13 @@ results <- list()
 # ================================================================
 cat("\n==== KFP PC adoption (canonical) ====\n")
 ad_pc <- build_adopt_PC(pp_can)
-ad_pc$t <- factor(ad_pc$t); ad_pc$village_fe <- factor(ad_pc$village)
+ad_pc$t <- factor(ad_pc$t); ad_pc$community_fe <- factor(ad_pc$village)
 ad_pc_cov <- merge(ad_pc, covar, by="i", all.x = TRUE)
-fm  <- function(x) as.formula(sprintf("event ~ t + village_fe + %s", x))
-fmc <- function(x) as.formula(sprintf("event ~ t + village_fe + %s + children + age + agemar", x))
+fm  <- function(x) as.formula(sprintf("event ~ t + community_fe + %s", x))
+fmc <- function(x) as.formula(sprintf("event ~ t + community_fe + %s + children + age + agemar", x))
 
 specs_pc <- list(
-  F0       = event ~ t + village_fe,
+  F0       = event ~ t + community_fe,
   A1_PC    = fm("E_PC"),
   A1_mod   = fm("E_mod"),
   C1_PC    = fm("has_PC"),
@@ -357,7 +357,7 @@ specs_pc <- list(
   V1pr_PC  = fm("V_PC + prior_mn")
 )
 specs_pc_cov <- list(
-  F0       = event ~ t + village_fe + children + age + agemar,
+  F0       = event ~ t + community_fe + children + age + agemar,
   A1_PC    = fmc("E_PC"),
   A1_mod   = fmc("E_mod"),
   C1_PC    = fmc("has_PC"),
@@ -417,7 +417,7 @@ print(results$kfp_pc_adopt_cov, row.names=FALSE)
 
 cat("\n==== KFP modern6 adoption (canonical) ====\n")
 ad_m <- build_adopt_modern(pp_can)
-ad_m$t <- factor(ad_m$t); ad_m$village_fe <- factor(ad_m$village)
+ad_m$t <- factor(ad_m$t); ad_m$community_fe <- factor(ad_m$village)
 results$kfp_mod_adopt     <- run_mod_disadopt_battery(ad_m, "mod6 adopt", with_cov = FALSE)
 results$kfp_mod_adopt_cov <- run_mod_disadopt_battery(ad_m, "mod6 adopt+cov", with_cov = TRUE)
 print(results$kfp_mod_adopt, row.names=FALSE)

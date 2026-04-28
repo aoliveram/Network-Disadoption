@@ -126,13 +126,13 @@ build_disA <- function(keep_v) {
 }
 
 run_battery <- function(pan, label) {
-  pan$t <- factor(pan$t); pan$village_fe <- factor(pan$village)
+  pan$t <- factor(pan$t); pan$community_fe <- factor(pan$village)
   out <- list(
-    A1   = fit_logit(event ~ t + village_fe + E, pan),
-    C1   = fit_logit(event ~ t + village_fe + has, pan),
-    H    = fit_logit(event ~ t + village_fe + Emax, pan),
-    V1   = fit_logit(event ~ t + village_fe + V, pan),
-    V2   = fit_logit(event ~ t + village_fe + V + E, pan)
+    A1   = fit_logit(event ~ t + community_fe + E, pan),
+    C1   = fit_logit(event ~ t + community_fe + has, pan),
+    H    = fit_logit(event ~ t + community_fe + Emax, pan),
+    V1   = fit_logit(event ~ t + community_fe + V, pan),
+    V2   = fit_logit(event ~ t + community_fe + V + E, pan)
   )
   rbind(
     row_of(paste(label,"A1"), out$A1, "E"),

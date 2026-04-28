@@ -174,20 +174,13 @@ for exposure computations.
 
 - v1: `reports/disadoption-study-1.pdf` (frozen, contains the
   spurious egonet result).
-- **v2: `docs/disadoption-study.pdf` and `reports/disadoption-study-2.pdf`** (current).
-- v3: pending. See `prompts/v3-instructions.md` for the planned
-  modifications.
-
-## Pending tasks for v3
-
-1. Replace "cluster" with "community" throughout.
-2. Add prevalence-by-grade-within-cohort table for ADVANCE.
-3. Report each V coefficient as OR per unit V *and* OR per 10pp V.
-4. Add Valente strict replication (no extra FE) on KFP modern6 with
-   the specific predictor set listed in `prompts/v3-instructions.md`.
-5. Use `media6..media14` (mean) for the Valente media exposure index,
-   not `media1..media5`.
-6. Keep everything else from v2.
+- v2: `reports/disadoption-study-2.{pdf,md}` (frozen).
+- **v3: `docs/disadoption-study.{pdf,md}` (current).** Adds:
+  terminology cluster → community throughout; OR per 10pp V
+  annotations; new §1.3 grade-within-cohort prevalence (ADVANCE);
+  new §3.3.2 Valente strict replication on KFP modern6
+  (n = 7,103 person-periods, 673 events; `media = rowMeans(media6..media14)`);
+  both TOA match metrics (74.3% adopter-only and 83.5% overall) in Annex B.
 
 ## Conventions
 

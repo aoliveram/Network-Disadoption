@@ -1,27 +1,38 @@
 # ================================================================
-# 22-valente-replication.R
+# 92-valente-replication.R
 #
-# Replicate Valente (2010) Table 10-2, Korean Family Planning column.
+# Strict Valente replication (Valente 2010, Table 10-2, KFP column).
+# Discrete-time event history on KFP modern6 first-adoption events.
+# NO additional community / period fixed effects (only `t` enters as
+# a continuous integer, per Valente's specification).
 #
-#   Reported n = 7,103 person-periods
-#   Discrete-time event history (logistic regression on person-period
-#   panel). OR reported with clustered SE by community.
+# Specification (per prompts/v3-instructions.md, item 4):
 #
-# Predictors in the book:
-#   Time (period)
-#   Cumulative adoption (community-level)
-#   Number sent (out-degree, FP discussion)
-#   Number received (in-degree, FP discussion)
-#   Exposure by cohesion  (standard network exposure)
-#   Exposure by structural equivalence
-#   Number of children
-#   Media exposure (own-media index)
+#   logit(p_it) = a + b1 * t + b2 * Acum_{v,t-1}
+#               + b3 * n_sent_i + b4 * n_recv_i
+#               + b5 * E^coh_{i,t-1} + b6 * E^se_{i,t-1}
+#               + b7 * children_i + b8 * media_i
 #
-# We fit this model twice:
-#   (A) using the original kfamily$toa
-#   (B) using TOA_derivado from 1-toa_construction_3.R
+# where:
+#   t        : continuous integer (NOT a factor)
+#   Acum     : community-level cumulative modern adoption at t-1
+#   n_sent   : out-degree from the FP-discussion network
+#   n_recv   : in-degree across (village, id) keys
+#   E^coh    : (W * y_{t-1}) with W row-normalised adjacency
+#   E^se     : structural-equivalence exposure (netdiffuseR::struct_equiv, v=1)
+#   children : sons + daughts
+#   media    : rowMeans(media6..media14, na.rm = TRUE) -- frequency-scale
+#              items (range 0..4), per Tom Valente's book. We do NOT
+#              use media1..media5 (binary ownership flags).
 #
-# Save coefficient/OR tables to CSV and print a side-by-side comparison.
+# Cluster SE by village. Run on KFP modern6 first-adoption events
+# (kfamily$toa, the netdiffuseR canonical TOA).
+#
+# This is a sanity check / strict reproduction; the FE-controlled
+# main analysis lives in 03-models-kfp.R.
+#
+# We also fit the same spec on TOA_derivado (from 91-toa-derivation.R)
+# for a side-by-side comparison.
 # ================================================================
 
 suppressMessages({
@@ -35,14 +46,18 @@ source(file.path(here::here(), "R", "00-config.R"))
 data(kfamily, package = "netdiffuseR")
 n <- nrow(kfamily)
 
-# ---- choose T = 11 (the full panel) to match Valente ----
-Tt <- 11L
+# ---- panel length: 10 calendar periods (1964..1973) ----
+# kfamily$toa = 1..10 for adopters, 11 for never-adopters.
+# fit_eha treats toa > Tt as never (NA), so Tt = 10 correctly excludes
+# never-adopters from contributing a spurious event at t=11.
+Tt <- 10L
 
 # ---- personal covariates ----
 children     <- as.numeric(kfamily$sons) + as.numeric(kfamily$daughts)
-# media1..media5: 1 = owns, 2 = does not own
-media_idx    <- rowSums(as.matrix(kfamily[, sprintf("media%d", 1:5)]) == 1,
-                        na.rm = TRUE)
+# Strict Valente media: mean of media6..media14 (frequency scale, 0..4).
+# We do NOT use media1..media5 (those are binary ownership flags).
+media_idx    <- rowMeans(as.matrix(kfamily[, sprintf("media%d", 6:14)]),
+                          na.rm = TRUE)
 # Nomination vars: 0 = no nomination; positive = community id
 net_vars <- sprintf("net1%d", 1:5)
 surveyed <- kfamily$id

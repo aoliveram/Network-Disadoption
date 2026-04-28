@@ -176,10 +176,28 @@ cat(sprintf("\nEver PC (new episode-based) : %d\n", sum(!is.na(toa_PC_new))))
 cat(sprintf("Ever PC (old fpt-direct)    : %d (was 292)\n",
             sum(apply(fpt_mat, 1, function(v) any(v %in% PC_codes, na.rm = TRUE)))))
 cat(sprintf("Ever modern (new)           : %d\n", sum(!is.na(toa_mod_new))))
+
+# ---- TOA match metric 1: among modern adopters (strict, kfamily$toa <= 10) ----
 adopters <- which(!is.na(kfamily$toa) & kfamily$toa <= 10)
 match_mod <- sum(kfamily$toa[adopters] == toa_mod_new[adopters], na.rm = TRUE)
-cat(sprintf("New TOA-of-modern matches kfamily$toa: %d/%d (%.1f%%)\n",
-            match_mod, length(adopters), 100*match_mod/length(adopters)))
+pct_adopters <- 100 * match_mod / length(adopters)
+cat(sprintf("\nTOA match (adopter-only)    : %d/%d (%.1f%%)\n",
+            match_mod, length(adopters), pct_adopters))
+cat(sprintf("  Numerator: matches between reconstructed TOA-of-modern and kfamily$toa among women with kfamily$toa <= 10.\n"))
+cat(sprintf("  Denominator: %d (= modern adopters in kfamily).\n", length(adopters)))
+
+# ---- TOA match metric 2: overall, imputing T = 11 for never-modern in either side ----
+# Reconstructed TOA: 1..10 if state_modern reaches 1; otherwise 11.
+toa_mod_full <- ifelse(is.na(toa_mod_new), 11L, toa_mod_new)
+toa_orig_full <- ifelse(is.na(kfamily$toa), 11L, as.integer(kfamily$toa))
+match_overall <- sum(toa_orig_full == toa_mod_full)
+pct_overall   <- 100 * match_overall / n
+cat(sprintf("\nTOA match (overall)         : %d/%d (%.1f%%)\n",
+            match_overall, n, pct_overall))
+cat(sprintf("  Numerator: matches across all women, with T = 11 imputed when reconstructed shows no modern adoption (or kfamily$toa = 11).\n"))
+cat(sprintf("  Denominator: %d (= total women).\n", n))
+cat(sprintf("  Trivial-match contribution (both sides = 11): %d women.\n",
+            sum(toa_orig_full == 11L & toa_mod_full == 11L)))
 
 # ---- write tables ----
 ids        <- kfamily$id
