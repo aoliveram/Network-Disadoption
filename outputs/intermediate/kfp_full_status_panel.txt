@@ -1,0 +1,1048 @@
+global_id	id	village	t1	t2	t3	t4	t5	t6	t7	t8	t9	t10
+1	2	1	Want more	NormalB	No more	Want more	NormalB	Want more	Want more	No more	Loop	Loop
+2	3	1	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+3	4	1	NA	NA	NA	NormalB	Want more	NormalB	Loop	Loop	Loop	Loop
+4	5	1	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+5	7	1	No more	No more	No more	No more	No more	No more	No more	No more	No more	No more
+6	8	1	No more	No more	No more	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+7	9	1	NA	NA	NA	NormalB	Want more	Want more	Want more	NormalB	Want more	No more
+8	11	1	Want more	NormalB	Want more	NormalB	Want more	NormalB	Loop	Loop	Loop	Loop
+9	12	1	No more	Condom	Condom	Condom	Loop	Loop	Loop	Loop	Loop	Loop
+10	14	1	TL	TL	TL	TL	TL	TL	TL	TL	TL	TL
+11	15	1	NA	NA	NA	NA	NA	NA	Want more	Want more	NormalB	No more
+12	16	1	NA	NormalB	Abortion	Want more	NormalB	0ther	0ther	No more	No more	No more
+13	19	1	NormalB	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Pregnant	Pregnant
+14	23	1	NormalB	NormalB	NormalB	NormalB	Condom	Condom	Condom	Loop	No more	Condom
+15	24	1	No more	Injection	Abortion	No more	No more	No more	No more	Oral Pill	NormalB	No more
+16	25	1	No more	No more	No more	No more	Loop	Abortion	No more	No more	No more	No more
+17	26	1	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Want more
+18	27	1	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+19	28	1	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+20	29	1	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+21	30	1	NA	Loop	Loop	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+22	31	1	NA	No more	No more	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+23	32	1	Loop	Condom	NormalB	No more	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+24	33	1	NA	NormalB	No more	No more	No more	Condom	No more	No more	No more	Loop
+25	34	1	NA	NA	NA	NA	NA	NA	NA	Want more	Pregnant	Pregnant
+26	37	1	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm
+27	38	1	NormalB	NormalB	Want more	NormalB	Loop	Loop	NormalB	Loop	NormalB	Condom
+28	42	1	Pessary	Pessary	Pessary	Pessary	Pessary	Pessary	Pessary	Pessary	Pessary	Pessary
+29	45	1	Loop	Loop	Loop	NormalB	Loop	Loop	Loop	Loop	Loop	Loop
+30	47	1	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more	Condom
+31	48	1	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+32	50	1	NormalB	NormalB	No more	No more	Abortion	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+33	51	1	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+34	52	1	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+35	54	1	Condom	Condom	NormalB	Loop	Loop	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+36	58	1	NormalB	Want more	Want more	NormalB	Withdrawal	Loop	Loop	Loop	Loop	Loop
+37	59	1	No more	No more	No more	Loop	Loop	Condom	Condom	Condom	Oral Pill	Oral Pill
+38	62	1	NA	Loop	Loop	Loop	Loop	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+39	63	1	NormalB	Want more	Want more	Want more	NormalB	Want more	Want more	Abortion	Abortion	No more
+40	65	1	NA	NormalB	Want more	Want more	Want more	NormalB	Loop	Loop	Oral Pill	Condom
+41	66	1	NormalB	NormalB	Want more	NormalB	No more	NormalB	Loop	Abortion	Loop	Loop
+42	68	1	No more	Loop	No more	No more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+43	69	1	Want more	Want more	NormalB	Want more	Want more	Want more	Condom	Condom	Condom	NormalB
+44	70	1	Want more	Want more	NormalB	Withdrawal	Withdrawal	Withdrawal	Withdrawal	NormalB	Withdrawal	Withdrawal
+45	71	1	NA	NA	NA	NA	NA	NA	NA	NormalB	Condom	0ther
+46	72	1	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more	Condom	No more	No more
+47	1	2	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+48	2	2	Want more	NormalB	No more	Oral Pill	Oral Pill	NormalB	No more	Oral Pill	Oral Pill	Pregnant
+49	3	2	NA	NA	NA	NA	NA	NA	Want more	Want more	NormalB	No more
+50	4	2	NormalB	No more	No more	Loop	Loop	No more	No more	Oral Pill	Oral Pill	Oral Pill
+51	5	2	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+52	6	2	NA	NormalB	Want more	No more	No more	Loop	NormalB	Oral Pill	Oral Pill	Oral Pill
+53	7	2	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+54	9	2	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+55	10	2	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+56	11	2	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+57	13	2	NA	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more
+58	14	2	Want more	Want more	NormalB	NormalB	NormalB	Want more	NormalB	No more	No more	No more
+59	15	2	Infertile	Loop	Loop	Loop	Loop	Loop	Loop	Abortion	Abortion	Abortion
+60	17	2	No more	No more	NormalB	No more	No more	No more	No more	No more	No more	No more
+61	19	2	NormalB	No more	NormalB	No more	NormalB	No more	NormalB	No more	Oral Pill	Oral Pill
+62	20	2	No more	No more	Loop	NormalB	No more	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+63	21	2	NormalB	NormalB	Want more	Want more	Abortion	NormalB	Want more	NormalB	No more	No more
+64	23	2	NormalB	No more	No more	NormalB	No more	No more	No more	NormalB	NormalB	No more
+65	24	2	NormalB	Want more	Want more	Want more	NormalB	No more	No more	No more	NormalB	No more
+66	26	2	NA	NA	NA	NA	NA	NA	NA	Stillbirth	Stillbirth	Want more
+67	27	2	No more	Loop	Loop	Oral Pill	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+68	28	2	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more	Withdrawal	Oral Pill	Oral Pill
+69	30	2	NormalB	Want more	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	Oral Pill
+70	33	2	NA	NA	NA	NA	NA	No more	NormalB	No more	NormalB	Oral Pill
+71	34	2	Infertile	Infertile	Infertile	Infertile	NormalB	Want more	Want more	Want more	Pregnant	Pregnant
+72	35	2	Want more	NormalB	No more	No more	No more	No more	No more	Withdrawal	Withdrawal	Withdrawal
+73	38	2	No more	No more	Loop	Loop	No more	Loop	No more	Loop	Loop	No more
+74	40	2	NA	NA	NA	NA	NA	NA	NA	NormalB	Rhythm	Rhythm
+75	42	2	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+76	44	2	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+77	45	2	NormalB	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Condom	Oral Pill	Condom	Oral Pill
+78	47	2	NA	NA	NA	Rhythm	Rhythm	NormalB	NormalB	Rhythm	Rhythm	Rhythm
+79	48	2	NA	Loop	Loop	Loop	0ther	Oral Pill	NormalB	TL	TL	TL
+80	50	2	NormalB	Want more	Want more	Loop	Loop	Rhythm	Rhythm	Abortion	Rhythm	Abortion
+81	52	2	No more	Loop	Loop	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	NormalB
+82	53	2	Loop	Loop	Loop	Loop	Loop	Menopause	Menopause	Menopause	Menopause	Menopause
+83	56	2	Loop	Loop	Loop	Loop	Loop	No more	No more	No more	No more	NormalB
+84	57	2	NormalB	No more	Abortion	Loop	Loop	Want more	Want more	Want more	Want more	Want more
+85	59	2	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB
+86	61	2	NormalB	Want more	Want more	No more	Loop	Oral Pill	NormalB	No more	Oral Pill	Oral Pill
+87	62	2	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+88	63	2	NA	NA	NA	NA	Abortion	NormalB	Condom	NormalB	Oral Pill	Loop
+89	64	2	No more	Loop	Loop	Loop	Oral Pill	Oral Pill	Abortion	Abortion	Oral Pill	Oral Pill
+90	65	2	No more	No more	NormalB	No more	No more	No more	Oral Pill	No more	No more	Oral Pill
+91	68	2	NA	NA	NA	NA	NA	NA	NA	NA	NA	Oral Pill
+92	69	2	NormalB	NormalB	Rhythm	NormalB	No more	Rhythm	Oral Pill	Oral Pill	Condom	Condom
+93	70	2	No more	Want more	Want more	NormalB	No more	Oral Pill	Oral Pill	No more	Condom	NormalB
+94	72	2	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more	No more	No more	No more
+95	74	2	NA	NA	NA	NA	NormalB	Want more	Want more	NormalB	Rhythm	Want more
+96	76	2	No more	No more	Oral Pill	No more	Loop	Loop	Loop	Loop	Condom	NormalB
+97	78	2	NA	NormalB	No more	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+98	79	2	NA	NA	NA	NA	NA	NormalB	NormalB	NormalB	Loop	Loop
+99	83	2	NA	Loop	Loop	Loop	Abortion	No more	Abortion	No more	No more	No more
+100	86	2	NA	NA	NA	NA	Want more	Want more	NormalB	No more	No more	Pregnant
+101	88	2	Want more	NormalB	No more	No more	Loop	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+102	95	2	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+103	96	2	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+104	97	2	NA	NA	NA	NA	NormalB	Want more	Want more	NormalB	No more	No more
+105	98	2	NA	NA	NA	NA	NA	NA	NA	Want more	Want more	Want more
+106	2	3	NA	Loop	Loop	NormalB	Loop	Loop	NormalB	Oral Pill	Oral Pill	Oral Pill
+107	3	3	NormalB	Loop	NormalB	No more	NormalB	No more	NormalB	NormalB	No more	No more
+108	4	3	Want more	Want more	Want more	NormalB	Want more	NormalB	No more	Loop	No more	No more
+109	7	3	NA	Want more	NormalB	Want more	NormalB	NormalB	No more	No more	No more	No more
+110	8	3	No more	No more	No more	Loop	Foam	Withdrawal	NormalB	Withdrawal	Withdrawal	Withdrawal
+111	10	3	No more	Rhythm	NormalB	No more	Rhythm	Rhythm	NormalB	No more	Rhythm	Rhythm
+112	15	3	NA	No more	No more	No more	NormalB	No more	No more	NormalB	No more	No more
+113	16	3	NA	NormalB	No more	Loop	Oral Pill	No more	No more	No more	No more	No more
+114	17	3	No more	No more	Condom	NormalB	Want more	Want more	Want more	Want more	Pregnant	Pregnant
+115	19	3	NA	NormalB	No more	No more	NormalB	No more	No more	Vasectomy	Vasectomy	Vasectomy
+116	20	3	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Want more
+117	21	3	Want more	NormalB	No more	No more	No more	NormalB	No more	NormalB	No more	No more
+118	22	3	NA	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+119	25	3	NormalB	NormalB	No more	NormalB	No more	NormalB	No more	Withdrawal	Withdrawal	Withdrawal
+120	26	3	NA	NA	NormalB	Want more	NormalB	Loop	NormalB	Want more	Want more	Rhythm
+121	27	3	NA	NA	NA	Want more	Want more	Want more	Want more	Want more	Want more	Want more
+122	28	3	Want more	NormalB	No more	NormalB	No more	Loop	Loop	Oral Pill	Loop	Loop
+123	29	3	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	No more	No more
+124	33	3	NA	Loop	Loop	Loop	Loop	Rhythm	Rhythm	Rhythm	Loop	Loop
+125	34	3	Want more	NormalB	Want more	Want more	Want more	NormalB	NormalB	NormalB	No more	Condom
+126	35	3	Want more	Want more	NormalB	Want more	NormalB	Want more	NormalB	Want more	Pregnant	Pregnant
+127	36	3	Want more	Want more	NormalB	No more	No more	No more	Withdrawal	Withdrawal	Withdrawal	Withdrawal
+128	37	3	Want more	Want more	NormalB	Want more	Loop	NormalB	Want more	No more	No more	No more
+129	39	3	NormalB	Want more	Want more	Want more	NormalB	NormalB	No more	No more	No more	No more
+130	40	3	NA	NA	NA	NormalB	Want more	Want more	Want more	Want more	Abortion	Infertile
+131	41	3	No more	NormalB	No more	No more	Abortion	No more	NormalB	No more	Pregnant	Pregnant
+132	46	3	NA	NA	NA	NA	NA	NA	NA	Want more	Want more	Want more
+133	47	3	No more	NormalB	No more	Loop	Loop	Loop	Loop	No more	No more	No more
+134	48	3	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+135	50	3	Want more	Want more	NormalB	Want more	Oral Pill	No more	NormalB	No more	NormalB	NormalB
+136	52	3	NormalB	No more	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop
+137	53	3	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+138	55	3	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more	NormalB	No more
+139	59	3	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Pregnant
+140	62	3	Want more	NormalB	No more	Loop	Want more	Want more	NormalB	Loop	Loop	Loop
+141	63	3	NA	NA	NA	NA	NA	NA	NA	Want more	Pregnant	Pregnant
+142	1	4	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+143	2	4	NormalB	No more	Loop	Loop	Loop	No more	Oral Pill	NormalB	Loop	Loop
+144	3	4	NormalB	No more	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	No more
+145	8	4	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+146	12	4	NA	NA	NA	NA	Want more	NormalB	NormalB	Want more	NormalB	Want more
+147	13	4	NA	No more	No more	No more	No more	No more	No more	No more	Menopause	Menopause
+148	14	4	NA	Want more	Want more	Want more	No more	No more	Oral Pill	Want more	Want more	Want more
+149	15	4	NormalB	Want more	Want more	Want more	Want more	Want more	Want more	Menopause	Menopause	Menopause
+150	16	4	NA	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	Loop	Loop
+151	17	4	No more	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+152	19	4	Loop	Loop	Loop	Loop	Loop	Loop	No more	No more	No more	No more
+153	21	4	NA	NormalB	Want more	NormalB	Loop	Oral Pill	NormalB	No more	No more	Want more
+154	22	4	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+155	24	4	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+156	25	4	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal
+157	29	4	NA	NA	NA	NA	Want more	NormalB	Want more	NormalB	Want more	Want more
+158	31	4	No more	No more	Oral Pill	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Abortion	Rhythm
+159	33	4	NA	NA	NA	NA	NA	NormalB	No more	NormalB	Oral Pill	Pregnant
+160	35	4	NA	No more	NormalB	NormalB	No more	Oral Pill	No more	NormalB	No more	No more
+161	37	4	No more	NormalB	No more	No more	No more	Abortion	Condom	No more	No more	No more
+162	38	4	NormalB	No more	No more	Oral Pill	Oral Pill	Oral Pill	Rhythm	No more	No more	No more
+163	39	4	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+164	40	4	NA	NA	NA	NA	Want more	NormalB	Want more	Want more	NormalB	No more
+165	41	4	Withdrawal	Withdrawal	Withdrawal	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+166	44	4	NormalB	TL	TL	TL	TL	TL	TL	TL	TL	TL
+167	46	4	NA	NormalB	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	Loop
+168	47	4	Loop	Loop	Loop	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+169	48	4	NA	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+170	50	4	No more	Pessary	Foam	Loop	Loop	Loop	Loop	Oral Pill	Withdrawal	Withdrawal
+171	51	4	NA	NA	NA	NA	NA	NA	NormalB	Oral Pill	Want more	Want more
+172	1	5	No more	No more	NormalB	No more	No more	NormalB	No more	No more	NormalB	Vasectomy
+173	2	5	NA	NA	NA	NA	NA	NA	NA	NormalB	No more	Oral Pill
+174	6	5	NA	No more	NormalB	Loop	Loop	NormalB	Oral Pill	No more	Pregnant	Pregnant
+175	8	5	NA	Want more	Want more	NormalB	Want more	NormalB	Want more	Want more	No more	No more
+176	11	5	NA	NA	NA	NA	NA	No more	NormalB	Condom	Condom	Pregnant
+177	12	5	NormalB	Want more	Want more	Want more	Want more	NormalB	NormalB	Want more	Pregnant	Pregnant
+178	14	5	NormalB	No more	Loop	Loop	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+179	20	5	Loop	Loop	No more	No more	Oral Pill	No more	No more	No more	No more	No more
+180	23	5	NA	NormalB	No more	NormalB	Oral Pill	Oral Pill	NormalB	No more	Oral Pill	Oral Pill
+181	31	5	NA	NA	NA	NA	NA	NA	NA	Want more	NormalB	No more
+182	32	5	NA	NA	NA	NormalB	NormalB	No more	Abortion	NormalB	No more	No more
+183	34	5	NA	NA	NA	No more	No more	No more	No more	Want more	Want more	Want more
+184	35	5	NA	Want more	Want more	NormalB	Want more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill
+185	39	5	NA	NA	NA	NA	NA	NormalB	No more	No more	Loop	Loop
+186	41	5	NA	NA	NA	NA	NA	NA	NormalB	No more	Condom	No more
+187	43	5	NormalB	No more	Want more	Want more	Want more	NormalB	No more	NormalB	No more	No more
+188	46	5	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+189	48	5	NormalB	No more	No more	NormalB	No more	No more	Oral Pill	NormalB	No more	No more
+190	51	5	NormalB	No more	Loop	NormalB	NormalB	No more	No more	Oral Pill	Oral Pill	No more
+191	53	5	NA	NormalB	Want more	Stillbirth	No more	No more	Oral Pill	NormalB	Oral Pill	Oral Pill
+192	55	5	Want more	Want more	Want more	Want more	NormalB	NormalB	No more	NormalB	No more	No more
+193	56	5	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+194	58	5	No more	No more	NormalB	No more	No more	No more	No more	No more	No more	No more
+195	60	5	NA	NA	Want more	NormalB	Want more	Want more	NormalB	No more	No more	Oral Pill
+196	62	5	NA	NA	NA	NA	NA	NA	No more	Oral Pill	Oral Pill	Oral Pill
+197	63	5	NormalB	Want more	Want more	NormalB	No more	No more	No more	Oral Pill	Oral Pill	Oral Pill
+198	64	5	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+199	66	5	NA	NA	NA	NA	No more	Condom	NormalB	No more	Condom	Pregnant
+200	67	5	NA	NormalB	No more	No more	No more	NormalB	No more	No more	No more	No more
+201	68	5	NA	Loop	Loop	NormalB	No more	No more	No more	Oral Pill	Oral Pill	Oral Pill
+202	69	5	NA	NormalB	Want more	NormalB	Want more	Want more	Want more	NormalB	No more	No more
+203	70	5	NA	No more	NormalB	NormalB	NormalB	Oral Pill	Oral Pill	NormalB	No more	No more
+204	71	5	NA	NormalB	No more	No more	NormalB	No more	No more	No more	No more	No more
+205	72	5	NA	NA	NA	NA	Rhythm	NormalB	NormalB	No more	Oral Pill	Oral Pill
+206	73	5	NA	NA	NA	NA	NA	NA	Want more	NormalB	Oral Pill	Loop
+207	76	5	NormalB	No more	No more	Loop	Loop	No more	No more	Oral Pill	Oral Pill	Loop
+208	77	5	NA	NA	NA	NormalB	No more	NormalB	No more	NormalB	Withdrawal	Withdrawal
+209	80	5	NormalB	No more	NormalB	No more	No more	No more	Oral Pill	No more	No more	No more
+210	83	5	No more	No more	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	No more
+211	84	5	Want more	NormalB	Want more	Loop	Want more	NormalB	Oral Pill	Loop	Loop	Loop
+212	85	5	NA	NormalB	No more	NormalB	0ther	0ther	Want more	NormalB	No more	Rhythm
+213	86	5	NA	NA	NA	NA	No more	No more	NormalB	No more	Oral Pill	Oral Pill
+214	88	5	NA	NA	No more	Abortion	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+215	90	5	NormalB	Want more	Loop	No more	No more	NormalB	No more	Rhythm	Rhythm	Rhythm
+216	91	5	NA	NormalB	Want more	Want more	Want more	NormalB	NormalB	Oral Pill	Loop	Pregnant
+217	92	5	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	No more	No more	No more
+218	93	5	NormalB	Loop	NormalB	NormalB	Oral Pill	Oral Pill	Oral Pill	NormalB	Loop	Loop
+219	95	5	No more	Loop	Loop	NormalB	NormalB	Loop	Loop	Loop	Loop	Loop
+220	96	5	Oral Pill	Oral Pill	Oral Pill	NormalB	Loop	Loop	Loop	Loop	Loop	Loop
+221	2	6	NA	NA	NA	NA	NA	NA	NA	NA	Want more	Want more
+222	3	6	NA	NA	NA	NA	NormalB	No more	No more	Want more	NormalB	Want more
+223	7	6	NA	NA	NA	NA	NA	NA	NormalB	No more	Oral Pill	Oral Pill
+224	8	6	Want more	Want more	NormalB	Want more	Want more	NormalB	NormalB	No more	Pregnant	Pregnant
+225	9	6	Loop	Loop	No more	Condom	No more	No more	No more	No more	No more	No more
+226	11	6	NormalB	NormalB	Loop	No more	No more	No more	NormalB	Want more	Want more	Want more
+227	12	6	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+228	14	6	NA	NA	NA	NA	NA	NA	NA	NormalB	Rhythm	Rhythm
+229	15	6	NA	NA	Want more	NormalB	NormalB	Oral Pill	Oral Pill	NormalB	Want more	Want more
+230	16	6	NA	No more	No more	No more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+231	17	6	NormalB	Loop	Oral Pill	NormalB	No more	No more	No more	No more	No more	No more
+232	18	6	NormalB	Want more	NormalB	No more	Oral Pill	NormalB	No more	No more	Loop	Loop
+233	19	6	NA	NA	NormalB	No more	No more	Oral Pill	Rhythm	Rhythm	Rhythm	Rhythm
+234	20	6	NA	Loop	Loop	NormalB	No more	No more	Loop	Loop	Loop	Loop
+235	21	6	NA	NA	NA	NormalB	NormalB	NormalB	NormalB	Rhythm	Rhythm	Rhythm
+236	22	6	NA	NormalB	Loop	Loop	NormalB	No more	No more	NormalB	No more	No more
+237	23	6	No more	No more	Oral Pill	Oral Pill	NormalB	No more	No more	Oral Pill	Oral Pill	Oral Pill
+238	25	6	NA	NA	NA	NA	NA	Abortion	Want more	NormalB	Want more	Want more
+239	26	6	NA	No more	No more	NormalB	Abortion	Oral Pill	Condom	No more	No more	No more
+240	27	6	NA	NA	NA	NA	NA	NA	NormalB	NormalB	Want more	Want more
+241	28	6	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+242	29	6	NA	NA	NA	NA	NA	NA	NA	NA	No more	Pregnant
+243	32	6	Want more	NormalB	Want more	Want more	NormalB	No more	No more	No more	No more	No more
+244	33	6	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+245	34	6	NA	NormalB	No more	No more	NormalB	No more	Oral Pill	No more	Abortion	Oral Pill
+246	35	6	NormalB	No more	No more	Abortion	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+247	36	6	NA	NA	No more	No more	NormalB	No more	NormalB	No more	No more	No more
+248	39	6	No more	NormalB	NormalB	No more	No more	No more	Oral Pill	No more	Abortion	No more
+249	40	6	No more	No more	No more	Loop	Loop	No more	No more	No more	No more	Loop
+250	43	6	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+251	44	6	Want more	Want more	Want more	Want more	Want more	Want more	NormalB	No more	NormalB	Condom
+252	45	6	NA	NormalB	Want more	NormalB	Loop	Oral Pill	No more	No more	No more	No more
+253	46	6	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+254	47	6	NA	NormalB	Loop	Rhythm	Rhythm	No more	No more	Abortion	Abortion	Abortion
+255	48	6	Want more	Want more	Want more	NormalB	NormalB	Want more	Oral Pill	Oral Pill	Want more	Oral Pill
+256	49	6	NA	Want more	Want more	Want more	Want more	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+257	50	6	NA	NA	NA	NA	Want more	NormalB	Want more	NormalB	No more	Condom
+258	54	6	Loop	No more	No more	Loop	No more	No more	No more	Oral Pill	Oral Pill	Oral Pill
+259	56	6	Loop	NormalB	No more	NormalB	No more	NormalB	No more	NormalB	Loop	Oral Pill
+260	57	6	NA	NA	NormalB	No more	NormalB	No more	NormalB	NormalB	No more	No more
+261	58	6	NA	NormalB	No more	No more	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+262	59	6	NA	NA	NA	NA	NA	NA	NA	Want more	Want more	Want more
+263	60	6	No more	No more	NormalB	No more	No more	No more	NormalB	NormalB	NormalB	Oral Pill
+264	61	6	NA	Want more	Want more	Want more	Want more	Want more	NormalB	No more	Loop	Loop
+265	1	7	Want more	NormalB	No more	Loop	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+266	4	7	NA	NA	NA	NA	NA	NormalB	No more	No more	No more	0ther
+267	6	7	NormalB	No more	NormalB	No more	Oral Pill	No more	NormalB	No more	Loop	Loop
+268	7	7	No more	NormalB	No more	NormalB	No more	No more	Oral Pill	Oral Pill	No more	No more
+269	9	7	NormalB	No more	NormalB	No more	NormalB	No more	NormalB	No more	Oral Pill	Oral Pill
+270	10	7	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+271	11	7	NA	NA	NormalB	Want more	Want more	Want more	Want more	NormalB	Want more	Want more
+272	13	7	NA	NA	NA	NA	NA	NA	NA	Want more	Want more	Want more
+273	14	7	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB
+274	15	7	NA	NormalB	Want more	Want more	Want more	NormalB	Want more	Want more	Want more	Want more
+275	16	7	NA	NA	No more	NormalB	No more	NormalB	No more	NormalB	No more	Oral Pill
+276	17	7	NA	NA	NA	NormalB	Abortion	NormalB	Want more	NormalB	Loop	Loop
+277	18	7	Want more	Want more	Want more	Want more	Want more	NormalB	Oral Pill	NormalB	No more	No more
+278	19	7	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+279	20	7	NA	NA	NormalB	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+280	24	7	NA	NA	NA	No more	Want more	NormalB	Loop	NormalB	Loop	Loop
+281	25	7	NA	NA	NA	NA	NA	NA	NA	No more	No more	No more
+282	28	7	NormalB	No more	Loop	Loop	Loop	No more	Loop	Loop	Loop	Loop
+283	30	7	Want more	Want more	NormalB	NormalB	Oral Pill	Oral Pill	NormalB	No more	No more	Loop
+284	31	7	Want more	Want more	Want more	Want more	Want more	Want more	Loop	NormalB	Loop	Loop
+285	33	7	Want more	Want more	Want more	Want more	NormalB	No more	NormalB	No more	No more	No more
+286	35	7	Want more	Want more	NormalB	NormalB	Oral Pill	Oral Pill	No more	No more	No more	No more
+287	36	7	Want more	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+288	37	7	NA	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	NormalB
+289	38	7	NA	No more	No more	No more	NormalB	Loop	Loop	Loop	Loop	Loop
+290	40	7	NormalB	Loop	Loop	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+291	45	7	NA	NA	NA	NA	Want more	Want more	NormalB	Want more	Pregnant	Pregnant
+292	46	7	No more	No more	NormalB	No more	No more	Loop	Oral Pill	NormalB	No more	No more
+293	47	7	No more	No more	No more	NormalB	Want more	NormalB	Want more	Want more	NormalB	Want more
+294	51	7	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+295	52	7	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+296	53	7	No more	Foam	Foam	Foam	No more	Rhythm	No more	Loop	Loop	Loop
+297	54	7	NA	NA	No more	No more	NormalB	No more	Oral Pill	NormalB	No more	No more
+298	57	7	NA	NA	NA	NA	NA	Want more	NormalB	Want more	Want more	Pregnant
+299	59	7	NA	Want more	NormalB	No more	NormalB	Loop	Loop	Loop	Loop	Loop
+300	60	7	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more	Loop	Loop	Loop
+301	65	7	No more	No more	Loop	Loop	Oral Pill	No more	No more	NormalB	NormalB	Oral Pill
+302	66	7	No more	No more	Loop	Loop	Abortion	No more	No more	No more	Oral Pill	Oral Pill
+303	68	7	NormalB	Loop	Loop	No more	No more	No more	No more	Loop	Loop	Loop
+304	69	7	NA	NA	NA	NA	NA	NA	NormalB	No more	Oral Pill	Oral Pill
+305	71	7	NormalB	Want more	NormalB	No more	No more	Oral Pill	No more	NormalB	No more	No more
+306	72	7	Want more	Want more	No more	Loop	No more	NormalB	Want more	Want more	No more	No more
+307	74	7	NA	Loop	Loop	Loop	Loop	Loop	Loop	Loop	No more	No more
+308	76	7	NA	NormalB	No more	NormalB	NormalB	NormalB	NormalB	Want more	Want more	Want more
+309	78	7	No more	Loop	Loop	No more	Abortion	Loop	Loop	Condom	Condom	NormalB
+310	79	7	NA	NA	NA	NA	NA	NA	NA	NormalB	Rhythm	Rhythm
+311	82	7	NA	NA	NormalB	No more	Loop	Loop	Loop	Loop	Loop	Loop
+312	83	7	NA	NA	NA	NA	NA	NA	NormalB	No more	Pregnant	Pregnant
+313	1	8	Want more	Want more	Want more	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+314	2	8	Want more	NormalB	Want more	NormalB	Loop	Loop	Loop	Loop	Loop	Oral Pill
+315	5	8	No more	NormalB	No more	NormalB	No more	No more	No more	No more	Oral Pill	Oral Pill
+316	6	8	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+317	7	8	Want more	NormalB	Condom	NormalB	Want more	Want more	NormalB	Want more	Pregnant	Pregnant
+318	8	8	No more	NormalB	No more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+319	9	8	No more	No more	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+320	11	8	Want more	Want more	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	Want more
+321	12	8	Want more	NormalB	Want more	Want more	NormalB	Want more	No more	Oral Pill	Oral Pill	Oral Pill
+322	15	8	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+323	16	8	Want more	NormalB	Want more	Want more	NormalB	Want more	NormalB	No more	No more	No more
+324	18	8	No more	No more	No more	No more	Oral Pill	Menopause	Menopause	Menopause	Menopause	Menopause
+325	20	8	NA	NormalB	No more	No more	NormalB	No more	No more	NormalB	No more	No more
+326	21	8	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+327	24	8	Abortion	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+328	26	8	NA	Want more	Want more	NormalB	Want more	NormalB	Want more	Want more	Want more	No more
+329	27	8	NormalB	Loop	Loop	Loop	NormalB	NormalB	NormalB	NormalB	No more	No more
+330	29	8	NA	NA	NA	Want more	Want more	NormalB	Want more	NormalB	Want more	Want more
+331	30	8	Want more	Want more	Want more	Want more	NormalB	Want more	NormalB	Oral Pill	Oral Pill	Oral Pill
+332	33	8	No more	No more	No more	No more	No more	No more	NormalB	No more	No more	No more
+333	34	8	NA	Loop	No more	No more	No more	No more	NormalB	No more	NormalB	No more
+334	38	8	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+335	39	8	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Abortion	Loop
+336	40	8	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+337	44	8	Want more	Want more	NormalB	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+338	45	8	NormalB	Want more	Loop	Loop	Want more	No more	No more	NormalB	No more	No more
+339	46	8	Want more	Want more	NormalB	No more	Oral Pill	No more	Oral Pill	No more	No more	Oral Pill
+340	47	8	Want more	Want more	No more	NormalB	Oral Pill	No more	No more	NormalB	No more	No more
+341	48	8	NA	Want more	Want more	Want more	Want more	Want more	Want more	Want more	NormalB	Want more
+342	49	8	NormalB	No more	No more	Loop	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+343	50	8	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more	No more	No more	Want more
+344	55	8	NA	NA	NormalB	Want more	Want more	NormalB	Want more	NormalB	No more	No more
+345	56	8	NormalB	No more	Oral Pill	TL	TL	TL	TL	TL	TL	TL
+346	57	8	No more	Loop	Loop	Loop	Loop	No more	Loop	Oral Pill	Oral Pill	No more
+347	58	8	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB
+348	59	8	NA	NA	NA	NA	NA	NA	Want more	NormalB	Want more	Want more
+349	62	8	NA	NA	NormalB	No more	No more	Rhythm	Rhythm	Rhythm	Pregnant	Pregnant
+350	63	8	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+351	64	8	NA	Loop	Loop	Loop	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+352	66	8	NA	NA	NA	NA	NA	NA	NA	NA	NA	Abortion
+353	68	8	NormalB	Want more	NormalB	No more	No more	NormalB	No more	NormalB	No more	No more
+354	69	8	Want more	Want more	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	No more
+355	70	8	Want more	Want more	NormalB	Want more	Want more	NormalB	Want more	Want more	Oral Pill	Oral Pill
+356	72	8	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	Pregnant	Pregnant
+357	73	8	NormalB	Loop	Loop	Loop	Loop	Abortion	Oral Pill	Oral Pill	Condom	Condom
+358	76	8	NA	NA	NA	NormalB	Want more	Want more	Want more	NormalB	No more	Oral Pill
+359	77	8	No more	No more	NormalB	No more	No more	Oral Pill	No more	No more	No more	No more
+360	81	8	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+361	1	9	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	Want more	NormalB	Want more
+362	2	9	NA	NA	NA	Want more	NormalB	Want more	NormalB	Want more	Want more	Want more
+363	5	9	NA	NA	NA	NA	NA	NormalB	Want more	No more	Loop	Want more
+364	6	9	NormalB	Want more	NormalB	Want more	Want more	Want more	No more	No more	NormalB	No more
+365	7	9	Want more	Want more	NormalB	Want more	Want more	Want more	Want more	Want more	Oral Pill	Want more
+366	8	9	NA	No more	NormalB	No more	No more	Want more	NormalB	No more	No more	No more
+367	11	9	Want more	NormalB	No more	Loop	Loop	Loop	Loop	NormalB	Oral Pill	Oral Pill
+368	12	9	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+369	13	9	Want more	NormalB	Want more	Loop	No more	No more	Condom	Oral Pill	Oral Pill	Oral Pill
+370	14	9	NA	NA	NA	Abortion	NormalB	Want more	NormalB	Want more	Pregnant	Pregnant
+371	15	9	NA	NormalB	No more	No more	NormalB	No more	No more	NormalB	No more	No more
+372	16	9	No more	Loop	NormalB	No more	NormalB	No more	Condom	Oral Pill	Oral Pill	Pregnant
+373	18	9	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	No more
+374	20	9	No more	NormalB	No more	Loop	No more	No more	No more	No more	No more	No more
+375	22	9	Want more	Want more	Oral Pill	NormalB	Want more	Want more	NormalB	No more	No more	Rhythm
+376	24	9	NA	NormalB	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	No more
+377	25	9	Want more	Want more	Abortion	Abortion	Abortion	NormalB	No more	No more	Pregnant	Pregnant
+378	28	9	NormalB	Want more	No more	Oral Pill	NormalB	Want more	NormalB	No more	Condom	Condom
+379	29	9	NA	NA	No more	Want more	Want more	NormalB	No more	No more	NormalB	Want more
+380	30	9	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	NormalB	No more	No more
+381	31	9	NormalB	No more	Loop	No more	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm
+382	33	9	NA	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+383	35	9	NA	No more	Injection	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+384	36	9	Loop	Loop	Oral Pill	No more	No more	No more	Oral Pill	No more	No more	Oral Pill
+385	37	9	NormalB	Want more	Want more	Want more	NormalB	0ther	Want more	No more	Condom	Oral Pill
+386	40	9	NA	NA	NA	NA	NA	NA	NA	No more	No more	No more
+387	41	9	No more	No more	NormalB	No more	No more	No more	No more	No more	No more	No more
+388	44	9	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+389	46	9	NA	Want more	Want more	Want more	NormalB	Want more	Want more	Want more	Want more	Want more
+390	49	9	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+391	52	9	Stillbirth	NormalB	Want more	NormalB	Want more	Want more	NormalB	Abortion	Pregnant	Pregnant
+392	53	9	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm
+393	57	9	NA	No more	No more	Loop	Loop	Loop	NormalB	No more	No more	No more
+394	59	9	NormalB	Loop	Loop	Loop	NormalB	No more	No more	NormalB	No more	Pregnant
+395	60	9	Want more	NormalB	No more	Abortion	NormalB	No more	No more	NormalB	No more	No more
+396	61	9	NA	NA	NA	NA	NA	NormalB	NormalB	Want more	NormalB	Want more
+397	62	9	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more
+398	64	9	NA	NA	NA	NA	NA	Want more	NormalB	Condom	NormalB	Condom
+399	65	9	NA	NA	NA	NA	No more	No more	NormalB	Want more	Want more	Want more
+400	2	10	NA	NormalB	No more	Loop	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Want more
+401	3	10	NA	NormalB	No more	No more	No more	NormalB	No more	No more	No more	No more
+402	5	10	NormalB	No more	No more	Loop	NormalB	No more	No more	No more	No more	No more
+403	7	10	No more	Abortion	No more	No more	No more	No more	No more	No more	Infertile	Infertile
+404	10	10	TL	TL	TL	TL	TL	TL	TL	TL	TL	TL
+405	11	10	No more	No more	NormalB	Want more	Want more	No more	No more	No more	Abortion	No more
+406	12	10	Want more	NormalB	Want more	Want more	Want more	Want more	NA	NA	Loop	Loop
+407	14	10	NA	NormalB	No more	Condom	Oral Pill	No more	Loop	Loop	Loop	Loop
+408	16	10	NA	Want more	Want more	Want more	Want more	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+409	18	10	No more	Withdrawal	Rhythm	Rhythm	NormalB	No more	Condom	Condom	NormalB	No more
+410	20	10	NormalB	No more	No more	Abortion	NormalB	No more	NormalB	No more	No more	No more
+411	23	10	NA	NormalB	No more	No more	NormalB	No more	Oral Pill	NormalB	No more	No more
+412	24	10	NormalB	Want more	NormalB	No more	NormalB	Loop	Oral Pill	Oral Pill	No more	No more
+413	26	10	NA	NA	Condom	No more	Oral Pill	No more	No more	Oral Pill	Oral Pill	Rhythm
+414	27	10	No more	No more	Oral Pill	NormalB	No more	Loop	Loop	Oral Pill	Oral Pill	Oral Pill
+415	31	10	No more	Abortion	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	No more	No more	No more
+416	33	10	Want more	Want more	NormalB	No more	No more	Loop	No more	No more	Oral Pill	Oral Pill
+417	37	10	NA	NA	NA	NA	NormalB	Want more	Condom	NormalB	No more	Oral Pill
+418	38	10	Want more	NormalB	Want more	NormalB	No more	Oral Pill	Oral Pill	NormalB	No more	No more
+419	41	10	NA	NA	NA	NA	NA	NormalB	Want more	Want more	NormalB	NormalB
+420	42	10	NA	Want more	Want more	Want more	Want more	Want more	Want more	Abortion	Want more	Want more
+421	44	10	Want more	Want more	NormalB	No more	Loop	Loop	Oral Pill	Oral Pill	NormalB	No more
+422	45	10	NA	Loop	Loop	Condom	Condom	Oral Pill	Oral Pill	Condom	Oral Pill	Oral Pill
+423	46	10	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+424	47	10	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+425	48	10	Want more	NormalB	No more	No more	No more	No more	NormalB	No more	Oral Pill	Oral Pill
+426	49	10	Want more	Want more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	No more	No more	No more
+427	50	10	No more	Loop	No more	Oral Pill	Oral Pill	No more	No more	Condom	Condom	Condom
+428	52	10	NormalB	Want more	Want more	No more	No more	Oral Pill	Oral Pill	Oral Pill	NormalB	No more
+429	53	10	NormalB	No more	Loop	NormalB	NormalB	NormalB	Oral Pill	Loop	No more	No more
+430	54	10	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Pregnant
+431	55	10	NA	No more	No more	No more	No more	Oral Pill	NormalB	No more	Oral Pill	Oral Pill
+432	57	10	Want more	NormalB	Want more	Want more	Want more	Want more	NormalB	No more	Rhythm	Rhythm
+433	58	10	Condom	Rhythm	Rhythm	Rhythm	Oral Pill	Oral Pill	Infertile	Infertile	Infertile	Infertile
+434	59	10	NormalB	Want more	Want more	NormalB	NormalB	Want more	Want more	Want more	Want more	Want more
+435	64	10	NormalB	Want more	Want more	NormalB	No more	Oral Pill	Oral Pill	NormalB	Want more	Want more
+436	1	11	Loop	Loop	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	No more	No more
+437	2	11	No more	NormalB	No more	No more	Oral Pill	No more	NormalB	No more	Loop	Abortion
+438	3	11	Stillbirth	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	Oral Pill	Oral Pill
+439	4	11	NormalB	Want more	NormalB	No more	Oral Pill	Oral Pill	0ther	Want more	No more	No more
+440	5	11	NA	No more	Loop	NormalB	No more	Loop	Loop	Loop	Condom	Loop
+441	8	11	Want more	NormalB	No more	Condom	0ther	0ther	0ther	0ther	0ther	0ther
+442	10	11	NormalB	Want more	Want more	Want more	NormalB	NormalB	No more	Loop	Loop	Loop
+443	11	11	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+444	12	11	Oral Pill	Loop	Loop	Oral Pill	Oral Pill	No more	NormalB	Loop	Loop	Loop
+445	13	11	NA	NormalB	Want more	NormalB	No more	Oral Pill	NormalB	Want more	NormalB	NormalB
+446	16	11	Want more	Want more	NormalB	No more	No more	Loop	Abortion	Loop	Loop	Loop
+447	17	11	Want more	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	No more
+448	19	11	NA	NA	NA	NA	NA	NA	NA	NormalB	Oral Pill	Pregnant
+449	21	11	No more	NormalB	No more	NormalB	No more	Oral Pill	No more	Oral Pill	Oral Pill	Oral Pill
+450	22	11	NormalB	Want more	NormalB	Abortion	Rhythm	Rhythm	NormalB	Abortion	Rhythm	Rhythm
+451	23	11	NA	No more	No more	No more	No more	No more	No more	No more	NormalB	No more
+452	24	11	NA	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+453	25	11	Want more	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop
+454	26	11	NA	NA	NA	NA	NA	NA	Want more	NormalB	Want more	Want more
+455	27	11	No more	No more	No more	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+456	28	11	No more	NormalB	No more	No more	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile
+457	29	11	NA	Want more	Want more	NormalB	Want more	Want more	No more	No more	Rhythm	Rhythm
+458	30	11	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+459	31	11	NormalB	Want more	Want more	NormalB	No more	No more	NormalB	No more	No more	No more
+460	32	11	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more	No more
+461	33	11	NA	Want more	Want more	Want more	Want more	Want more	NormalB	No more	No more	No more
+462	34	11	No more	No more	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop
+463	38	11	Want more	NormalB	No more	NormalB	No more	No more	Loop	Condom	Withdrawal	No more
+464	39	11	NA	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more	Want more
+465	40	11	No more	NormalB	No more	No more	No more	Oral Pill	Loop	Loop	Loop	Loop
+466	41	11	NA	NA	NA	NA	NA	NA	Infertile	Infertile	Infertile	Infertile
+467	42	11	Want more	Want more	Want more	Want more	Want more	NormalB	No more	Oral Pill	No more	No more
+468	46	11	NormalB	No more	Abortion	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	No more	No more
+469	47	11	NormalB	Want more	Want more	NormalB	Want more	Want more	Loop	No more	Oral Pill	Abortion
+470	49	11	NA	NormalB	No more	Loop	Loop	Loop	Loop	No more	No more	Oral Pill
+471	51	11	No more	No more	No more	NormalB	No more	No more	Oral Pill	Oral Pill	Abortion	No more
+472	53	11	NA	NormalB	NormalB	Oral Pill	Oral Pill	NormalB	Oral Pill	NormalB	Loop	Loop
+473	56	11	No more	No more	No more	Loop	No more	No more	NormalB	No more	No more	NormalB
+474	1	12	Want more	Want more	Want more	Want more	Want more	Want more	NA	NA	Pregnant	Pregnant
+475	2	12	NA	NA	NA	NA	NA	NA	NA	NA	Want more	Want more
+476	3	12	NA	NormalB	No more	No more	NormalB	Oral Pill	Oral Pill	Loop	Loop	Loop
+477	4	12	NA	NA	NA	NA	NA	Rhythm	Loop	Want more	NormalB	NormalB
+478	5	12	NA	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Loop	No more
+479	6	12	NA	NA	NA	NA	NA	NA	NA	NA	Want more	Want more
+480	7	12	NA	Loop	Loop	No more	Oral Pill	Oral Pill	Infertile	Infertile	Infertile	Infertile
+481	8	12	NormalB	No more	NormalB	No more	No more	Oral Pill	Abortion	NormalB	Loop	Loop
+482	9	12	NA	NormalB	No more	NormalB	NormalB	No more	NA	Pregnant	NormalB	NormalB
+483	13	12	NA	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+484	15	12	NA	NormalB	No more	NormalB	NormalB	Condom	NormalB	NormalB	Abortion	Rhythm
+485	16	12	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+486	17	12	NormalB	No more	No more	No more	No more	No more	No more	No more	No more	No more
+487	18	12	NA	NormalB	No more	NormalB	No more	No more	Oral Pill	Abortion	Loop	Loop
+488	19	12	NA	NA	Want more	Want more	NormalB	No more	NormalB	No more	Want more	Want more
+489	20	12	NA	NA	NA	NA	NA	NA	NA	NormalB	Oral Pill	Oral Pill
+490	21	12	NormalB	No more	NormalB	No more	No more	NormalB	No more	NormalB	No more	No more
+491	22	12	NA	NA	NormalB	No more	No more	NormalB	No more	NormalB	No more	No more
+492	23	12	NA	NA	NA	NA	NA	No more	NormalB	No more	Oral Pill	Oral Pill
+493	24	12	NA	NA	NA	NA	NA	NA	NormalB	NormalB	NormalB	Oral Pill
+494	25	12	Want more	Want more	Want more	NormalB	Want more	NormalB	No more	Want more	Want more	NormalB
+495	26	12	NA	NA	NA	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+496	27	12	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+497	28	12	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+498	29	12	Loop	Loop	Loop	Loop	Loop	Oral Pill	Condom	Oral Pill	Oral Pill	Rhythm
+499	30	12	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	Want more	NormalB	NormalB
+500	34	12	NA	NA	NA	No more	No more	No more	No more	No more	Oral Pill	Oral Pill
+501	36	12	NA	NormalB	Want more	NormalB	No more	Loop	Loop	Want more	Want more	Pregnant
+502	40	12	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+503	43	12	NA	NA	NA	NA	No more	No more	No more	No more	No more	No more
+504	44	12	NA	NA	NA	Want more	NormalB	Want more	NormalB	Loop	Want more	Want more
+505	45	12	Want more	NormalB	Loop	NormalB	No more	Oral Pill	No more	NormalB	No more	No more
+506	46	12	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+507	47	12	NA	NA	No more	No more	No more	Menopause	Menopause	Menopause	Menopause	Menopause
+508	51	12	0ther	0ther	0ther	0ther	0ther	0ther	NA	NA	NA	NA
+509	52	12	NA	NormalB	Want more	Want more	NormalB	Want more	NormalB	No more	No more	Rhythm
+510	53	12	No more	No more	No more	No more	No more	NormalB	No more	No more	Pregnant	Pregnant
+511	54	12	NA	NA	NA	NA	NormalB	No more	NormalB	No more	NormalB	NormalB
+512	55	12	NA	NA	NA	NA	NA	NA	NA	NormalB	No more	Oral Pill
+513	56	12	Want more	NormalB	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB
+514	57	12	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more
+515	58	12	NA	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more
+516	59	12	NA	NA	NA	NA	NA	Want more	Want more	Want more	Want more	Want more
+517	61	12	NA	NA	NA	NA	NA	NA	NormalB	No more	Pregnant	Pregnant
+518	1	13	NA	NormalB	NormalB	No more	No more	NormalB	No more	NormalB	No more	No more
+519	2	13	NA	NA	NA	NA	NA	NA	NA	Want more	NormalB	No more
+520	8	13	NA	No more	No more	Loop	Loop	NormalB	No more	No more	No more	No more
+521	12	13	NA	Want more	NormalB	No more	Loop	No more	No more	Vasectomy	Vasectomy	Vasectomy
+522	17	13	Want more	Want more	Want more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+523	18	13	NA	NA	NormalB	No more	NormalB	No more	No more	NormalB	No more	No more
+524	21	13	NA	NA	NA	Rhythm	Rhythm	No more	No more	Oral Pill	No more	No more
+525	22	13	Abortion	No more	No more	No more	No more	No more	No more	No more	No more	No more
+526	24	13	NA	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+527	26	13	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+528	27	13	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+529	28	13	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+530	29	13	NormalB	No more	NormalB	Oral Pill	Loop	Loop	No more	NormalB	No more	Loop
+531	30	13	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+532	32	13	NormalB	Oral Pill	Oral Pill	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	No more
+533	38	13	NA	NormalB	Oral Pill	NormalB	No more	NormalB	No more	NormalB	No more	No more
+534	39	13	NA	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Rhythm	Rhythm	Rhythm	Rhythm
+535	41	13	No more	No more	No more	NormalB	No more	NormalB	Loop	Loop	Oral Pill	NormalB
+536	44	13	Loop	Loop	NormalB	Oral Pill	NormalB	Oral Pill	NormalB	No more	No more	No more
+537	45	13	NA	NormalB	Want more	NormalB	No more	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal
+538	46	13	NA	Want more	No more	No more	NormalB	No more	No more	No more	No more	No more
+539	47	13	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+540	49	13	NA	NA	NormalB	NormalB	No more	No more	Loop	Loop	Loop	Loop
+541	50	13	NormalB	Want more	Want more	NormalB	NormalB	NormalB	No more	No more	No more	No more
+542	51	13	NA	NA	NormalB	No more	No more	NormalB	No more	No more	No more	No more
+543	54	13	NA	NormalB	No more	No more	No more	No more	NormalB	No more	No more	No more
+544	56	13	NormalB	No more	Stillbirth	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+545	59	13	NA	NormalB	No more	No more	No more	No more	No more	NormalB	Want more	Want more
+546	60	13	No more	No more	No more	No more	No more	No more	No more	No more	No more	No more
+547	62	13	NA	NA	NormalB	Loop	NormalB	No more	No more	Rhythm	Rhythm	Rhythm
+548	66	13	NA	NormalB	No more	No more	No more	Oral Pill	Oral Pill	Oral Pill	No more	No more
+549	67	13	NA	NormalB	No more	NormalB	Loop	NormalB	NormalB	No more	NormalB	No more
+550	68	13	NA	No more	Oral Pill	Oral Pill	Oral Pill	NormalB	No more	No more	No more	No more
+551	69	13	NA	NormalB	No more	NormalB	No more	No more	NormalB	No more	No more	No more
+552	71	13	NA	NormalB	Want more	NormalB	Want more	Want more	Want more	Want more	Loop	No more
+553	72	13	NormalB	Loop	Loop	Loop	NormalB	Oral Pill	NormalB	No more	No more	No more
+554	73	13	NA	NA	NA	NormalB	Want more	Want more	Want more	Want more	NormalB	No more
+555	74	13	NA	Want more	NormalB	No more	No more	NormalB	NormalB	Oral Pill	Pregnant	Pregnant
+556	75	13	NA	NA	NA	NA	NormalB	No more	No more	No more	Pregnant	Pregnant
+557	76	13	NA	NA	NA	NA	NA	NA	NA	Abortion	Oral Pill	Want more
+558	77	13	NA	No more	No more	Loop	No more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill
+559	78	13	NormalB	No more	No more	NormalB	No more	No more	Abortion	NormalB	No more	No more
+560	79	13	NA	NA	NA	NA	NA	Want more	Want more	NormalB	Want more	Want more
+561	80	13	NA	NA	No more	Oral Pill	Abortion	NormalB	Oral Pill	Oral Pill	Pregnant	Loop
+562	81	13	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	No more
+563	1	14	NormalB	Want more	Want more	Want more	NormalB	Want more	NormalB	No more	No more	No more
+564	2	14	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+565	3	14	NA	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop
+566	4	14	NA	NA	NA	NA	NormalB	Want more	Want more	Want more	Want more	Want more
+567	5	14	NA	NormalB	NormalB	NormalB	No more	No more	NormalB	No more	No more	No more
+568	6	14	Want more	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more	No more	No more
+569	7	14	NormalB	No more	NormalB	No more	Loop	Loop	Loop	Oral Pill	NormalB	No more
+570	8	14	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	Want more	Abortion	Want more
+571	9	14	NormalB	NormalB	No more	Loop	Abortion	Infertile	Infertile	Infertile	Infertile	Infertile
+572	10	14	NA	NA	NormalB	Want more	NormalB	Want more	NormalB	Want more	Pregnant	Pregnant
+573	11	14	NA	NA	NormalB	Loop	Loop	Loop	Loop	Loop	No more	No more
+574	12	14	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+575	13	14	No more	No more	No more	No more	No more	No more	No more	No more	No more	No more
+576	14	14	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Want more
+577	15	14	NA	NA	NA	NA	Want more	NormalB	Want more	NormalB	No more	No more
+578	16	14	Loop	Foam	Loop	Rhythm	No more	Rhythm	Rhythm	Rhythm	Rhythm	No more
+579	17	14	Loop	NormalB	No more	Oral Pill	NormalB	No more	No more	No more	No more	No more
+580	18	14	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+581	20	14	NA	NA	NA	NA	NA	NA	NA	NA	Want more	Want more
+582	21	14	NA	Want more	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+583	24	14	NA	No more	No more	No more	Oral Pill	NormalB	No more	No more	No more	No more
+584	25	14	NA	NormalB	No more	No more	Loop	Oral Pill	No more	No more	No more	Oral Pill
+585	26	14	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Pregnant
+586	28	14	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+587	29	14	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+588	31	14	No more	No more	No more	No more	NormalB	Abortion	No more	No more	No more	No more
+589	33	14	NA	NA	NA	NA	NA	Want more	NormalB	No more	Pregnant	Pregnant
+590	34	14	NormalB	Loop	Loop	NormalB	No more	NormalB	Oral Pill	Oral Pill	Abortion	No more
+591	35	14	NA	NormalB	No more	Loop	Loop	Loop	Loop	Loop	Menopause	Menopause
+592	38	14	NA	NormalB	Condom	Condom	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+593	40	14	NormalB	NormalB	Want more	NormalB	Want more	Want more	Want more	Want more	NormalB	Want more
+594	42	14	NA	NA	NA	NA	NA	NormalB	No more	Oral Pill	No more	No more
+595	43	14	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	No more
+596	44	14	NA	NA	NA	NA	NA	NA	NA	NA	No more	Condom
+597	45	14	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+598	47	14	NA	NA	NA	NA	NA	NormalB	NormalB	No more	Oral Pill	Pregnant
+599	48	14	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	No more
+600	49	14	NA	NA	NA	NA	Want more	NormalB	No more	No more	No more	Pregnant
+601	50	14	NA	NA	NA	NA	NA	Want more	Want more	Want more	Condom	Condom
+602	4	15	NA	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop	No more
+603	11	15	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	Want more	Want more
+604	13	15	NormalB	Want more	Want more	Want more	No more	No more	No more	No more	NormalB	No more
+605	15	15	No more	Loop	Condom	Loop	Condom	NormalB	NormalB	Rhythm	Rhythm	Rhythm
+606	20	15	NormalB	Want more	Want more	Loop	NormalB	No more	No more	No more	Condom	Condom
+607	21	15	NA	NA	NA	NormalB	Want more	NormalB	Want more	NormalB	NormalB	Loop
+608	24	15	NA	NormalB	Want more	Withdrawal	Withdrawal	NormalB	No more	Withdrawal	Withdrawal	Withdrawal
+609	26	15	NA	NA	NA	Want more	Want more	NormalB	No more	NormalB	No more	Loop
+610	27	15	Loop	No more	No more	No more	No more	No more	No more	No more	No more	No more
+611	30	15	NA	No more	Condom	Condom	No more	No more	No more	No more	Menopause	Menopause
+612	31	15	NormalB	NormalB	No more	No more	NormalB	Loop	Loop	Loop	Loop	Loop
+613	32	15	No more	No more	Abortion	NormalB	No more	NormalB	No more	No more	Abortion	Abortion
+614	33	15	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+615	34	15	NA	NA	Rhythm	Rhythm	Rhythm	Rhythm	NormalB	No more	No more	No more
+616	35	15	NA	NA	NA	NA	NA	NA	NA	NA	No more	No more
+617	37	15	NA	Loop	Loop	Loop	Loop	Loop	No more	Loop	Loop	Loop
+618	38	15	NA	NA	NA	NA	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+619	43	15	NA	NormalB	Want more	NormalB	Want more	NormalB	Want more	NormalB	Condom	Condom
+620	44	15	No more	No more	No more	NormalB	No more	No more	No more	No more	No more	No more
+621	46	15	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+622	47	15	Want more	Want more	Want more	Want more	Want more	NormalB	No more	No more	No more	No more
+623	49	15	No more	No more	NormalB	No more	NormalB	No more	No more	NormalB	No more	NormalB
+624	54	15	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+625	56	15	NA	NormalB	No more	No more	Abortion	No more	No more	No more	No more	No more
+626	60	15	NA	No more	No more	NormalB	No more	No more	No more	No more	Loop	Loop
+627	61	15	NA	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	No more
+628	63	15	No more	No more	Rhythm	Rhythm	Rhythm	Rhythm	NormalB	No more	Condom	Condom
+629	64	15	NA	NormalB	No more	NormalB	No more	No more	No more	No more	No more	No more
+630	65	15	NA	No more	Loop	No more	No more	NormalB	No more	No more	No more	No more
+631	66	15	NA	NormalB	No more	NormalB	Oral Pill	NormalB	NormalB	NormalB	No more	No more
+632	69	15	No more	No more	Abortion	Rhythm	NormalB	No more	No more	No more	Loop	NormalB
+633	70	15	NA	NA	NA	NormalB	Want more	Want more	Want more	NormalB	Want more	Want more
+634	73	15	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+635	74	15	NA	NormalB	Want more	Want more	NormalB	Condom	Condom	NormalB	Want more	Want more
+636	75	15	Want more	NormalB	Want more	Want more	Want more	NormalB	Want more	Loop	Loop	Loop
+637	77	15	Loop	Loop	Loop	Loop	Loop	No more	No more	No more	No more	No more
+638	78	15	NormalB	No more	NormalB	Loop	Loop	Loop	No more	No more	Oral Pill	Loop
+639	79	15	Loop	Loop	Loop	No more	Loop	Loop	Loop	Loop	Loop	Loop
+640	80	15	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+641	81	15	NA	NA	Want more	Want more	NormalB	Want more	Want more	Want more	No more	No more
+642	82	15	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+643	83	15	NA	Want more	Want more	Want more	NormalB	Want more	NormalB	No more	No more	No more
+644	84	15	NA	NormalB	Condom	NormalB	NormalB	No more	Rhythm	NormalB	Condom	Condom
+645	88	15	No more	NormalB	No more	No more	No more	No more	No more	NormalB	No more	No more
+646	89	15	NA	NA	NA	NA	NA	NA	NA	NA	Want more	Want more
+647	90	15	NA	NormalB	NormalB	Loop	NormalB	No more	Oral Pill	Oral Pill	NormalB	No more
+648	3	16	NormalB	No more	No more	NormalB	No more	No more	Want more	Want more	NormalB	No more
+649	4	16	NormalB	Want more	Want more	NormalB	NormalB	Want more	Want more	Want more	NormalB	No more
+650	5	16	NA	NA	NA	NormalB	No more	No more	Loop	Oral Pill	No more	Condom
+651	6	16	NA	Loop	Loop	Loop	No more	No more	No more	No more	No more	No more
+652	7	16	NA	Rhythm	Rhythm	Rhythm	Loop	Rhythm	Rhythm	Abortion	NormalB	No more
+653	8	16	NormalB	No more	NormalB	No more	No more	No more	No more	No more	No more	No more
+654	9	16	NA	No more	No more	Oral Pill	No more	Condom	No more	Condom	Condom	Condom
+655	10	16	NA	NormalB	Want more	NormalB	Oral Pill	Oral Pill	NormalB	NormalB	Abortion	Loop
+656	12	16	NA	Condom	Condom	Condom	NormalB	No more	Condom	Condom	Condom	No more
+657	13	16	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+658	14	16	NA	NA	NA	NA	NA	NA	NA	NA	No more	No more
+659	15	16	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	Loop	Loop
+660	16	16	NA	NormalB	Want more	NormalB	Want more	NormalB	Want more	NormalB	Condom	No more
+661	17	16	NA	NA	NA	NA	NormalB	Want more	NormalB	Oral Pill	Pregnant	Pregnant
+662	19	16	NA	NormalB	No more	NormalB	No more	No more	NormalB	Condom	NormalB	NormalB
+663	20	16	NA	NA	NA	NA	NA	NA	NA	Want more	NormalB	Want more
+664	21	16	NA	Oral Pill	Oral Pill	NormalB	No more	Condom	Condom	Condom	No more	No more
+665	22	16	NA	NA	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+666	23	16	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+667	24	16	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+668	25	16	NA	NormalB	0ther	0ther	0ther	NormalB	No more	Condom	No more	Condom
+669	26	16	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+670	27	16	NA	NA	No more	No more	No more	No more	NormalB	No more	No more	No more
+671	28	16	NA	NA	NormalB	No more	No more	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+672	29	16	NA	NA	Loop	Loop	Loop	Loop	Loop	Loop	Loop	No more
+673	30	16	NA	NormalB	No more	No more	NormalB	No more	Rhythm	No more	Condom	Condom
+674	31	16	NormalB	Condom	Condom	Condom	Condom	NormalB	Condom	Condom	Condom	Condom
+675	32	16	NormalB	No more	Condom	NormalB	NormalB	NormalB	NormalB	Condom	Condom	Condom
+676	33	16	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+677	34	16	NA	NormalB	No more	NormalB	No more	No more	NormalB	No more	No more	No more
+678	35	16	NA	Condom	NormalB	Loop	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+679	36	16	NormalB	No more	NormalB	No more	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+680	37	16	NA	NormalB	Abortion	No more	NormalB	Oral Pill	Oral Pill	NormalB	No more	No more
+681	1	17	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+682	2	17	NA	NormalB	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Loop	Loop	Loop
+683	9	17	NA	NA	NA	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Loop
+684	11	17	NormalB	Want more	NormalB	Want more	Want more	No more	No more	NormalB	No more	No more
+685	12	17	NA	No more	Condom	Loop	NormalB	Abortion	Rhythm	Rhythm	Rhythm	Rhythm
+686	13	17	NormalB	No more	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+687	16	17	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+688	17	17	NA	No more	No more	NormalB	No more	NormalB	No more	Loop	Loop	Loop
+689	18	17	NormalB	Want more	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	Want more
+690	20	17	NA	NormalB	Loop	Loop	No more	No more	NormalB	No more	Loop	Loop
+691	22	17	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+692	25	17	NA	NormalB	Loop	Loop	Loop	Loop	NA	NA	NA	Loop
+693	26	17	NA	NormalB	NormalB	Loop	Loop	Loop	No more	Loop	Loop	Loop
+694	28	17	NA	Want more	Want more	Want more	NormalB	Want more	Oral Pill	Want more	NormalB	No more
+695	29	17	NormalB	No more	Loop	NormalB	No more	NormalB	No more	No more	NormalB	NormalB
+696	31	17	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	No more	No more
+697	34	17	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+698	36	17	NA	No more	Loop	NormalB	No more	Loop	Loop	Loop	Loop	Loop
+699	38	17	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+700	40	17	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+701	43	17	NA	Want more	Want more	Want more	Want more	NormalB	Want more	NormalB	Loop	Loop
+702	44	17	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	NormalB	No more
+703	45	17	NA	NA	NA	NA	NA	NormalB	Oral Pill	NormalB	Want more	Want more
+704	46	17	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+705	48	17	NA	NormalB	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+706	49	17	NA	No more	No more	NormalB	No more	NormalB	Want more	NormalB	Loop	Loop
+707	50	17	NA	NormalB	No more	Oral Pill	Condom	No more	No more	No more	No more	No more
+708	52	17	NA	NA	NA	Want more	Want more	NormalB	NormalB	No more	Oral Pill	Loop
+709	53	17	NA	NA	NormalB	Want more	NormalB	Want more	NA	NormalB	No more	Loop
+710	60	17	NA	NormalB	No more	NormalB	Loop	Loop	Loop	Loop	Loop	Loop
+711	61	17	NA	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+712	63	17	NA	NormalB	No more	No more	NormalB	Loop	Loop	Loop	Loop	Loop
+713	66	17	NA	No more	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Rhythm	Rhythm	Rhythm
+714	68	17	NA	NormalB	No more	No more	NormalB	Loop	Loop	No more	Loop	Loop
+715	69	17	NA	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+716	71	17	Want more	Want more	Want more	Want more	NormalB	No more	Loop	Loop	Loop	Loop
+717	72	17	NA	Want more	NormalB	Want more	Want more	Want more	Want more	NormalB	No more	No more
+718	73	17	NA	Abortion	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop
+719	74	17	NormalB	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+720	75	17	NA	Want more	Want more	NormalB	Want more	Want more	NormalB	Loop	Loop	Loop
+721	76	17	NA	NA	NA	NA	NormalB	Want more	Oral Pill	Want more	NormalB	NormalB
+722	77	17	NA	NormalB	NormalB	Want more	NormalB	Loop	Loop	Loop	Loop	Loop
+723	78	17	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Want more	NormalB	No more
+724	79	17	NA	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more	Want more
+725	80	17	NA	NormalB	NormalB	Loop	Loop	Loop	Loop	Want more	Want more	Want more
+726	5	18	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+727	6	18	NA	NA	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more
+728	7	18	NA	NA	No more	No more	No more	NormalB	No more	No more	Oral Pill	Loop
+729	8	18	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+730	10	18	NormalB	No more	No more	No more	No more	No more	NormalB	No more	Abortion	Oral Pill
+731	12	18	Foam	Foam	No more	No more	No more	No more	No more	No more	No more	No more
+732	14	18	NA	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+733	16	18	NormalB	Want more	Want more	NormalB	No more	NormalB	No more	No more	Oral Pill	Oral Pill
+734	17	18	NA	NA	NormalB	Want more	NormalB	Want more	Want more	Want more	Want more	Want more
+735	18	18	NA	NA	NA	NA	NA	Infertile	Infertile	Infertile	Infertile	Infertile
+736	21	18	NormalB	No more	No more	No more	No more	Loop	Loop	Loop	Loop	Loop
+737	22	18	NA	Want more	NormalB	Want more	NormalB	Want more	Want more	Want more	NormalB	Want more
+738	24	18	Condom	Condom	Condom	Condom	Condom	Condom	Condom	Condom	Condom	Condom
+739	26	18	NA	NormalB	NormalB	No more	No more	No more	Infertile	Infertile	Infertile	Infertile
+740	27	18	NA	NA	NA	NA	NormalB	NormalB	Oral Pill	No more	Oral Pill	Oral Pill
+741	28	18	NA	NA	NA	NA	NA	NA	NA	NormalB	Pregnant	Pregnant
+742	29	18	No more	No more	No more	No more	Loop	Loop	Rhythm	No more	Loop	Condom
+743	31	18	NA	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+744	33	18	NA	NormalB	No more	No more	NormalB	Loop	Loop	Loop	Loop	Loop
+745	34	18	NA	NA	NA	NA	NA	Want more	No more	NormalB	No more	Condom
+746	37	18	NA	NA	NA	NA	NormalB	Want more	NormalB	Condom	Abortion	Oral Pill
+747	38	18	NA	Loop	Loop	Loop	Loop	Loop	Abortion	No more	Oral Pill	Oral Pill
+748	39	18	NA	NA	NA	NA	Want more	NormalB	Want more	NormalB	Rhythm	Want more
+749	41	18	NA	NormalB	No more	Oral Pill	Oral Pill	No more	No more	No more	No more	No more
+750	42	18	NA	NA	NA	NA	NA	NA	NA	Infertile	Infertile	Infertile
+751	44	18	NA	NA	NA	NA	NA	Want more	Want more	NormalB	Want more	Want more
+752	46	18	NA	NA	NormalB	NormalB	Condom	NormalB	Abortion	NormalB	Rhythm	Rhythm
+753	48	18	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Oral Pill	Oral Pill
+754	49	18	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+755	50	18	NA	NA	NormalB	No more	Loop	Loop	No more	Vasectomy	Vasectomy	Want more
+756	52	18	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+757	53	18	NA	No more	No more	No more	NormalB	NormalB	NormalB	No more	No more	Loop
+758	54	18	NA	NA	NA	NA	NA	NA	NA	NA	Oral Pill	Pregnant
+759	55	18	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB	Pregnant
+760	56	18	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more
+761	57	18	NA	Want more	Want more	Want more	NormalB	NormalB	Want more	Want more	No more	No more
+762	58	18	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Condom
+763	59	18	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more
+764	60	18	NA	NA	NA	NA	NormalB	No more	No more	Pessary	NormalB	No more
+765	1	19	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+766	2	19	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+767	5	19	NA	NA	NA	NA	No more	No more	NormalB	No more	Pregnant	Pregnant
+768	6	19	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more
+769	9	19	NA	NormalB	Want more	NormalB	Loop	Loop	Loop	Loop	Loop	Loop
+770	10	19	Want more	Want more	NormalB	NormalB	NormalB	Menopause	Menopause	Menopause	Menopause	Menopause
+771	11	19	NA	NA	NA	NA	NA	NA	NA	Stillbirth	Want more	Oral Pill
+772	14	19	NA	No more	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+773	18	19	NA	NormalB	No more	NormalB	No more	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+774	21	19	NA	Abortion	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+775	22	19	NA	NormalB	No more	No more	No more	No more	Rhythm	Rhythm	Rhythm	Rhythm
+776	23	19	NA	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+777	24	19	NormalB	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+778	25	19	NA	NA	NormalB	Want more	Want more	NormalB	No more	NormalB	NormalB	NormalB
+779	29	19	NA	No more	NormalB	NormalB	Loop	NormalB	Oral Pill	Rhythm	Rhythm	No more
+780	30	19	No more	No more	No more	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+781	31	19	NA	No more	No more	No more	Menopause	Menopause	Menopause	Menopause	Menopause	Menopause
+782	32	19	NA	Want more	NormalB	No more	No more	NormalB	No more	NormalB	No more	Vasectomy
+783	33	19	NA	NormalB	No more	NormalB	No more	Want more	Want more	NormalB	Want more	Want more
+784	34	19	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+785	36	19	NormalB	NormalB	Loop	Oral Pill	NormalB	Rhythm	NormalB	Rhythm	Abortion	Vasectomy
+786	37	19	NA	NA	NormalB	Want more	Want more	NormalB	No more	Condom	Condom	No more
+787	38	19	NA	NA	NormalB	No more	No more	Oral Pill	No more	No more	Abortion	No more
+788	39	19	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+789	44	19	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+790	46	19	NA	No more	Condom	Oral Pill	NormalB	No more	Rhythm	Rhythm	Rhythm	Oral Pill
+791	51	19	NA	NormalB	No more	No more	NormalB	No more	No more	NormalB	Want more	Want more
+792	52	19	NormalB	No more	NormalB	No more	No more	NormalB	No more	Condom	Condom	No more
+793	53	19	NA	NA	NA	NA	NA	NormalB	No more	No more	Want more	Want more
+794	54	19	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+795	55	19	Want more	Want more	NormalB	No more	No more	No more	No more	No more	No more	No more
+796	57	19	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+797	59	19	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB	NormalB
+798	61	19	NA	No more	No more	No more	No more	No more	No more	No more	No more	No more
+799	63	19	NA	NA	NormalB	No more	No more	NormalB	No more	No more	Loop	Want more
+800	64	19	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+801	65	19	NA	NormalB	No more	No more	No more	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+802	69	19	NormalB	No more	No more	No more	No more	No more	No more	No more	No more	No more
+803	70	19	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+804	71	19	NormalB	No more	NormalB	No more	No more	NormalB	No more	No more	No more	No more
+805	72	19	NA	NA	NA	NA	NA	NormalB	No more	NormalB	Want more	Want more
+806	75	19	NormalB	Want more	Want more	NormalB	No more	No more	No more	No more	Oral Pill	Condom
+807	76	19	NA	NormalB	No more	No more	No more	NormalB	No more	No more	Oral Pill	Oral Pill
+808	77	19	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+809	78	19	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more	Oral Pill
+810	1	20	NormalB	Want more	Want more	Want more	Oral Pill	NormalB	NormalB	No more	No more	No more
+811	3	20	NA	NA	NA	No more	No more	NormalB	No more	NormalB	No more	No more
+812	4	20	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+813	5	20	Loop	Loop	Loop	Loop	Loop	Loop	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+814	8	20	NormalB	No more	NormalB	No more	NormalB	NormalB	No more	No more	No more	No more
+815	9	20	NormalB	Want more	NormalB	No more	No more	No more	Loop	Loop	Loop	Loop
+816	13	20	NormalB	No more	No more	No more	No more	Oral Pill	Oral Pill	Oral Pill	Loop	Loop
+817	14	20	NA	Want more	Want more	Want more	No more	No more	No more	NormalB	Oral Pill	Oral Pill
+818	19	20	NA	No more	NormalB	No more	NormalB	Oral Pill	Oral Pill	Loop	Loop	Loop
+819	20	20	NA	NA	NA	NA	NA	NA	NormalB	No more	NormalB	No more
+820	21	20	NA	NormalB	No more	No more	Loop	Withdrawal	Withdrawal	Withdrawal	Withdrawal	Withdrawal
+821	24	20	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more
+822	25	20	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+823	26	20	Loop	Loop	Loop	Loop	No more	No more	No more	No more	No more	No more
+824	35	20	Loop	Loop	Loop	Loop	No more	No more	No more	No more	No more	No more
+825	37	20	NA	NormalB	No more	No more	Loop	Rhythm	Rhythm	Rhythm	Rhythm	No more
+826	38	20	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+827	39	20	NA	NormalB	No more	No more	Oral Pill	No more	No more	Abortion	Loop	Loop
+828	41	20	Loop	Loop	Loop	Loop	Loop	Oral Pill	No more	Abortion	Withdrawal	Withdrawal
+829	42	20	Loop	Loop	Loop	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+830	45	20	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+831	46	20	NA	NA	NormalB	Want more	NormalB	Want more	NormalB	No more	No more	Loop
+832	47	20	NA	Want more	Want more	NormalB	Want more	Want more	NormalB	NormalB	No more	No more
+833	48	20	NormalB	Want more	Want more	NormalB	No more	No more	No more	No more	Loop	Loop
+834	49	20	NA	NormalB	No more	No more	NormalB	No more	No more	Foam	No more	No more
+835	55	20	NA	Loop	Loop	No more	No more	NormalB	No more	No more	Oral Pill	Oral Pill
+836	57	20	NA	NA	NA	NormalB	No more	No more	No more	NormalB	NormalB	Oral Pill
+837	58	20	NA	NA	NormalB	Want more	Want more	Want more	NormalB	Want more	Pregnant	Pregnant
+838	1	21	NA	NA	NA	Want more	NormalB	Want more	NormalB	Want more	Pregnant	Pregnant
+839	3	21	No more	No more	NormalB	No more	Loop	Loop	Loop	Loop	Loop	Loop
+840	4	21	NA	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	NormalB
+841	6	21	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+842	7	21	NA	NormalB	Want more	Want more	Want more	NormalB	No more	No more	No more	Want more
+843	9	21	NA	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	No more
+844	10	21	Want more	NormalB	NormalB	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more
+845	11	21	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	Loop	Loop
+846	13	21	Want more	Want more	NormalB	Want more	Want more	Want more	Want more	NormalB	No more	No more
+847	14	21	Want more	NormalB	Want more	NormalB	Want more	Want more	Want more	Want more	Want more	Pregnant
+848	15	21	NA	NA	Want more	NormalB	Want more	NormalB	Want more	Want more	NormalB	No more
+849	16	21	Loop	Loop	Loop	Abortion	Oral Pill	Oral Pill	Loop	Loop	Loop	Loop
+850	18	21	NA	NA	NA	NA	NA	NA	NA	NA	NA	Want more
+851	19	21	NA	NA	NA	NA	NA	NA	NA	NormalB	Pregnant	Pregnant
+852	22	21	NormalB	Want more	NormalB	Want more	NormalB	Want more	Want more	Condom	Condom	Loop
+853	23	21	NormalB	Want more	Want more	NormalB	No more	NormalB	No more	No more	NormalB	NormalB
+854	24	21	NA	NA	NormalB	NormalB	Want more	Want more	Want more	NormalB	No more	Loop
+855	25	21	NA	NA	NA	NA	Want more	Want more	Want more	Want more	Oral Pill	Oral Pill
+856	28	21	NA	NA	Want more	Want more	Want more	NormalB	Want more	NormalB	Want more	Want more
+857	30	21	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more	Want more	No more	No more
+858	31	21	NA	Want more	Want more	Want more	NormalB	Want more	NormalB	Want more	Want more	Pregnant
+859	32	21	NA	NA	Want more	Want more	Want more	NormalB	Want more	Want more	Want more	Want more
+860	33	21	NA	NA	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Want more
+861	34	21	NA	NA	NA	No more	No more	Loop	Loop	Loop	Loop	Want more
+862	35	21	NA	Oral Pill	NormalB	No more	No more	No more	Oral Pill	NormalB	No more	No more
+863	36	21	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more	Loop	Oral Pill
+864	37	21	NA	NA	NA	NormalB	Infertile	Infertile	Infertile	Infertile	Want more	Want more
+865	38	21	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+866	39	21	NA	NA	Want more	NormalB	Want more	NormalB	Want more	NormalB	NormalB	Loop
+867	40	21	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+868	41	21	NA	NA	NormalB	Want more	NormalB	No more	No more	No more	No more	Loop
+869	44	21	Want more	Want more	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	No more
+870	45	21	NA	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	NormalB
+871	46	21	Want more	Want more	Withdrawal	No more	No more	No more	No more	No more	No more	Oral Pill
+872	47	21	NA	NA	NA	NA	NA	Want more	NormalB	Want more	Want more	Want more
+873	48	21	Want more	NormalB	Pregnant	NormalB	Want more	NormalB	Want more	Want more	Want more	Want more
+874	49	21	No more	No more	No more	No more	No more	NormalB	No more	No more	No more	No more
+875	51	21	No more	Oral Pill	No more	No more	Loop	NormalB	No more	No more	Loop	Loop
+876	52	21	NA	NA	NA	NA	NA	NA	NA	NA	No more	No more
+877	53	21	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	Want more
+878	54	21	NA	Want more	Want more	NormalB	No more	Loop	Loop	Loop	Loop	Loop
+879	55	21	Loop	Loop	Loop	Loop	Loop	Oral Pill	No more	No more	No more	No more
+880	56	21	NormalB	Want more	NormalB	Want more	NormalB	Want more	NormalB	No more	No more	No more
+881	57	21	No more	No more	NormalB	No more	No more	No more	NormalB	No more	No more	Oral Pill
+882	58	21	No more	NormalB	Want more	NormalB	No more	No more	Loop	Loop	Loop	Loop
+883	59	21	Want more	Want more	NormalB	Loop	Loop	No more	No more	No more	No more	No more
+884	60	21	NA	Loop	NormalB	No more	No more	Oral Pill	No more	No more	0ther	No more
+885	61	21	NormalB	No more	Loop	Loop	Abortion	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+886	62	21	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+887	64	21	Want more	NormalB	Want more	Want more	NormalB	No more	No more	Oral Pill	Oral Pill	Oral Pill
+888	65	21	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+889	67	21	NA	NormalB	Want more	NormalB	Want more	NormalB	Oral Pill	Oral Pill	Oral Pill	Want more
+890	68	21	NormalB	NormalB	Want more	Want more	Want more	Want more	Want more	NormalB	No more	No more
+891	69	21	NormalB	Loop	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+892	1	22	NA	NormalB	No more	No more	No more	Abortion	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+893	3	22	NA	NA	NormalB	Want more	Want more	Want more	NormalB	Infertile	Infertile	Infertile
+894	4	22	No more	No more	NormalB	No more	No more	Oral Pill	No more	No more	No more	Oral Pill
+895	6	22	NA	No more	NormalB	No more	No more	No more	NormalB	No more	NormalB	Want more
+896	7	22	Want more	Want more	Want more	Want more	Want more	Abortion	Want more	Oral Pill	Oral Pill	Oral Pill
+897	11	22	NA	NA	No more	No more	NormalB	Rhythm	Rhythm	NormalB	Rhythm	Rhythm
+898	12	22	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+899	13	22	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	No more
+900	14	22	Want more	Want more	Want more	Want more	NormalB	NormalB	NormalB	NormalB	Pregnant	NormalB
+901	16	22	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+902	17	22	NormalB	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+903	18	22	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	Want more	Want more
+904	19	22	NA	NA	NA	NA	NA	Want more	Want more	Want more	NormalB	Want more
+905	22	22	NormalB	No more	NormalB	No more	NormalB	No more	No more	No more	NormalB	No more
+906	24	22	NA	NormalB	No more	NormalB	No more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill
+907	25	22	NA	NormalB	Want more	Want more	Want more	Infertile	Infertile	Infertile	Infertile	Infertile
+908	26	22	NA	NA	NA	NormalB	No more	NormalB	NormalB	Oral Pill	Oral Pill	Pregnant
+909	27	22	Want more	NormalB	No more	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+910	29	22	NA	NA	NormalB	Want more	NormalB	No more	No more	No more	No more	No more
+911	30	22	NA	NA	No more	No more	Abortion	No more	No more	No more	No more	No more
+912	31	22	NormalB	Want more	Want more	Want more	Stillbirth	Loop	Loop	Loop	Loop	Loop
+913	32	22	Want more	Want more	No more	No more	No more	NormalB	NormalB	NormalB	Pregnant	Pregnant
+914	34	22	NA	NormalB	No more	No more	No more	No more	No more	NormalB	No more	No more
+915	35	22	NA	NormalB	No more	NormalB	No more	No more	NormalB	Want more	Want more	Want more
+916	36	22	NA	NA	NormalB	No more	NormalB	Stillbirth	No more	NormalB	No more	No more
+917	37	22	NormalB	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Want more	Want more
+918	39	22	NA	NA	NA	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+919	40	22	No more	No more	No more	No more	Abortion	No more	No more	No more	No more	No more
+920	41	22	NormalB	No more	NormalB	No more	No more	NormalB	No more	NormalB	No more	No more
+921	43	22	NA	NormalB	No more	No more	No more	No more	No more	No more	No more	No more
+922	45	22	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	Want more	Want more	Want more
+923	47	22	NA	Abortion	No more	No more	No more	No more	No more	No more	Infertile	Infertile
+924	48	22	NA	No more	No more	No more	No more	No more	No more	Oral Pill	No more	No more
+925	49	22	NA	NormalB	Want more	Want more	Want more	NormalB	No more	NormalB	NormalB	Abortion
+926	50	22	NA	NormalB	No more	No more	No more	No more	No more	No more	No more	No more
+927	52	22	NA	NormalB	No more	NormalB	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+928	53	22	NA	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+929	57	22	NA	NormalB	Want more	NormalB	No more	Oral Pill	Oral Pill	Menopause	Menopause	Menopause
+930	58	22	NA	NA	NormalB	Want more	Want more	NormalB	Want more	NormalB	No more	No more
+931	61	22	Want more	NormalB	Want more	Want more	NormalB	Want more	NormalB	No more	No more	Oral Pill
+932	62	22	NA	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop
+933	64	22	NA	NA	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	Want more
+934	65	22	NA	NormalB	Want more	NormalB	Want more	Want more	NormalB	Want more	Pregnant	Pregnant
+935	1	23	No more	No more	Loop	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+936	3	23	NormalB	No more	Abortion	Loop	Loop	Abortion	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+937	4	23	No more	No more	No more	No more	Want more	Want more	Want more	NormalB	Want more	Want more
+938	5	23	Loop	Loop	Loop	Loop	NormalB	No more	No more	No more	Loop	Loop
+939	6	23	NA	Abortion	NormalB	NormalB	Oral Pill	Oral Pill	Condom	Condom	NormalB	NormalB
+940	8	23	NA	No more	NormalB	No more	No more	NormalB	No more	Oral Pill	No more	No more
+941	9	23	NA	NA	NA	NA	NormalB	Want more	Want more	NormalB	No more	No more
+942	10	23	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+943	12	23	NA	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+944	13	23	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+945	14	23	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Want more
+946	15	23	NA	Want more	Want more	Want more	Want more	NormalB	No more	No more	Oral Pill	Oral Pill
+947	16	23	NA	NormalB	No more	No more	Loop	Loop	Loop	Loop	Loop	Loop
+948	17	23	NA	NA	NA	NA	NA	NA	NA	Want more	Want more	Want more
+949	18	23	NA	No more	Condom	Oral Pill	Oral Pill	Oral Pill	Oral Pill	No more	NormalB	NormalB
+950	20	23	NormalB	Want more	Want more	Want more	Want more	NormalB	No more	No more	No more	No more
+951	21	23	Oral Pill	Oral Pill	Loop	Oral Pill	Loop	Loop	Loop	Loop	Loop	Loop
+952	24	23	NA	NA	NormalB	No more	NormalB	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+953	25	23	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB
+954	26	23	NA	Loop	NormalB	No more	No more	No more	No more	No more	Menopause	Menopause
+955	27	23	NA	NA	NA	NA	NA	NA	NA	NA	Menopause	Menopause
+956	29	23	Want more	Want more	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	No more
+957	30	23	No more	Abortion	Loop	Loop	Loop	Loop	Loop	Loop	Loop	Loop
+958	34	23	NA	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant
+959	37	23	NA	No more	NormalB	No more	No more	No more	No more	No more	No more	No more
+960	38	23	NA	NormalB	NormalB	Want more	Want more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill
+961	40	23	NA	NormalB	Loop	Loop	Loop	Loop	Loop	NormalB	Oral Pill	Oral Pill
+962	41	23	Oral Pill	Oral Pill	Oral Pill	Want more	NormalB	Want more	NormalB	No more	No more	No more
+963	42	23	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Want more	Pregnant
+964	48	23	NA	NormalB	Want more	Want more	Want more	NormalB	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+965	50	23	Loop	Loop	Loop	Loop	Loop	Infertile	Infertile	Infertile	Infertile	Infertile
+966	51	23	NA	NormalB	Want more	Want more	Want more	NormalB	No more	No more	No more	No more
+967	55	23	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+968	56	23	NA	NormalB	Loop	Loop	Loop	Loop	Loop	Loop	No more	No more
+969	2	24	NA	NormalB	Want more	Want more	Abortion	Want more	NormalB	No more	Oral Pill	Oral Pill
+970	3	24	NA	NA	NA	NA	Want more	NormalB	NormalB	NormalB	Want more	Want more
+971	4	24	NormalB	Abortion	No more	No more	Abortion	NormalB	No more	No more	No more	Rhythm
+972	6	24	NA	Loop	Loop	Abortion	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+973	10	24	NA	NA	NA	NA	NormalB	NormalB	No more	Oral Pill	Loop	Condom
+974	11	24	NA	NA	NA	NA	NA	NA	NA	Want more	Pregnant	Pregnant
+975	13	24	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Condom	Condom	Condom	Condom
+976	14	24	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+977	15	24	NA	NA	NA	NA	NA	NA	NA	NA	Pregnant	Pregnant
+978	16	24	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+979	17	24	NA	NormalB	Loop	Loop	Loop	Oral Pill	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+980	18	24	NA	NA	NA	NA	NormalB	No more	Oral Pill	No more	NormalB	No more
+981	19	24	NA	NA	NA	NormalB	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+982	22	24	NA	NA	NA	NA	NA	Want more	Want more	NormalB	Want more	Want more
+983	24	24	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+984	25	24	NA	NA	NA	NA	NA	NA	Want more	No more	Loop	Loop
+985	27	24	No more	No more	No more	No more	No more	No more	Loop	Loop	No more	No more
+986	28	24	NA	NormalB	Want more	NormalB	Loop	Loop	Loop	Loop	Loop	Loop
+987	29	24	NA	NormalB	Condom	Condom	NormalB	No more	No more	No more	No more	Abortion
+988	31	24	NA	NA	NA	NA	NormalB	No more	NormalB	NormalB	Loop	Oral Pill
+989	36	24	NormalB	No more	No more	NormalB	No more	No more	No more	NormalB	Oral Pill	Oral Pill
+990	44	24	NA	NA	NormalB	No more	NormalB	No more	Oral Pill	Oral Pill	Oral Pill	Oral Pill
+991	45	24	NA	Want more	Want more	Want more	Want more	NormalB	Infertile	Infertile	Infertile	Infertile
+992	47	24	No more	No more	No more	Oral Pill	Oral Pill	Loop	Abortion	No more	No more	No more
+993	48	24	NA	NA	NA	NormalB	NormalB	No more	Loop	Loop	Abortion	Loop
+994	49	24	NA	NA	Loop	Loop	Loop	Condom	No more	No more	Condom	Condom
+995	51	24	NA	NormalB	Want more	NormalB	Want more	Want more	NormalB	NormalB	Oral Pill	Oral Pill
+996	52	24	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm
+997	53	24	NormalB	No more	No more	Abortion	Loop	Loop	Loop	Loop	Loop	Loop
+998	54	24	NA	NA	NormalB	No more	NormalB	Want more	NormalB	Want more	NormalB	No more
+999	55	24	NA	NA	NA	NA	NA	Want more	Want more	Want more	NormalB	NormalB
+1000	56	24	NA	NA	NA	NA	NA	NA	NA	NormalB	Oral Pill	Oral Pill
+1001	57	24	NA	NA	NA	NA	NA	NormalB	No more	No more	No more	Pregnant
+1002	58	24	NA	NA	NA	NA	NA	NA	NormalB	Want more	NormalB	No more
+1003	59	24	NA	NA	NA	Want more	NormalB	No more	NormalB	No more	No more	Oral Pill
+1004	60	24	NA	NA	NA	NA	NA	NA	NA	NormalB	NormalB	Rhythm
+1005	61	24	NA	NormalB	No more	NormalB	No more	No more	Injection	Vasectomy	Vasectomy	Vasectomy
+1006	62	24	NA	NA	NA	NA	NA	NA	NA	NA	Want more	Pregnant
+1007	63	24	NA	NA	NA	NormalB	Want more	NormalB	Want more	NormalB	Want more	Want more
+1008	2	25	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1009	3	25	No more	No more	No more	No more	NormalB	No more	NormalB	No more	Loop	Loop
+1010	5	25	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1011	6	25	NA	NA	NA	NA	NA	Want more	Want more	NormalB	No more	Oral Pill
+1012	7	25	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1013	8	25	NA	NA	NA	NA	NA	NA	NA	NA	NormalB	No more
+1014	9	25	NormalB	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1015	10	25	NA	NormalB	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	No more
+1016	12	25	NA	NormalB	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1017	13	25	NA	NormalB	NormalB	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1018	14	25	NormalB	No more	No more	NormalB	No more	No more	NormalB	No more	No more	No more
+1019	16	25	NormalB	No more	No more	No more	Oral Pill	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm
+1020	18	25	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1021	19	25	NA	No more	No more	NormalB	No more	No more	No more	NormalB	Vasectomy	Vasectomy
+1022	20	25	0ther	0ther	0ther	0ther	0ther	0ther	0ther	0ther	0ther	0ther
+1023	22	25	NA	Loop	Loop	Loop	Loop	Loop	No more	No more	No more	No more
+1024	23	25	NA	NormalB	No more	No more	No more	No more	NormalB	No more	No more	No more
+1025	24	25	NA	Want more	Want more	Want more	Want more	NormalB	Want more	NormalB	Want more	Want more
+1026	25	25	NA	No more	No more	NormalB	No more	NormalB	No more	No more	Oral Pill	Oral Pill
+1027	26	25	NA	Want more	Want more	NormalB	Want more	Want more	Want more	NormalB	Want more	Want more
+1028	29	25	NA	NA	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+1029	30	25	NA	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+1030	33	25	No more	No more	No more	No more	No more	NormalB	Want more	NormalB	Want more	Want more
+1031	34	25	NormalB	Want more	Want more	NormalB	No more	No more	Condom	Condom	Oral Pill	No more
+1032	35	25	NA	NA	NA	NormalB	No more	No more	No more	NormalB	No more	No more
+1033	36	25	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+1034	37	25	NA	NA	NA	NA	Want more	Want more	Want more	NormalB	NormalB	Loop
+1035	38	25	NA	NA	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy	Vasectomy
+1036	39	25	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+1037	42	25	NA	NA	NA	NA	NormalB	No more	NormalB	NormalB	Oral Pill	Oral Pill
+1038	43	25	NA	NA	NA	NormalB	No more	No more	No more	NormalB	No more	No more
+1039	44	25	NA	NA	NA	NA	NA	NA	NormalB	Want more	Want more	Want more
+1040	45	25	NA	NA	NA	NA	NA	NA	NormalB	NormalB	No more	No more
+1041	46	25	No more	No more	NormalB	Want more	Want more	NormalB	No more	No more	No more	No more
+1042	47	25	NormalB	Want more	Want more	Want more	NormalB	Want more	Want more	Want more	Want more	Want more
+1043	48	25	No more	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+1044	50	25	NA	Want more	Want more	NormalB	Want more	Want more	NormalB	No more	Oral Pill	Oral Pill
+1045	54	25	NA	NA	NormalB	Want more	NormalB	Want more	Want more	Want more	NormalB	Want more
+1046	55	25	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile	Infertile
+1047	58	25	NA	No more	No more	No more	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm	Rhythm

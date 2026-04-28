@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# R session files
+.Rhistory
+.Rapp.history
+.RData
+.Rproj.user/
+
+# IDE
+.vscode/
+.idea/
+
+# Raw data (not committed by policy)
+data/advance/Cleaned-Data/
+data/advance/*.csv
+data/advance/*.xlsx
+data/kfp/*.csv
+data/kfp/*.rds
+
+# Generated tables/figures (regeneratable)
+outputs/tables/*
+outputs/figures/*
+!outputs/tables/.gitkeep
+!outputs/figures/.gitkeep
+
+# Build artefacts
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.fdb_latexmk
+*.fls
+
+# We DO commit outputs/intermediate/*.rds (per project convention).

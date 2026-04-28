@@ -1,0 +1,213 @@
+# ================================================================
+# 92-toa-derivation.R
+#
+# Derives TOA from KFP data prioritizing fptX/byrtX, falling back to
+# cfp/cbyr. Saves TOA_derivado_full.{csv,rds} to outputs/intermediate/.
+# Used by 91-valente-replication.R.
+# ================================================================
+source(file.path(here::here(), "R", "00-config.R"))
+
+# Calcula el TOA derivado de los datos de KFP, priorizando fptX/byrtX y luego cfp/cbyr.
+
+# Número total de TOA encontrados fptX/byrtX distintos de 11: 422 de 673 (62.7%)
+
+# TOA tiene 1047.
+# Número de TOAs derivados de fptX/byrtX: 422 (40.31%) 
+# Número de TOAs derivados (como relleno) de cfp/cbyr: 175 (16.71%)
+# Número de TOAs asignados como '11' (no adoptadores restantes): 374 (35.72%)
+# En total suman: 971 (92.74%)
+
+# Número de coincidencias exactas fpt: 386 de 422. Porcentaje de coincidencias exactas fpt: 91.47 %
+# Número de coincidencias exactas cfp: 153 de 368. Porcentaje de coincidencias exactas cfp: 87.43 %
+# Número de coincidencias exactas: 913 de 1047 (87.2%)
+
+
+# --- RESUMEN FINAL Y CONSTRUCCIÓN DE TOA_DERIVADO ---
+
+library(netdiffuseR)
+data(kfamily)       
+
+# IDs
+global_id <- seq_len(nrow(kfamily))
+specific_id <- paste(kfamily$comm, kfamily$id, sep = "_")
+
+# TOA original
+toa_original <- kfamily$toa
+toa_without_11 <- toa_original[toa_original != 11]
+
+# Obtener las etiquetas de los valores para fpstatus
+fpstatus_labels <- attr(kfamily, "label.table")$fpstatus
+
+modern_methods_names <- c("Loop", "Condom", "Oral Pill", "Vasectomy", "TL", "Injection", "Rhythm", "Withdrawal")
+modern_methods_codes <- as.numeric(fpstatus_labels[names(fpstatus_labels) %in% modern_methods_names])
+
+# TOA derivado de cfp/cbyr
+num_periods <- 12
+n_obs <- nrow(kfamily)
+toa_from_fpt <- rep(NA, n_obs)
+
+for (i in 1:n_obs) {
+  for (period in 1:num_periods) {
+    fpt_var_name <- paste0("fpt", period) # Family planing Status
+    byrt_var_name <- paste0("byrt", period) # Start of period (Year)
+    
+    # Verificar que las columnas existen
+    if (!(fpt_var_name %in% names(kfamily)) || !(byrt_var_name %in% names(kfamily))) {
+      message(paste("Advertencia: No se encontraron las columnas", fpt_var_name, "o", byrt_var_name, "para el periodo", period))
+      next # Saltar a la siguiente iteración del periodo
+    }
+    
+    current_fpt_status <- kfamily[i, fpt_var_name]
+    current_byrt <- kfamily[i, byrt_var_name]
+    
+    # Si el estado es uno de los métodos modernos y aún no hemos asignado un toa_from_fpt para esta persona
+    if (!is.na(current_fpt_status) && current_fpt_status %in% modern_methods_codes && is.na(toa_from_fpt[i])) {
+      year_map <- c(
+        "4" = 1964,
+        "5" = 1965,
+        "6" = 1966,
+        "7" = 1967,
+        "8" = 1968,
+        "9" = 1969,
+        "0" = 1970,
+        "1" = 1971,
+        "2" = 1972,
+        "3" = 1973
+      )
+      
+      if (!is.na(current_byrt) && as.character(current_byrt) %in% names(year_map)) {
+        toa_from_fpt[i] <- year_map[as.character(current_byrt)]
+        break # Salimos del bucle (no)
+      } else if (!is.na(current_byrt)) {
+        # message(paste("Advertencia: Valor de byrt no mapeado:", current_byrt, "para individuo", kfamily$id[i], "periodo", period))
+      }
+    }
+  }
+}
+
+min(toa_from_fpt, na.rm = TRUE)
+toa_from_fpt <- toa_from_fpt - 1963
+valid_indices_fpt <- !is.na(toa_from_fpt)
+
+# TOA derivado de cfp/cbyr
+
+toa_from_cfp <- rep(NA, n_obs)
+year_map_cfp <- c("0" = 1970, "1" = 1971, "2" = 1972, "3" = 1973,
+                  "4" = 1964, "5" = 1965, "6" = 1966, "7" = 1967,
+                  "8" = 1968, "9" = 1969) # Misma que para byrtX
+
+for (i in 1:n_obs) {
+  current_cfp_status <- kfamily$cfp[i]
+  current_cbyr <- kfamily$cbyr[i]
+  # cbmnth podría usarse para mayor precisión si fuera necesario, pero toa es anual.
+  
+  if (!is.na(current_cfp_status) && current_cfp_status %in% modern_methods_codes) {
+    if (!is.na(current_cbyr) && as.character(current_cbyr) %in% names(year_map_cfp)) {
+      toa_from_cfp[i] <- year_map_cfp[as.character(current_cbyr)]
+    } else if (!is.na(current_cbyr)) {
+      # message(paste("Advertencia: Valor de cbyr no mapeado:", current_cbyr, "para individuo", kfamily$id[i]))
+    }
+  }
+}
+
+min(toa_from_cfp, na.rm = TRUE)
+toa_from_cfp <- toa_from_cfp - 1963
+
+# Índices donde fptX pudo derivar el TOA
+valid_indices_fpt_idx <- which(!is.na(toa_from_fpt))
+
+# Comparación directa (TRUE/FALSE) entre TOA original y TOA derivado solo con fptX
+comparison_fpt <- toa_original[valid_indices_fpt_idx] == toa_from_fpt[valid_indices_fpt_idx]
+
+# Resumen de coincidencias exactas
+num_coincidencias_fpt <- sum(comparison_fpt, na.rm = TRUE)
+porcentaje_coincidencias_fpt <- round(num_coincidencias_fpt / length(valid_indices_fpt_idx) * 100, 2)
+
+message(paste("Número de coincidencias exactas fptX/byrtX:", num_coincidencias_fpt, "de", length(valid_indices_fpt_idx),
+              paste0("(", porcentaje_coincidencias_fpt, "%)")))
+message(paste("Número total de TOA encontrados fptX/byrtX distintos de 11:", length(valid_indices_fpt_idx), "de", length(toa_without_11),
+              paste0("(", round(length(valid_indices_fpt_idx) / length(toa_without_11) * 100, 2), "%)")))
+
+# Índices donde cfp/cbyr pudo derivar el TOA
+valid_indices_cfp <- !is.na(toa_from_cfp)
+
+# --- Construcción del TOA_derivado final ---
+
+n_total_obs <- length(toa_original) # Total de observaciones = 1047
+
+# 1. TOA combinado priorizando fptX, luego cfp
+toa_combinado_adoptadores <- ifelse(!is.na(toa_from_fpt), toa_from_fpt, toa_from_cfp)
+length(toa_combinado_adoptadores)
+sum(is.na(toa_combinado_adoptadores)) # tiene aún 450 NAs
+
+# 2. Crear el TOA_derivado final
+TOA_derivado <- rep(NA, n_total_obs)
+
+# a) Casos donde fptX derivó el TOA
+indices_fpt_validos <- which(!is.na(toa_from_fpt))
+TOA_derivado[indices_fpt_validos] <- toa_from_fpt[indices_fpt_validos]
+num_from_fpt <- length(indices_fpt_validos)
+
+# b) Casos donde SOLO cfp derivó el TOA (y fptX no pudo)
+# Estos son los que rellenan los NAs de toa_from_fpt
+indices_cfp_relleno <- which(is.na(toa_from_fpt) & !is.na(toa_from_cfp))
+TOA_derivado[indices_cfp_relleno] <- toa_from_cfp[indices_cfp_relleno]
+num_from_cfp_relleno <- length(indices_cfp_relleno)
+
+# c) Casos que originalmente eran TOA = 11 (no adoptadores)
+num_toa_11_original <- sum(toa_original == 11) # Debería ser 374
+
+# Asignar 11 a los que quedaron NA en TOA_derivado.
+# Esto asume que si no pudimos derivar un TOA de adopción (1-10), entonces son no-adoptadores (11).
+indices_11_original <- which(toa_original == 11)
+TOA_derivado[indices_11_original] <- 11 # Asignamos 11 a los restantes
+num_asignados_como_11 <- length(indices_11_original)
+
+
+# --- Resumen de la Composición de TOA_derivado ---
+message(paste("Número de TOAs derivados de fptX/byrtX:", num_from_fpt,
+              paste0("(", round(num_from_fpt / n_total_obs * 100, 2), "%)")))
+message(paste("Número de TOAs derivados (como relleno) de cfp/cbyr:", num_from_cfp_relleno,
+              paste0("(", round(num_from_cfp_relleno / n_total_obs * 100, 2), "%)")))
+message(paste("Número de TOAs asignados como '11' (no adoptadores restantes):", num_asignados_como_11,
+              paste0("(", round(num_asignados_como_11 / n_total_obs * 100, 2), "%)")))
+message(paste("En total suman:", num_from_fpt + num_from_cfp_relleno + num_asignados_como_11,
+              paste0("(", round((num_from_fpt + num_from_cfp_relleno + num_asignados_como_11) / n_total_obs * 100, 2), "%)")))
+
+diff_fpt <- toa_original[valid_indices_fpt] - toa_from_fpt[valid_indices_fpt]
+print(summary(diff_fpt))
+table(diff_fpt)
+message(paste("Número de coincidencias exactas fpt:", sum(diff_fpt == 0, na.rm = TRUE), "de", sum(valid_indices_fpt)),
+paste(". Porcentaje de coincidencias exactas fpt:", round(sum(diff_fpt == 0, na.rm = TRUE) / num_from_fpt * 100, 2), "%"))
+
+diff_cfp <- toa_original[indices_cfp_relleno] - toa_from_cfp[indices_cfp_relleno]
+print(summary(diff_cfp))
+table(diff_cfp)
+message(paste("Número de coincidencias exactas cfp:", sum(diff_cfp == 0, na.rm = TRUE), "de", sum(valid_indices_cfp)),
+paste(". Porcentaje de coincidencias exactas cfp:", round(sum(diff_cfp == 0, na.rm = TRUE) / num_from_cfp_relleno * 100, 2), "%"))
+
+# (Esto es solo para verificar qué tan bien replicamos el original)
+diff_final <- toa_original - TOA_derivado
+coincidencias_finales_exactas <- sum(diff_final == 0, na.rm = TRUE) # na.rm por si acaso, aunque no deberían quedar NAs
+porcentaje_final_exacto <- (coincidencias_finales_exactas / n_total_obs) * 100
+
+message(paste("Número de coincidencias exactas:", coincidencias_finales_exactas, "de", n_total_obs,
+              paste0("(", round(porcentaje_final_exacto, 2), "%)")))
+message("Resumen de diferencias (TOA_derivado - toa_original):")
+print(summary(diff_final))
+print(table(diff_final, useNA="ifany"))
+
+# ------------------------- Guardamos TOA_derivado ------------------------------------------
+
+# Construir objeto con TOA_derivado y su origen
+TOA_derivado_full <- data.frame(
+  global_id = global_id,
+  specific_id = specific_id,
+  TOA_derivado = TOA_derivado,
+  origen = ifelse(!is.na(toa_from_fpt), "fptX",
+                  ifelse(!is.na(toa_from_cfp), "cfp", "none"))
+)
+
+# Guardar como .csv y .rds en la carpeta principal
+write.csv(TOA_derivado_full, file.path(INTERMEDIATE, "TOA_derivado_full.csv"), row.names = FALSE)
+saveRDS(TOA_derivado_full,   file.path(INTERMEDIATE, "TOA_derivado_full.rds"))
