@@ -7,7 +7,9 @@
 # (cigarette peers -> e-cig adoption).
 # ================================================================
 
-suppressMessages({ library(sandwich); library(lmtest) })
+suppressMessages({
+  library(sandwich); library(lmtest); library(lme4)
+})
 source(file.path(here::here(), "R", "00-config.R"))
 
 adv <- readRDS(file.path(INTERMEDIATE, "advance_panel.rds"))
@@ -54,6 +56,78 @@ row_of <- function(label, r, term) {
   z <- r$ct[term,]
   data.frame(model=label, term=term, OR=round(exp(z["Estimate"]),3),
              p=signif(z["Pr(>|z|)"],3), n=r$n, ev=r$events, aic=round(r$aic,1))
+}
+
+# ---- glmer-based fitter for Model C (recurrent disadoption) ----
+fit_glmer <- function(formula, data) {
+  fit <- lme4::glmer(formula, data = data, family = binomial("logit"),
+                      control = lme4::glmerControl(
+                        optimizer = "bobyqa",
+                        optCtrl   = list(maxfun = 4e5)))
+  ss <- summary(fit)
+  ct <- ss$coefficients
+  vc <- lme4::VarCorr(fit)
+  sigma2_u <- as.numeric(vc[[1]][1, 1])
+  icc      <- sigma2_u / (sigma2_u + (pi^2)/3)
+  conv_msg <- if (length(fit@optinfo$conv$lme4$messages) == 0) "OK"
+              else paste(fit@optinfo$conv$lme4$messages, collapse = ";")
+  list(ct = ct, n = nobs(fit),
+       events = sum(model.frame(fit)[[1]]),
+       aic = AIC(fit), sigma2_u = sigma2_u, icc = icc,
+       conv = conv_msg)
+}
+
+row_of_glmer <- function(label, r, term) {
+  if (!term %in% rownames(r$ct)) {
+    return(data.frame(model = label, term = term,
+                      OR = NA_real_, p = NA_real_,
+                      n = r$n, ev = r$events, aic = round(r$aic, 1),
+                      sigma2_u = round(r$sigma2_u, 3),
+                      icc = round(r$icc, 3),
+                      conv = r$conv,
+                      stringsAsFactors = FALSE))
+  }
+  z <- r$ct[term, ]
+  data.frame(model = label, term = term,
+             OR = round(exp(z["Estimate"]), 3),
+             p  = signif(z["Pr(>|z|)"], 3),
+             n  = r$n, ev = r$events, aic = round(r$aic, 1),
+             sigma2_u = round(r$sigma2_u, 3),
+             icc = round(r$icc, 3),
+             conv = r$conv,
+             stringsAsFactors = FALSE)
+}
+
+run_battery_glmer <- function(pan, label) {
+  pan$wave <- factor(pan$wave); pan$schoolid <- factor(pan$schoolid)
+  out <- list(
+    F0   = fit_glmer(event ~ wave + schoolid + (1 | record_id), pan),
+    A1   = fit_glmer(event ~ wave + schoolid + E + (1 | record_id), pan),
+    C1   = fit_glmer(event ~ wave + schoolid + has + (1 | record_id), pan),
+    D1   = fit_glmer(event ~ wave + schoolid + Nc + (1 | record_id), pan),
+    H    = fit_glmer(event ~ wave + schoolid + Emax + (1 | record_id), pan),
+    ED   = fit_glmer(event ~ wave + schoolid + EDis + (1 | record_id), pan),
+    V1   = fit_glmer(event ~ wave + schoolid + V + (1 | record_id), pan),
+    V2   = fit_glmer(event ~ wave + schoolid + V + E + (1 | record_id), pan),
+    AED  = fit_glmer(event ~ wave + schoolid + E + EDis + (1 | record_id), pan),
+    VAED = fit_glmer(event ~ wave + schoolid + V + E + EDis + (1 | record_id), pan)
+  )
+  rbind(
+    row_of_glmer(paste(label,"F0"),   out$F0,  "(Intercept)"),
+    row_of_glmer(paste(label,"A1"),   out$A1,  "E"),
+    row_of_glmer(paste(label,"C1"),   out$C1,  "has"),
+    row_of_glmer(paste(label,"D1"),   out$D1,  "Nc"),
+    row_of_glmer(paste(label,"H"),    out$H,   "Emax"),
+    row_of_glmer(paste(label,"ED"),   out$ED,  "EDis"),
+    row_of_glmer(paste(label,"V1"),   out$V1,  "V"),
+    row_of_glmer(paste(label,"V2:V"), out$V2,  "V"),
+    row_of_glmer(paste(label,"V2:E"), out$V2,  "E"),
+    row_of_glmer(paste(label,"AED:E"), out$AED, "E"),
+    row_of_glmer(paste(label,"AED:ED"),out$AED, "EDis"),
+    row_of_glmer(paste(label,"VAED:V"), out$VAED, "V"),
+    row_of_glmer(paste(label,"VAED:E"), out$VAED, "E"),
+    row_of_glmer(paste(label,"VAED:ED"),out$VAED, "EDis")
+  )
 }
 
 run_battery <- function(pan, label) {
@@ -123,8 +197,11 @@ panB <- data.frame(event=as.integer(disB$ecig==0), wave=disB$wave, schoolid=disB
                    Emax=disB$Emax_prev, EDis=disB$EDis_prev, V=disB$V_prev)
 
 # Disadoption C (recurrent)
+# Model C uses glmer with (1 | record_id); see docs/disadoption-study.md §2.7.
 disC <- adv[!is.na(adv$ecig_prev) & adv$ecig_prev == 1 & !is.na(adv$ecig), ]
-panC <- data.frame(event=as.integer(disC$ecig==0), wave=disC$wave, schoolid=disC$schoolid,
+panC <- data.frame(event=as.integer(disC$ecig==0),
+                   record_id=disC$record_id,
+                   wave=disC$wave, schoolid=disC$schoolid,
                    E=disC$E_prev, has=disC$has_prev, Nc=disC$Nc_prev,
                    Emax=disC$Emax_prev, EDis=disC$EDis_prev, V=disC$V_prev)
 
@@ -132,7 +209,7 @@ results <- list(
   adv_adopt = run_battery(ad_pan, "ADV-adopt"),
   adv_disA  = run_battery(panA, "ADV-disA"),
   adv_disB  = run_battery(panB, "ADV-disB"),
-  adv_disC  = run_battery(panC, "ADV-disC")
+  adv_disC  = run_battery_glmer(panC, "ADV-disC")
 )
 
 # Positive control: cigarettes

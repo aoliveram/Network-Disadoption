@@ -26,6 +26,7 @@ suppressMessages({
   library(sandwich)
   library(lmtest)
   library(Matrix)
+  library(lme4)
 })
 
 source(file.path(here::here(), "R", "00-config.R"))
@@ -58,6 +59,48 @@ row_of <- function(label, r, term) {
              n=r$n, ev=r$events, aic=round(r$aic,1))
 }
 TtN <- function() 10L
+
+# ---- glmer-based fitter for Model C (recurrent disadoption) ----
+# Adds (1 | i) random intercept per individual. Subject-specific OR.
+# AIC is comparable in family but not 1:1 with GLM AIC.
+fit_glmer <- function(formula, data) {
+  fit <- lme4::glmer(formula, data = data, family = binomial("logit"),
+                      control = lme4::glmerControl(
+                        optimizer = "bobyqa",
+                        optCtrl   = list(maxfun = 4e5)))
+  ss <- summary(fit)
+  ct <- ss$coefficients
+  vc <- lme4::VarCorr(fit)
+  sigma2_u <- as.numeric(vc[[1]][1, 1])
+  icc      <- sigma2_u / (sigma2_u + (pi^2)/3)
+  conv_msg <- if (length(fit@optinfo$conv$lme4$messages) == 0) "OK"
+              else paste(fit@optinfo$conv$lme4$messages, collapse = ";")
+  list(ct = ct, n = nobs(fit),
+       events = sum(model.frame(fit)[[1]]),
+       aic = AIC(fit), sigma2_u = sigma2_u, icc = icc,
+       conv = conv_msg)
+}
+
+row_of_glmer <- function(label, r, term) {
+  if (!term %in% rownames(r$ct)) {
+    return(data.frame(model = label, term = term,
+                      OR = NA_real_, p = NA_real_,
+                      n = r$n, ev = r$events, aic = round(r$aic, 1),
+                      sigma2_u = round(r$sigma2_u, 3),
+                      icc = round(r$icc, 3),
+                      conv = r$conv,
+                      stringsAsFactors = FALSE))
+  }
+  z <- r$ct[term, ]
+  data.frame(model = label, term = term,
+             OR = round(exp(z["Estimate"]), 3),
+             p  = signif(z["Pr(>|z|)"], 3),
+             n  = r$n, ev = r$events, aic = round(r$aic, 1),
+             sigma2_u = round(r$sigma2_u, 3),
+             icc = round(r$icc, 3),
+             conv = r$conv,
+             stringsAsFactors = FALSE)
+}
 
 # ---- core compute on panel object ----
 compute_panel_predictors <- function(po) {
@@ -314,6 +357,83 @@ run_mod_disadopt_battery <- function(pan, label, with_cov = FALSE) {
   )
 }
 
+# ---- glmer-based battery runners for Model C only (random intercept per i) ----
+run_PC_disadopt_battery_glmer <- function(pan, label, with_cov = FALSE) {
+  pan$t <- factor(pan$t); pan$community_fe <- factor(pan$village)
+  if (with_cov) pan <- merge(pan, covar, by="i", all.x = TRUE)
+  base <- if (with_cov) "+ children + age + agemar" else ""
+  fmla <- function(x) as.formula(
+    sprintf("event ~ t + community_fe + %s + (1 | i) %s", x, base))
+  out <- list(
+    F0   = fit_glmer(if (with_cov)
+                       event ~ t + community_fe + children + age + agemar + (1|i)
+                     else event ~ t + community_fe + (1|i), pan),
+    A1   = fit_glmer(fmla("E_PC"), pan),
+    C1   = fit_glmer(fmla("has_PC"), pan),
+    D1   = fit_glmer(fmla("Nc_PC"), pan),
+    H    = fit_glmer(fmla("Emax_PC"), pan),
+    ED   = fit_glmer(fmla("EDis_PC"), pan),
+    V1   = fit_glmer(fmla("V_PC"), pan),
+    V2   = fit_glmer(fmla("V_PC + E_PC"), pan),
+    AED  = fit_glmer(fmla("E_PC + EDis_PC"), pan),
+    VAED = fit_glmer(fmla("V_PC + E_PC + EDis_PC"), pan)
+  )
+  rbind(
+    row_of_glmer(paste(label,"F0"),  out$F0,  "(Intercept)"),
+    row_of_glmer(paste(label,"A1"),  out$A1,  "E_PC"),
+    row_of_glmer(paste(label,"C1"),  out$C1,  "has_PC"),
+    row_of_glmer(paste(label,"D1"),  out$D1,  "Nc_PC"),
+    row_of_glmer(paste(label,"H"),   out$H,   "Emax_PC"),
+    row_of_glmer(paste(label,"ED"),  out$ED,  "EDis_PC"),
+    row_of_glmer(paste(label,"V1"),  out$V1,  "V_PC"),
+    row_of_glmer(paste(label,"V2:V"),out$V2,  "V_PC"),
+    row_of_glmer(paste(label,"V2:E"),out$V2,  "E_PC"),
+    row_of_glmer(paste(label,"AED:E"), out$AED, "E_PC"),
+    row_of_glmer(paste(label,"AED:ED"),out$AED, "EDis_PC"),
+    row_of_glmer(paste(label,"VAED:V"),out$VAED, "V_PC"),
+    row_of_glmer(paste(label,"VAED:E"),out$VAED, "E_PC"),
+    row_of_glmer(paste(label,"VAED:ED"),out$VAED, "EDis_PC")
+  )
+}
+
+run_mod_disadopt_battery_glmer <- function(pan, label, with_cov = FALSE) {
+  pan$t <- factor(pan$t); pan$community_fe <- factor(pan$village)
+  if (with_cov) pan <- merge(pan, covar, by="i", all.x = TRUE)
+  base <- if (with_cov) "+ children + age + agemar" else ""
+  fmla <- function(x) as.formula(
+    sprintf("event ~ t + community_fe + %s + (1 | i) %s", x, base))
+  out <- list(
+    F0   = fit_glmer(if (with_cov)
+                       event ~ t + community_fe + children + age + agemar + (1|i)
+                     else event ~ t + community_fe + (1|i), pan),
+    A1   = fit_glmer(fmla("E"), pan),
+    C1   = fit_glmer(fmla("has"), pan),
+    D1   = fit_glmer(fmla("Nc"), pan),
+    H    = fit_glmer(fmla("Emax"), pan),
+    ED   = fit_glmer(fmla("EDis"), pan),
+    V1   = fit_glmer(fmla("V"), pan),
+    V2   = fit_glmer(fmla("V + E"), pan),
+    AED  = fit_glmer(fmla("E + EDis"), pan),
+    VAED = fit_glmer(fmla("V + E + EDis"), pan)
+  )
+  rbind(
+    row_of_glmer(paste(label,"F0"),  out$F0,  "(Intercept)"),
+    row_of_glmer(paste(label,"A1"),  out$A1,  "E"),
+    row_of_glmer(paste(label,"C1"),  out$C1,  "has"),
+    row_of_glmer(paste(label,"D1"),  out$D1,  "Nc"),
+    row_of_glmer(paste(label,"H"),   out$H,   "Emax"),
+    row_of_glmer(paste(label,"ED"),  out$ED,  "EDis"),
+    row_of_glmer(paste(label,"V1"),  out$V1,  "V"),
+    row_of_glmer(paste(label,"V2:V"),out$V2,  "V"),
+    row_of_glmer(paste(label,"V2:E"),out$V2,  "E"),
+    row_of_glmer(paste(label,"AED:E"), out$AED, "E"),
+    row_of_glmer(paste(label,"AED:ED"),out$AED, "EDis"),
+    row_of_glmer(paste(label,"VAED:V"),out$VAED, "V"),
+    row_of_glmer(paste(label,"VAED:E"),out$VAED, "E"),
+    row_of_glmer(paste(label,"VAED:ED"),out$VAED, "EDis")
+  )
+}
+
 # ================================================================
 # load both panels
 # ================================================================
@@ -426,6 +546,11 @@ print(results$kfp_mod_adopt_cov, row.names=FALSE)
 
 # ================================================================
 # DISADOPTION PC: canonical & fpt-only, with/without cov
+#
+# Models A and B: GLM with cluster-robust SE (run_PC_disadopt_battery)
+# Model C       : glmer with random intercept (1 | i) per individual
+#                 (run_PC_disadopt_battery_glmer). See docs/disadoption-study.md
+#                 §2.7 for the rationale (recurrent events warrant RE).
 # ================================================================
 for (kind in c("A","B","C")) {
   for (panel_name in c("can","fpt")) {
@@ -434,21 +559,32 @@ for (kind in c("A","B","C")) {
     if (is.null(pan) || nrow(pan) == 0) next
     label <- sprintf("PC dis%s [%s]", kind, panel_name)
     cat(sprintf("\n==== %s : n=%d events=%d ====\n", label, nrow(pan), sum(pan$event)))
-    results[[sprintf("dis%s_PC_%s", kind, panel_name)]]    <- run_PC_disadopt_battery(pan, label, FALSE)
-    results[[sprintf("dis%s_PC_%s_cov", kind, panel_name)]]<- run_PC_disadopt_battery(pan, paste(label,"+cov"), TRUE)
+    if (kind == "C") {
+      results[[sprintf("dis%s_PC_%s", kind, panel_name)]]    <- run_PC_disadopt_battery_glmer(pan, label, FALSE)
+      results[[sprintf("dis%s_PC_%s_cov", kind, panel_name)]]<- run_PC_disadopt_battery_glmer(pan, paste(label,"+cov"), TRUE)
+    } else {
+      results[[sprintf("dis%s_PC_%s", kind, panel_name)]]    <- run_PC_disadopt_battery(pan, label, FALSE)
+      results[[sprintf("dis%s_PC_%s_cov", kind, panel_name)]]<- run_PC_disadopt_battery(pan, paste(label,"+cov"), TRUE)
+    }
     print(results[[sprintf("dis%s_PC_%s", kind, panel_name)]], row.names=FALSE)
   }
 }
 
 # ================================================================
 # DISADOPTION modern6: canonical only
+# Model C uses glmer + (1 | i); A and B use GLM cluster-robust.
 # ================================================================
 for (kind in c("A","B","C")) {
   pan <- build_dis_modern(pp_can, kind)
   label <- sprintf("mod6 dis%s [can]", kind)
   cat(sprintf("\n==== %s : n=%d events=%d ====\n", label, nrow(pan), sum(pan$event)))
-  results[[sprintf("dis%s_mod_can", kind)]]    <- run_mod_disadopt_battery(pan, label, FALSE)
-  results[[sprintf("dis%s_mod_can_cov", kind)]]<- run_mod_disadopt_battery(pan, paste(label,"+cov"), TRUE)
+  if (kind == "C") {
+    results[[sprintf("dis%s_mod_can", kind)]]    <- run_mod_disadopt_battery_glmer(pan, label, FALSE)
+    results[[sprintf("dis%s_mod_can_cov", kind)]]<- run_mod_disadopt_battery_glmer(pan, paste(label,"+cov"), TRUE)
+  } else {
+    results[[sprintf("dis%s_mod_can", kind)]]    <- run_mod_disadopt_battery(pan, label, FALSE)
+    results[[sprintf("dis%s_mod_can_cov", kind)]]<- run_mod_disadopt_battery(pan, paste(label,"+cov"), TRUE)
+  }
 }
 
 saveRDS(results, file.path(odir, "kfp_all_results.rds"))
