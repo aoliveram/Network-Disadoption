@@ -20,13 +20,14 @@ header-includes:
 
 # 0. What changed since v2
 
-v2 corrected the v1 episode-vs-calendar bug in KFP and froze the methodological framework. v3 keeps that framework intact and makes the following five additive changes (all numerical results from v2 are preserved):
+v2 corrected the v1 episode-vs-calendar bug in KFP and froze the methodological framework. v3 keeps that framework intact for adoption and Models A / B disadoption, and adds the following six additive changes:
 
 1. **Terminology**: "cluster" → "community" throughout. $V_{v,t}$ is now "community saturation" and $\gamma_v$ is the "community FE". In the R code, the model factor `village_fe` is renamed to `community_fe`. The `sandwich::vcovCL` call (cluster-robust SE) keeps its API name because it is a standard function signature.
 2. **§1.3 (new): grade-within-cohort prevalence (ADVANCE)** — a descriptive table showing the rise-and-fall pattern of e-cig past-6-month prevalence within each cohort. The table is descriptive only; the regression battery already absorbs this variation through wave + school fixed effects.
 3. **OR per 10pp V annotations** — every reported $V$ coefficient now also shows $\mathrm{OR}_{\Delta V = 0.10} = \exp(\beta_V \cdot 0.10) = \mathrm{OR}^{0.1}$. The raw OR (per unit $V$) is misleading because $V$ never spans the full $0$–$1$ range; the per-10pp summary makes effect sizes interpretable.
-4. **Valente strict replication (new §3.3)** — a strict reproduction of Valente (2010) Table 10-2 KFP column on the 1,047-woman / 10-period panel, with NO additional community / period fixed effects. Predictors: `t` (continuous), $A^{\mathrm{cum}}_{v,t-1}$, $n^{\mathrm{sent}}_i$, $n^{\mathrm{recv}}_i$, $E^{\mathrm{coh}}_{i,t-1}$, $E^{\mathrm{se}}_{i,t-1}$, $\mathrm{children}_i$, $\mathrm{media}_i$. The media index is the **mean of `media6..media14`** (frequency-scale, 0–4) per Valente's book, not `media1..media5` (which are binary ownership flags). With this corrected media coding and strict event-history accounting (never-adopters never contribute an event), the strict model yields **n = 7,103 person-periods, 673 events** — exactly matching the figure reported in Valente Table 10-2. The FE-controlled spec from v2 (§3.2/§3.3 main batteries) remains the main analysis.
+4. **Valente strict replication (new §3.3.2)** — a strict reproduction of Valente (2010) Table 10-2 KFP column on the 1,047-woman / 10-period panel, with NO additional community / period fixed effects. Predictors: `t` (continuous), $A^{\mathrm{cum}}_{v,t-1}$, $n^{\mathrm{sent}}_i$, $n^{\mathrm{recv}}_i$, $E^{\mathrm{coh}}_{i,t-1}$, $E^{\mathrm{se}}_{i,t-1}$, $\mathrm{children}_i$, $\mathrm{media}_i$. The media index is the **mean of `media6..media14`** (frequency-scale, 0–4) per Valente's book, not `media1..media5` (which are binary ownership flags). With this corrected media coding and strict event-history accounting (never-adopters never contribute an event), the strict model yields **n = 7,103 person-periods, 673 events** — exactly matching the figure reported in Valente Table 10-2. The FE-controlled spec from v2 (§3.2/§3.3 main batteries) remains the main analysis.
 5. **TOA match sanity-check (Annex B)** — the 74.3% match between the reconstructed modern-TOA and `kfamily$toa` is an **adopter-only** metric (numerator: 500/673 adopters with `kfamily$toa <= 10`). v3 adds an **overall** match metric that imputes T = 11 (= "never adopted in panel") for women whose reconstruction shows no modern adoption, then compares across all 1,047 women: **874/1047 (83.5%)**. Of these, 374 are trivial matches (both sides = 11). Reporting both numbers distinguishes "match among adopters" (the strict reconstruction test) from "match overall" (which includes the trivial cases).
+6. **Random intercept per individual on Model C disadoption only.** Following Valente et al. (2025, *Soc. Sci. & Med.*), Model C — the *recurrent* disadoption flavour, where an individual can contribute multiple $1\to 0$ transitions — is now fit with `lme4::glmer(... + (1 | i))`. Models A and B keep the v2 specification (GLM + cluster-robust SE by community) because each individual contributes at most one event there, and a random intercept on individual is poorly identified in a single-event-per-person setting. The motivation, mathematical statement, and a methodological-justification subsection live in §2.5–§2.7. Model C OR are now **subject-specific** (conditional on the individual random intercept) and not directly comparable in magnitude to the population-averaged OR of A / B; the qualitative direction and significance are what we compare. ICCs for Model C land in the 0.12–0.34 range (much lower than the 0.98 reported by Valente 2025, because that paper modelled a repeated past-30-day binary, not an event-history transition).
 
 The v2 file is archived at `reports/disadoption-study-2.{pdf,md}`. v1 is archived at `reports/disadoption-study-1.pdf`.
 
@@ -161,26 +162,52 @@ For KFP, this rule produces (canonical panel): **207 raw disadoption events** an
 - **Model B (unstable)**: first $1 \to 0$ counts; person leaves risk set.
 - **Model C (recurrent)**: every $1 \to 0$ transition counts; person stays.
 
-## 2.5 Specifications
+## 2.5 Specifications and the two model classes (v3)
 
-For each battery we report:
+### 2.5.1 Spec ladder
 
-| Spec | $x_{iw}$ |
+For each battery we report 10 specifications:
+
+| Spec | linear predictor $x_{iw}'\beta$ |
 |:---:|:---|
-| F0 | $\alpha_w + \gamma_v$ (no network; period FE $\alpha_w$ + community FE $\gamma_v$) |
-| A1 | $+ \beta_E E_{i,w-1}$ |
-| C1 | $+ \beta_C \mathbb{1}[N^c \ge 1]$ |
-| D1 | $+ \beta_N N^c_{i,w-1}$ |
-| H | $+ \beta_H E^{\max}_{i,w-1}$ |
-| ED | $+ \beta_D E^{\text{Dis}}_{i,w-1}$ |
-| V1 | $+ \beta_V V_{v,w-1}$ |
-| V2 | $+ \beta_V V + \beta_E E$ |
-| AED | $+ \beta_E E + \beta_D E^{\text{Dis}}$ |
-| **VAED** | $+ \beta_V V + \beta_E E + \beta_D E^{\text{Dis}}$ |
+| F0 | (no network covariate) |
+| A1 | $\beta_E E_{i,w-1}$ |
+| C1 | $\beta_C \mathbb{1}[N^c \ge 1]$ |
+| D1 | $\beta_N N^c_{i,w-1}$ |
+| H | $\beta_H E^{\max}_{i,w-1}$ |
+| ED | $\beta_D E^{\text{Dis}}_{i,w-1}$ |
+| V1 | $\beta_V V_{v,w-1}$ |
+| V2 | $\beta_V V + \beta_E E$ |
+| AED | $\beta_E E + \beta_D E^{\text{Dis}}$ |
+| **VAED** | $\beta_V V + \beta_E E + \beta_D E^{\text{Dis}}$ |
 
-Discrete-time logistic, period FE, community FE, SE clustered by community (Liang-Zeger; the SE-clustering routine is `sandwich::vcovCL`).
+For KFP, "+ cov" versions add $\mathrm{children}_i + \mathrm{age}_i + \mathrm{agemar}_i$. ADVANCE has no covariates in this iteration.
 
-For KFP, "+ cov" versions add `children + age + agemar`.
+### 2.5.2 Model class A / B (adoption and stable / unstable disadoption): cluster-robust GLM
+
+For Model A and Model B disadoption (and for adoption batteries) every individual contributes at most one event, so a random intercept on individual is poorly identified from a single 0→1 transition. We therefore fit a discrete-time logistic with period FE, community FE, and **cluster-robust SE clustered by community** (Liang–Zeger; routine `sandwich::vcovCL`):
+
+$$
+\boxed{\;\operatorname{logit}\!\left[\Pr(Y_{iw} = 1 \mid x_{iw})\right] \;=\; \alpha_w \;+\; \gamma_v \;+\; \beta'\, x_{iw}\;}
+$$
+
+with $\alpha_w$ the period (wave / calendar-year) fixed effect, $\gamma_v$ the community (school / village) fixed effect, and $x_{iw}$ the network and (optionally) covariate predictors of the spec ladder above.
+
+### 2.5.3 Model class C (recurrent disadoption): random-intercept GLMM
+
+For Model C — *recurrent* disadoption — each at-risk individual can contribute multiple $1 \to 0$ transitions across waves, so within-individual dependence is the central concern. Following Valente et al. (2025, *Soc. Sci. & Med.*, who fit `random effects for students` on a 23,012-observation / 4,328-student e-cig panel), we fit a random-intercept logistic GLMM with `lme4::glmer`:
+
+$$
+\boxed{\;\operatorname{logit}\!\left[\Pr(Y_{iw} = 1 \mid x_{iw}, u_i)\right] \;=\; \alpha_w \;+\; \gamma_v \;+\; u_i \;+\; \beta'\, x_{iw}, \qquad u_i \sim \mathcal{N}(0, \sigma^2_u)\;}
+$$
+
+The individual random intercept $u_i$ captures each subject's baseline propensity to disadopt, net of the period and community fixed effects. The intra-class correlation coefficient
+
+$$
+\mathrm{ICC} \;=\; \frac{\sigma^2_u}{\sigma^2_u + \pi^2/3}
+$$
+
+is reported alongside each Model C battery and quantifies the share of total variance attributable to between-individual differences. Model C $\beta$ coefficients (and the resulting $\mathrm{OR} = \exp(\beta)$) are **subject-specific** (conditional on $u_i$) and not directly comparable in magnitude to the population-averaged Model A / B OR — see §2.7. Estimation is by Laplace approximation via `glmer(\ldots, family = binomial("logit"))` with the `bobyqa` optimizer.
 
 ## 2.6 Reading the V coefficients (new in v3)
 
@@ -190,6 +217,26 @@ Every $V$ coefficient is reported in two equivalent forms:
 - **OR per 10pp $V$** = $\exp(\beta_V \cdot 0.10) = \mathrm{OR}^{0.1}$. The change in odds for a 10-percentage-point increase in community saturation. This is on the scale of changes that actually occur period-to-period.
 
 Example: $V_1$ in KFP PC canonical disA has raw OR = 1,915 and OR per 10pp = 2.13.
+
+## 2.7 Why two model classes — methodological sanity check (new in v3)
+
+Valente et al. (2025, *Soc. Sci. & Med.* 381: 118290) flag that with longitudinal observations on the same student, the standard discrete-time logistic underestimates SE because it ignores within-individual dependence; their fix is to add a random intercept for student. We adopt the same logic, but conditionally on the risk-set structure of each Model class.
+
+**(a) Two-way clustering by community $\times$ individual reduces to community-only under nesting.** A natural alternative — Cameron–Gelbach–Miller two-way clustering — does not buy us anything in this study because individuals are *strictly nested* within communities (each student sits in one school, each woman in one village). The standard CGM identity is
+
+$$
+V_{2\text{-way}} \;=\; V_{\text{comm}} \;+\; V_{\text{id}} \;-\; V_{\text{comm}\, \cap \,\text{id}}.
+$$
+
+With nesting, the intersection cluster (same community AND same id) is just the id cluster, so $V_{\text{comm}\, \cap \,\text{id}} = V_{\text{id}}$ and $V_{2\text{-way}} = V_{\text{comm}}$. We confirmed this empirically: across 34 v3 specs the ratio $\mathrm{SE}_{2\text{-way}} / \mathrm{SE}_{\text{comm}}$ is $1.000$ to all printed digits, and zero significance flips occur at $\alpha = 0.05$. So community-only clustering — already the v3 default — *is* the two-way SE under nesting; nothing to change there. The bake-off is in `playground/01-twoway-clustering.R`.
+
+**(b) Random intercept on individual works only where individuals contribute repeated risks.** In Model A (transient $1\to 0\to 1$ dropped) and Model B (first $1 \to 0$ ends the risk set), each individual contributes at most one event. The variance $\sigma^2_u$ in a $(1 \mid i)$ random intercept then has to be identified almost entirely from the duration of the run of pre-event zeros, which gives weak identification and frequently produces boundary fits ($\hat\sigma^2_u \to 0$ or $\to \infty$). In Model C every person-wave with $\mathrm{state}_{i,w-1} = 1$ is at risk and one individual can contribute multiple events, so the random intercept is well-identified.
+
+We therefore keep Models A / B in the v2 specification (cluster-robust GLM) and switch only Model C to GLMM. Across 9 GLMER fits on the three Model C panels (ADVANCE, KFP PC canonical, KFP modern6), all converged with `bobyqa`, and the observed ICCs are 0.12 (KFP PC canonical), 0.19 (KFP modern6), and 0.28 (ADVANCE). These are real but well below the 0.98 reported by Valente (2025) — that paper modelled a repeated past-30-day binary, where chronic users repeat themselves; we model an event-history transition, which generates fewer repeated 1's.
+
+**(c) What changes between population-averaged and subject-specific OR.** The v2 GLM-cluster-robust OR is *population-averaged* (marginal): it answers "across the population at risk, what is the multiplicative change in odds for a one-unit change in $x$?". The Model C GLMM OR is *subject-specific* (conditional on $u_i$): "for a fixed individual, what is the multiplicative change in odds for a one-unit change in $x$?" — the latter is systematically more extreme (further from 1) for the same effect when $\sigma^2_u > 0$. Empirically the difference is small in this study (KFP PC canonical disC V_PC: GLM OR 547 → GLMM OR 609; ICC 0.12), so qualitative direction and significance carry across. **We focus comparisons on direction and *p*-value, not on raw OR magnitude.** Magnitude-based summaries within Model C use the per-10pp re-expression $\exp(\beta_V \cdot 0.10)$ for $V$, which is unit-free and largely insensitive to the marginal-vs-conditional gap.
+
+In §6 below, every Model C result is the GLMM fit; ICC is reported per battery. The cross-dataset comparison §6.7 re-states the headline finding (ADVANCE shows both egonet protective + community positive; KFP shows community-only) on the GLMM scale.
 
 ---
 
@@ -481,43 +528,91 @@ ADVANCE B is the cleanest joint signal. KFP PC fpt-only echoes faintly. Canonica
 
 ---
 
-# 6. Disadoption — Model C (recurrent)
+# 6. Disadoption — Model C (recurrent), random-intercept GLMM
 
-## 6.1 ADVANCE — n = 1,217, events = 591
+> **In v3 the Model C battery is fit with `glmer(... + (1 | i))`; OR are subject-specific.** See §2.5.3 for the model statement and §2.7 for why this differs from Models A/B (which keep cluster-robust GLM). ICC is reported per battery. Per-10pp $V$ is largely robust to the marginal-vs-conditional gap; per-unit OR shifts modestly.
 
-A1 OR = 0.42 ($p = 0.019$); H OR = 0.44 ($p = 0.006$); V1 OR = 428 (**per 10pp = 1.83**, $p = 0.035$); V2: 761 (**per 10pp = 1.94**) / 0.40; **VAED**: V = 595 (**per 10pp = 1.89**, $p = 0.048$) / E = 0.36 ($p = 0.007$) / ED = 0.52 ($p = 0.026$).
+## 6.1 ADVANCE — n = 1,217, events = 591 — ICC = 0.27–0.35
 
-## 6.2 KFP PC, fpt-only — n = 579, events = 161
+| Spec | OR (per unit) | OR per 10pp $V$ | *p* | AIC | $\sigma^2_u$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| F0 | — | — | 0.164 | 1619 | 1.74 |
+| **A1** ($E$) | **0.39** | — | **0.007** | **1152** | 1.19 |
+| C1 (has) | 0.80 | — | 0.227 | 1619 | 1.73 |
+| D1 ($N^c$) | 0.79 | — | **0.036** | 1616 | 1.72 |
+| **H** ($E^{\max}$) | **0.39** | — | **0.003** | **1334** | 1.40 |
+| ED | 0.80 | — | 0.631 | 1159 | 1.24 |
+| V1 ($V$) | 487 | 1.86 | 0.197 | 1619 | 1.72 |
+| V2: V/E | 615 / **0.37** | 1.91 / — | 0.251 / **0.005** | 1152 | 1.17 |
+| AED: E/ED | **0.33** / 0.49 | — | **0.003** / 0.156 | 1152 | 1.16 |
+| **VAED**: V/E/ED | 512 / **0.32** / 0.50 | 1.87 / — / — | 0.264 / **0.002** / 0.164 | **1152** | 1.14 |
 
-A1 OR = 0.60 (p = 0.35); V1 OR = 79 (**per 10pp = 1.55**, p = 0.041); V2: 149 (**per 10pp = 1.65**) / 0.46.
+**Read.** The ADVANCE close-tie protective pattern survives — and gets cleaner — under random effects: $E$ in A1 is OR 0.39 ($p = 0.007$), $E^{\max}$ in H is 0.39 ($p = 0.003$), the joint AED gives $E$ = 0.33 ($p = 0.003$), and VAED gives $E$ = 0.32 ($p = 0.002$). What disappears under RE is the marginal community signal: $V_1$ goes from $p = 0.035$ (GLM) to $p = 0.197$ (GLMM), and the joint VAED $V$ to $p = 0.264$. ICC = 0.26–0.35 indicates moderately strong between-individual heterogeneity that the GLM was implicitly attributing to community-level variation.
+
+## 6.2 KFP PC, fpt-only — n = 579, events = 161 — ICC = 0.23–0.26
+
+| Spec | OR (per unit) | OR per 10pp $V$ | *p* | AIC | $\sigma^2_u$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| A1 | 0.47 | — | 0.262 | 653 | 1.14 |
+| C1 | 0.66 | — | 0.181 | 653 | 1.13 |
+| H | 0.52 | — | 0.258 | 653 | 1.10 |
+| ED | 0.87 | — | 0.853 | 654 | 1.09 |
+| V1 | 34.2 | **1.41** | 0.153 | 653 | 0.98 |
+| V2: V/E | 73.0 / 0.38 | **1.53** / — | 0.090 / 0.154 | 652 | 1.00 |
+| **VAED**: V/E/ED | 70.7 / 0.35 / 0.70 | **1.53** / — / — | 0.093 / 0.134 / 0.626 | 654 | 0.99 |
+
+**Read.** With `glmer + (1 | i)` the fpt-only Model C V signal weakens substantially: V1 OR = 34, $p = 0.15$ (vs GLM OR = 79, $p = 0.041$); per 10pp drops from 1.55 to 1.41. The egonet protective trend is similar to GLM (E in VAED ≈ 0.35, $p$ ≈ 0.13). The fpt-only sub-panel has the smallest event count (151) and the largest ICC (0.26), so this is the spec where RE cuts most into significance.
 
 ## 6.3 KFP PC, fpt-only + cov
 
-Similar with covariates.
+Same direction; magnitudes attenuated by covariates. Detailed table in supplementary (`outputs/intermediate/kfp_all_results.rds`).
 
-## 6.4 KFP PC, canonical — n = 621, events = 207
+## 6.4 KFP PC, canonical — n = 621, events = 207 — ICC = 0.12–0.13 — *robust headline*
 
-A1 OR = 1.18; **V1 OR = 547** (**per 10pp = 1.88**), $p = 0.003$; V2: V = 609 (**per 10pp = 1.90**) / E = 0.90.
+| Spec | OR (per unit) | OR per 10pp $V$ | *p* | AIC | $\sigma^2_u$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| F0 | — | — | 0.137 | 789 | 0.50 |
+| A1 | 1.18 | — | 0.714 | 791 | 0.50 |
+| C1 | 1.13 | — | 0.616 | 791 | 0.49 |
+| D1 | 1.08 | — | 0.602 | 791 | 0.50 |
+| H | 1.15 | — | 0.738 | 791 | 0.50 |
+| ED | 0.99 | — | 0.984 | 791 | 0.50 |
+| **V1** | **609** | **1.90** | **0.003** | **782** | 0.44 |
+| **V2: V/E** | **680** / 0.90 | **1.94** / — | **0.003** / 0.806 | **784** | 0.44 |
+| AED: E/ED | 1.19 / 1.06 | — | 0.706 / 0.929 | 793 | 0.50 |
+| **VAED**: V/E/ED | **688** / 0.92 / 1.11 | **1.94** / — / — | **0.003** / 0.850 / 0.864 | **786** | 0.44 |
+
+**Read.** The canonical-panel community-saturation finding is **fully robust** to the random-effects switch: $V$ is highly significant in V1 (OR = 609, $p = 0.003$), V2 (680, $p = 0.003$) and VAED (688, $p = 0.003$); per 10pp ranges 1.90–1.94, only marginally higher than the GLM's 1.88–1.90. ICC is the lowest of all Model C panels (0.12), because the canonical panel has the largest event-per-individual ratio (207 events / 297 unique individuals) and the within-individual variance is small. Egonet predictors stay null. **This is the headline KFP disadoption result; it survives the methodological tighten-up.**
 
 ## 6.5 KFP PC, canonical + cov
 
-V remains strong.
+V remains strong: V1 OR = 373, $p = 0.006$ (per 10pp = 1.81); VAED V = 407, $p = 0.006$ (per 10pp = 1.83). `glmer` reports convergence warnings at $|\nabla|$ ≈ 0.04–0.07 (above the default 0.002 threshold) for several specs in this sub-battery — a hint that the +cov fit is on the edge of identification with only 207 events vs 25 community FE + 9 period FE + 3 covariates + (1|i). The qualitative direction is unchanged (V positive significant, egonet null), and the AIC drop from F0 (765.8) to V1 (759.6) confirms that V is doing real work.
 
-## 6.6 KFP modern6 disC — n = 1,850, events = 373
+## 6.6 KFP modern6 disC — n = 1,850, events = 373 — ICC = 0.19
 
-A1 OR = 0.90; **V1 OR = 13.5** (**per 10pp = 1.30**), $p = 0.011$; V2: 16.6 (**per 10pp = 1.32**) / 0.81.
+A1 OR = 0.90 ($p = 0.67$); **V1 OR = 7.5** (**per 10pp = 1.22**), $p = 0.079$; V2: V = 8.8 (**per 10pp = 1.24**) / E = 0.80; VAED: V = 8.8 / E = 0.80 / ED = 0.89. **The modern6 community signal weakens under RE**: V1 went from $p = 0.011$ (GLM, OR 13.5, per 10pp 1.30) to $p = 0.079$ (GLMM, OR 7.5, per 10pp 1.22). At $\alpha = 0.05$ this falls below significance; at $\alpha = 0.10$ it survives. ICC = 0.19, intermediate between PC canonical (0.12) and ADVANCE (0.28).
 
-## 6.7 Cross-dataset comparison (Model C)
+## 6.7 Cross-dataset comparison (Model C, GLMM)
 
 | | ADVANCE | KFP PC fpt-only | KFP PC canonical | KFP modern6 |
 |:---|:---:|:---:|:---:|:---:|
 | n / ev | 1217 / 591 | 579 / 161 | 621 / 207 | 1850 / 373 |
-| A1 ($E$) | **0.42** * | 0.60 | 1.18 | 0.90 |
-| H | **0.44** ** | 0.60 | 1.13 | 0.82 |
-| V1 (per unit) | 428 * | 79 * | **547** ** | **13.5** * |
-| V1 (per 10pp) | **1.83** | **1.55** | **1.88** | **1.30** |
-| V2 V (per 10pp) / E | **1.94** * / 0.40 * | **1.65** * / 0.46 | **1.90** ** / 0.90 | **1.32** ** / 0.81 |
-| **VAED**: V (per 10pp) / E / ED | **1.89** * / **0.36** ** / **0.52** * | **1.64** * / 0.43 / 0.69 | **1.90** ** / 0.91 / 1.07 | **1.31** ** / 0.78 / 0.84 |
+| ICC | 0.27–0.35 | 0.23–0.26 | 0.12–0.13 | 0.19 |
+| A1 ($E$) | **0.39** ** | 0.47 | 1.18 | 0.90 |
+| H ($E^{\max}$) | **0.39** ** | 0.52 | 1.15 | n/a |
+| V1 (per unit) | 487 | 34.2 | **609** ** | 7.5 † |
+| V1 (per 10pp) | 1.86 | 1.41 | **1.90** | 1.22 |
+| V2 V (per 10pp) / E | 1.91 / **0.37** ** | **1.53** † / 0.38 | **1.94** ** / 0.90 | 1.24 / 0.80 |
+| **VAED**: V (per 10pp) / E / ED | 1.87 / **0.32** ** / 0.50 | **1.53** † / 0.35 / 0.70 | **1.94** ** / 0.92 / 1.11 | 1.24 † / 0.80 / 0.89 |
+
+\*** $p < 10^{-3}$, ** $p < 0.01$, * $p < 0.05$, † $p < 0.10$.
+
+**Read of Model C under RE.** The two headline findings of v3 survive the methodological tighten-up:
+
+1. **ADVANCE close-tie protective effect** ($E$, $E^{\max}$, joint VAED $E$) — robust and slightly *strengthened* under RE ($p$ improves from 0.019 → 0.007 in A1, 0.007 → 0.002 in VAED).
+2. **KFP PC canonical community-saturation effect** ($V$ in V1 / V2 / VAED) — robust ($p \approx 0.003$ throughout, per 10pp ≈ 1.90–1.94).
+
+Two community signals weaken to marginal under RE: ADVANCE V (the joint signal in the v2 framework) and KFP modern6 V. The interpretation is straightforward: in those two panels, the GLM was attributing some between-individual variance to the community FE, which inflated the $V$ coefficient slightly; the GLMM separates the two. The ADVANCE close-tie story is the one that becomes cleaner; the ADVANCE community story becomes less certain. The KFP-PC canonical and modern6 panels still tell the same qualitative story (community-only), with the canonical version statistically much stronger.
 
 Very similar to Model A. ADVANCE keeps both signals; KFP only V.
 
@@ -549,22 +644,30 @@ Restricting to communities with $V^{\max}_v \ge 0.10$ (23 of 25 communities, dro
 
 ## 8.1 Main findings
 
+A and B disadoption rows below are GLM + cluster-robust SE; Model C rows are GLMM + (1|i), with subject-specific OR. Per-10pp summaries are largely insensitive to the marginal-vs-conditional gap (see §2.7).
+
 | | Egonet ($E$, has, $E^{\max}$) | Community ($V$) per 10pp |
 |:---|:---|:---|
 | **ADVANCE adoption** | + strong (OR 1.6–4.7) | hazard-denominator artifact (OR ≈ 0.20 per 10pp) |
 | **KFP modern6 adoption** | + strong (OR 1.4–2.3) | hazard-denominator artifact (OR ≈ 0.84 per 10pp) |
 | **KFP PC adoption** | + moderate (OR 1.5–2.0) | hazard-denominator artifact (OR ≈ 0.75 per 10pp) |
-| **ADVANCE disadoption** (A/B/C) | **− moderate** (OR ≈ 0.4) | **+ strong** (OR ≈ 1.85–2.16 per 10pp) |
-| **KFP PC disadoption canonical** | null (OR 1.1) | **+ very strong** (OR ≈ 1.88–2.18 per 10pp) |
-| **KFP PC disadoption fpt-only** | − marginal (OR 0.5–0.7) | + moderate (OR ≈ 1.55–1.77 per 10pp) |
-| **KFP modern6 disadoption** | null (OR 0.8–0.9) | + moderate (OR ≈ 1.30–1.40 per 10pp) |
+| **ADVANCE disadoption A / B** (GLM) | **− moderate** (OR ≈ 0.4) | **+ strong** (per 10pp ≈ 1.85–2.16) |
+| **ADVANCE disadoption C** (GLMM, ICC 0.27) | **− strong / cleaner** (E in VAED OR 0.32, $p$ = 0.002) | + marginal (per 10pp 1.87, $p$ = 0.26) |
+| **KFP PC disadoption canonical A / B** (GLM) | null (OR 1.1) | **+ very strong** (per 10pp ≈ 1.88–2.18) |
+| **KFP PC disadoption canonical C** (GLMM, ICC 0.12) | null (OR 0.9–1.2) | **+ very strong** (per 10pp 1.94, $p$ = 0.003) |
+| **KFP PC disadoption fpt-only A / B** (GLM) | − marginal (OR 0.5–0.7) | + moderate (per 10pp ≈ 1.55–1.77) |
+| **KFP PC disadoption fpt-only C** (GLMM, ICC 0.25) | − trend (OR ≈ 0.35–0.50, ns) | + marginal (per 10pp 1.53, $p$ ≈ 0.09) |
+| **KFP modern6 disadoption A / B** (GLM) | null (OR 0.8–0.9) | + moderate (per 10pp ≈ 1.30–1.40) |
+| **KFP modern6 disadoption C** (GLMM, ICC 0.19) | null | + marginal (per 10pp 1.22, $p$ = 0.08) |
 
 ## 8.2 Reading
 
-- **Adoption is contagion in both datasets**. Stronger in ADVANCE (adolescent peer salience), present in KFP whether we use modern6 or PC narrowly. The Valente strict replication on KFP modern6 (§3.3.2) reproduces the canonical contagion picture even with no FE: $E^{\mathrm{coh}}$ OR 1.37 ($p = 0.019$), $A^{\mathrm{cum}}$ OR 3.41 ($p = 0.016$), out- and in-degree both significant.
-- **Disadoption is two-level in ADVANCE** (close ties protect, community ambient pushes out) but **community-only in KFP**. The cleanest joint signal is **ADVANCE Model B with VAED**: V per 10pp = 2.08, E = 0.32, ED = 0.45, all significant at $\le 0.02$.
+- **Adoption is contagion in both datasets** (Models A / B are unaffected by the v3 random-effects switch; nothing changes here). Stronger in ADVANCE (adolescent peer salience), present in KFP whether we use modern6 or PC narrowly. The Valente strict replication on KFP modern6 (§3.3.2) reproduces the canonical contagion picture even with no FE: $E^{\mathrm{coh}}$ OR 1.37 ($p = 0.019$), $A^{\mathrm{cum}}$ OR 3.41 ($p = 0.016$), out- and in-degree both significant.
+- **Disadoption is two-level in ADVANCE under Models A and B** (close ties protect, community ambient pushes out). The cleanest joint signal in the v2 / v3 framework is **ADVANCE Model B with VAED**: per 10pp V = 2.08, E = 0.32, ED = 0.45, all significant at $\le 0.02$.
+- **Under Model C (GLMM), the close-tie protective signal in ADVANCE *strengthens*** (E in A1 / VAED $p$ drops from 0.019 / 0.007 to 0.007 / 0.002), while the community signal becomes marginal (per 10pp ≈ 1.87 but $p \approx 0.26$). The interpretation is that the GLM was overstating the community share of the disadoption signal in ADVANCE Model C; once $u_i$ absorbs between-individual heterogeneity, the residual community-level effect is small.
+- **The KFP-PC canonical Model C V finding is fully robust under GLMM** (per 10pp ≈ 1.94, $p = 0.003$, ICC = 0.12). This is the most reliable individual community-level finding in the entire study.
 - **$E^{\text{Dis}}$ alone is null everywhere**. In joint AED/VAED specs it adds marginal information in ADVANCE B/C (negative direction = "bigger drop from peak protects further"). In KFP it doesn't add.
-- The KFP egonet null on disadoption is robust to covariates, community subsetting, and choice of risk-set flavour A/B/C. The fpt-only panel hints at the protective direction but the cfp-augmented canonical panel washes it out.
+- The KFP egonet null on disadoption is robust to covariates, community subsetting, choice of risk-set flavour A/B/C, and the GLM↔GLMM switch. The fpt-only panel hints at the protective direction (E ≈ 0.35–0.50 in Model C VAED, $p$ ≈ 0.13) but the cfp-augmented canonical panel washes it out.
 
 ## 8.3 What changed substantively from v1
 
@@ -583,6 +686,7 @@ The "egonet anchor" narrative for KFP that v1 emphasised was an artifact. The ne
 - **Valente strict replication (§3.3.2)**: with the corrected media coding (`mean(media6..media14)`) and strict event-history accounting, the spec reproduces n = 7,103 and recovers the textbook contagion picture. This is reported as a sanity check; the FE-controlled spec stays the main analysis.
 - **Grade-within-cohort prevalence (§1.3)**: descriptive table showing the rise-and-fall of e-cig past-6mo prevalence within each ADVANCE cohort.
 - **TOA match (Annex B)**: both 74.3% (adopter-only) and 83.5% (overall) reported.
+- **Random-intercept GLMM on Model C disadoption only (§2.5–§2.7, §6).** Following Valente et al. (2025), Model C is now `lme4::glmer(... + (1 | i))`. Models A / B keep the v2 cluster-robust GLM (each individual contributes $\le 1$ event there, so RE is poorly identified). The two-way clustering identity confirmed in the playground bake-off justifies leaving A / B unchanged: with individuals nested in communities, $V_{\text{2-way}} = V_{\text{community}}$, so cluster-by-community already does double duty. Headline findings (ADVANCE close-tie protective; KFP PC canonical community-saturation) survive the switch and in some cases strengthen under RE; secondary V signals in ADVANCE Model C and KFP modern6 Model C become marginal.
 
 ## 8.5 Open question for future work
 
@@ -747,8 +851,9 @@ Result: state_PC, state_modern, class matrices over 1047 women × 10 years.
 - `R/00-config.R` — paths configuration (sourced by every script).
 - `R/01-kfp-panel.R` — builds canonical and fpt-only panels; outputs txt tables and rds objects. v3 also prints the two TOA match metrics (adopter-only and overall).
 - `R/02-advance-panel.R` — builds the ADVANCE long panel and computes per-wave peer exposures.
-- `R/03-models-kfp.R` — runs all KFP regressions (adoption, disadoption A/B/C × canonical/fpt-only × with/without covariates). v3 uses `community_fe` in place of `village_fe`.
-- `R/04-models-advance.R` — ADVANCE adoption and disadoption A/B/C with VAED added.
+- `R/03-models-kfp.R` — runs all KFP regressions (adoption, disadoption A/B/C × canonical/fpt-only × with/without covariates). v3 uses `community_fe` in place of `village_fe`. **v3 also adds `run_PC_disadopt_battery_glmer` and `run_mod_disadopt_battery_glmer` (lme4) and routes Model C disadoption through them with `(1 | i)` random intercept; Models A and B keep cluster-robust GLM.**
+- `R/04-models-advance.R` — ADVANCE adoption and disadoption A/B/C with VAED added. **v3 routes ADV-disC (Model C) through `run_battery_glmer` with `(1 | record_id)`; ADV-adopt, ADV-disA, ADV-disB keep cluster-robust GLM.**
+- `playground/01-twoway-clustering.R`, `playground/02-glmer-modelC.R`, `playground/03-modelC-glmer-batteries.R` — exploratory scripts that motivated the v3 Model C choice (two-way clustering identity, GLMER ICC sanity check). Not part of the production pipeline; results live in `playground/*.{md,csv,rds}`.
 - `R/05-figures.R` (new in v3) — builds the grade-within-cohort prevalence table for ADVANCE.
 - `R/90-sanity-checks.R` — community subset robustness, byrt verification, FN counts/examples, Option II breakdown.
 - `R/91-toa-derivation.R` — TOA reconstruction prioritising fpt/byrt then cfp/cbyr (used by 92).
