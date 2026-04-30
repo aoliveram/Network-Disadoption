@@ -40,6 +40,16 @@ covar <- data.frame(
   agemar   = as.numeric(kfamily$agemar)
 )
 
+# Valente-style covariate set for KFP PC adoption +cov: children + media,
+# where media = rowMeans(media6..media14, na.rm = TRUE), the frequency-scale
+# media items per Valente's book.
+covar_valente <- data.frame(
+  i        = seq_len(nrow(kfamily)),
+  children = as.numeric(kfamily$sons) + as.numeric(kfamily$daughts),
+  media    = rowMeans(as.matrix(kfamily[, sprintf("media%d", 6:14)]),
+                       na.rm = TRUE)
+)
+
 # ---- helpers ----
 fit_logit <- function(formula, data) {
   fit <- glm(formula, data = data, family = binomial())
@@ -451,9 +461,12 @@ results <- list()
 cat("\n==== KFP PC adoption (canonical) ====\n")
 ad_pc <- build_adopt_PC(pp_can)
 ad_pc$t <- factor(ad_pc$t); ad_pc$community_fe <- factor(ad_pc$village)
-ad_pc_cov <- merge(ad_pc, covar, by="i", all.x = TRUE)
+# v3 (April 2026): KFP PC adoption +cov uses Valente's (children, media)
+# covariate set, where media = rowMeans(media6..media14, na.rm = TRUE).
+# Disadoption +cov keeps the older (children, age, agemar) set.
+ad_pc_cov <- merge(ad_pc, covar_valente, by="i", all.x = TRUE)
 fm  <- function(x) as.formula(sprintf("event ~ t + community_fe + %s", x))
-fmc <- function(x) as.formula(sprintf("event ~ t + community_fe + %s + children + age + agemar", x))
+fmc <- function(x) as.formula(sprintf("event ~ t + community_fe + %s + children + media", x))
 
 specs_pc <- list(
   F0       = event ~ t + community_fe,
@@ -477,7 +490,7 @@ specs_pc <- list(
   V1pr_PC  = fm("V_PC + prior_mn")
 )
 specs_pc_cov <- list(
-  F0       = event ~ t + community_fe + children + age + agemar,
+  F0       = event ~ t + community_fe + children + media,
   A1_PC    = fmc("E_PC"),
   A1_mod   = fmc("E_mod"),
   C1_PC    = fmc("has_PC"),
