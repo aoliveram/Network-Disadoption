@@ -18,6 +18,9 @@ data/advance/*.xlsx
 data/kfp/*.csv
 data/kfp/*.rds
 
+# Papers / literature (local-only, copyrighted)
+papers/
+
 # Generated tables/figures (regeneratable)
 outputs/tables/*
 outputs/figures/*
