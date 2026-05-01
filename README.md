@@ -56,9 +56,7 @@ The Valente strict replication on KFP modern6 adoption (no FE; predictors `t`, $
 ├── docs/               # current write-up (latest only)
 ├── reports/            # archive of past report versions
 ├── playground/         # exploratory scripts (not part of pipeline)
-├── prompts/            # AI-assistant context and prompts
 ├── README.md
-├── CLAUDE.md
 └── LICENSE
 ```
 
