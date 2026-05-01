@@ -27,6 +27,10 @@ outputs/figures/*
 !outputs/tables/.gitkeep
 !outputs/figures/.gitkeep
 
+# Claude doc
+CLAUDE.md
+prompts/
+
 # Build artefacts
 *.aux
 *.log
