@@ -80,10 +80,6 @@ source("R/92-valente-replication.R")
 
 Intermediate artefacts land in `outputs/intermediate/`; published tables in `outputs/tables/`.
 
-## Working with AI assistants
-
-`CLAUDE.md` is loaded automatically by Claude Code at session start. Read `prompts/onboarding-AI.md` for a short briefing or `prompts/v3-instructions.md` for the v3 spec.
-
 ## License
 
 MIT (see `LICENSE`).
