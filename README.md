@@ -1,84 +1,87 @@
-# Network-Disadoption
+# Network-Disadoption (ADVANCE)
 
-Latest report: [docs/disadoption-study.pdf](docs/disadoption-study.pdf) (v3).
+Latest report: [docs/disadoption-study.pdf](docs/disadoption-study.pdf) (v4).
 
 **Investigators**: Aníbal Olivera, Thomas Valente (USC), Kristina Miljkovic (USC), Yuchan Cao (USC).
 
-This study focuses on **disadoption** — leaving a behaviour after having taken it up. The diffusion-of-innovations literature has paid most of its attention to adoption (the 1 → state); disadoption (the 0 → state, conditional on having reached 1) has received much less, even though it is the natural counterpart and a substantively different process. Here we examine peer effects on both, side by side, in two structurally different longitudinal panels.
+This study examines **disadoption** of e-cigarette use among California adolescents — leaving the behaviour after having taken it up. The diffusion-of-innovations literature has paid most of its attention to adoption ($0 \to$ user state); disadoption (user → non-user, conditional on having reached use) has received much less, even though it is the natural counterpart and a substantively different process. From v4 onward this repository is **ADVANCE-only**; the earlier KFP comparison work is archived under `KFP-study/` (locally) and in `reports/disadoption-study-{1,2,3}.{pdf,md}`.
 
 ## Data
 
-- **ADVANCE**: e-cigarette past-6-month use among 1,047 adolescents in 11 Southern California high schools, fall 2020 – spring 2024 (8 semester waves). Friendship nominations per wave, time-varying network. Outcome: `past_6mo_use_3`. Two cohorts: class of 2024 (schools 101–114, present from W1–W2) and class of 2025 (201, 212–214, present from W3). 24,089 person-wave rows; 654 first-adoption events; 506 stable disadoption events. Restricted access (data-use agreement required).
-- **KFP** (`netdiffuseR::kfamily`): Pill or Condom (PC) use among 1,047 women in 25 Korean villages, 1964–1973 (10 calendar years). FP-discussion network (up to 5 alters, static). Public via the `netdiffuseR` package. Episodes are stored as `fpt_p` / `byrt_p` (episode-indexed, **not** calendar-year-indexed); a corrected reconstruction is required and described in `docs/methodology.md`.
+**ADVANCE** longitudinal panel — e-cigarette past-6-month use (`past_6mo_use_3`) among **4,437 unique adolescents** in 15 Southern California high schools, fall 2020 – spring 2024 (8 semester waves W1–W8). Two cohorts: class of 2024 (schools 101–114, entering W1 or W2) and class of 2025 (201, 212–214, entering W3). Friendship nominations per wave give a time-varying network. Restricted access (data-use agreement). v4 uses the latest **042326 release** (`data/advance/Data/ADVANCE_W1-W8_Data_Complete_042326.xlsx`) and codebook `data/advance/ADVANCE_W1_to_W10_Codebook_042326.xlsx`.
 
-## Headline findings (v3)
+## Three disadoption flavours (v4 definitions)
 
-Disadoption Models A and B use cluster-robust GLM (population-averaged OR); Model C uses `glmer((1|i))` (subject-specific OR, ICC reported). Per-10pp summaries are robust to the marginal-vs-conditional gap.
+- **A — Stable**: $1 \to 0$ with no future return to $1$ (one event per person).
+- **B — Experimental**: first $1 \to 0$ (any) — captures attempts to quit regardless of relapse (one event per person).
+- **C — Unstable** (window = 1): $1 \to 0$ followed by $1$ at the next observed wave (cyclic). Multiple events per person possible.
 
-| Outcome | Egonet effect | Community effect (per 10pp) |
-|:---|:---|:---|
-| ADVANCE adoption | OR 1.6–4.7, *p* < 1e-10 | hazard-denominator artifact (OR ≈ 0.20) |
-| KFP modern6 adoption | OR 1.4–2.3, *p* < 1e-7 | hazard-denominator artifact (OR ≈ 0.84) |
-| KFP PC adoption | OR 1.3–2.0, *p* < 0.05 | hazard-denominator artifact (OR ≈ 0.77) |
-| ADVANCE disadoption A/B (GLM) | OR ≈ 0.4 (protective), *p* < 0.02 | OR ≈ 1.85–2.16 |
-| ADVANCE disadoption C (GLMM, ICC 0.27) | OR 0.32 in VAED, *p* = 0.002 | OR 1.87 (marginal, *p* = 0.26) |
-| KFP PC disadoption canonical A/B (GLM) | null | OR ≈ 1.88–2.18 |
-| KFP PC disadoption canonical C (GLMM, ICC 0.12) | null | OR 1.94, *p* = 0.003 (robust) |
-| KFP modern6 disadoption A/B (GLM) | null | OR ≈ 1.30–1.40 |
-| KFP modern6 disadoption C (GLMM, ICC 0.19) | null | OR 1.22, *p* = 0.08 |
+The same regression battery is fit at four sample restrictions $Q \in \{5, 6, 7, 8\}$ (minimum consecutive observed waves of e-cig per student) to test robustness against missing-trailing-observation misclassification.
 
-The Valente strict replication on KFP modern6 adoption (no FE; predictors `t`, $A^{\mathrm{cum}}$, in/out-degree, cohesion + structural-equivalence exposure, children, media) reproduces n = 7,103 person-periods / 673 events and recovers the canonical contagion picture ($E^{\mathrm{coh}}$ OR 1.37, *p* = 0.019; $A^{\mathrm{cum}}$ OR 3.41, *p* = 0.016).
+## Headline findings (v4, Q = 5)
 
-## Methodological note
+Logit coefficients (p in parens). Bold = $p < 0.05$.
 
-`netdiffuseR::kfamily` encodes FP-related episodes (not calendar-year states) in `fpt_p` and `byrt_p`. A calendar-year reconstruction is required for valid panel-state inference; without it, egonet peer-exposure coefficients are biased. See `docs/methodology.md`.
+| Predictor | Adopters | A (Stable) | B (Experimental) | C (Unstable) |
+|:---|:---:|:---:|:---:|:---:|
+| Perceived Friend Use | **+0.39 (0.000)** | **−0.26 (0.009)** | **−0.37 (0.000)** | **−0.41 (0.020)** |
+| Network Exposure (Users) | **+1.75 (0.000)** | −0.94 (0.17) | −0.11 (0.85) | +0.91 (0.32) |
+| MDD (depression) | +0.11 (0.47) | −0.17 (0.59) | **−0.71 (0.010)** | **−1.14 (0.038)** |
+| Asian | **−0.44 (0.012)** | −0.20 (0.61) | +0.19 (0.62) | −0.84 (0.19) |
+| In-degree | **+0.07 (0.017)** | +0.05 (0.48) | +0.05 (0.43) | −0.01 (0.96) |
+| Sexual Minority | **+0.38 (0.011)** | +0.05 (0.88) | +0.28 (0.34) | +0.35 (0.49) |
+
+The cleanest two-sided lever in the study is **perceived peer use of e-cigarettes**: it raises adoption odds and lowers cessation odds of every kind (A, B, C). MDD predicts non-cessation among ever-users (B and C). See `docs/disadoption-study.pdf` for the full 13-predictor tables across all four Q levels.
+
+## Pipeline
+
+```r
+install.packages(c("readxl", "dplyr", "Matrix", "sandwich", "lmtest",
+                    "lme4", "here"))
+
+source("R/00-config.R")
+source("R/01-advance-panel.R")     # wide XLSX -> long panel + covariates
+source("R/02-event-builder.R")     # A / B / C events + Q-restriction
+source("R/03-network-features.R")  # degree, E_users, E_dis-adopters
+source("R/04-regressions.R")       # 4 outcomes x 4 Q levels
+```
+
+Outputs:
+
+- `outputs/intermediate/advance_panel_v4.rds` — long panel (35,496 person-waves × 21 covariates).
+- `outputs/intermediate/v4_panel_*_Q*_full.rds` — per-outcome / per-Q panels with all features attached.
+- `outputs/tables/v4_regression_table_Q{5,6,7,8}.csv` — final tables.
+- `docs/disadoption-study.{md,pdf}` — write-up.
 
 ## Repository structure
 
 ```
 .
-├── R/                  # numbered scripts (run in order)
+├── R/
 │   ├── 00-config.R
 │   ├── helpers.R
-│   ├── 01-kfp-panel.R
-│   ├── 02-advance-panel.R
-│   ├── 03-models-kfp.R
-│   ├── 04-models-advance.R
-│   ├── 05-figures.R
-│   ├── 90-sanity-checks.R
-│   ├── 91-toa-derivation.R
-│   └── 92-valente-replication.R
-├── data/               # raw data instructions, not committed
+│   ├── 01-advance-panel.R
+│   ├── 02-event-builder.R
+│   ├── 03-network-features.R
+│   ├── 04-regressions.R
+│   └── 05-figures.R
+├── data/advance/
+│   ├── ADVANCE_W1_to_W10_Codebook_042326.xlsx
+│   ├── Data/                       # 042326 release (gitignored)
+│   └── Cleaned-Data/               # legacy CSVs (edges still used)
 ├── outputs/
-│   ├── intermediate/   # .rds files (committed; regeneratable)
-│   ├── tables/         # CSV/TeX tables
-│   └── figures/        # plots
-├── docs/               # current write-up (latest only)
-├── reports/            # archive of past report versions
-├── playground/         # exploratory scripts (not part of pipeline)
+│   ├── intermediate/
+│   └── tables/                     # gitignored except .gitkeep
+├── docs/                           # current write-up
+├── reports/                        # archive of v1, v2, v3
+├── playground/                     # exploratory scripts
+├── prompts/                        # AI-assistant context
 ├── README.md
+├── CLAUDE.md
 └── LICENSE
 ```
 
-## Reproduction
-
-KFP data is public via `netdiffuseR::kfamily`. ADVANCE data requires a data-use agreement; see `data/advance/README.md`.
-
-```r
-install.packages(c("netdiffuseR", "Matrix", "sandwich", "lmtest", "lme4",
-                   "dplyr", "here", "readxl"))
-
-source("R/01-kfp-panel.R")
-source("R/02-advance-panel.R")
-source("R/03-models-kfp.R")
-source("R/04-models-advance.R")
-source("R/05-figures.R")
-source("R/90-sanity-checks.R")
-source("R/91-toa-derivation.R")
-source("R/92-valente-replication.R")
-```
-
-Intermediate artefacts land in `outputs/intermediate/`; published tables in `outputs/tables/`.
+KFP archive (frozen) lives outside the main repo under `KFP-study/` (gitignored).
 
 ## License
 
