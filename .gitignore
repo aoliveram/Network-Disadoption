@@ -21,6 +21,12 @@ data/kfp/*.rds
 # Papers / literature (local-only, copyrighted)
 papers/
 
+# KFP archive (frozen v3 analysis; lives locally only)
+KFP-study/
+
+# v4: new ADVANCE data release lives in data/advance/Data/ (gitignored)
+data/advance/Data/
+
 # Generated tables/figures (regeneratable)
 outputs/tables/*
 outputs/figures/*
