@@ -13,6 +13,7 @@
 
 # Raw data (not committed by policy)
 data/advance/Cleaned-Data/
+data/advance/Cleaned-Data-042326/
 data/advance/*.csv
 data/advance/*.xlsx
 data/kfp/*.csv
