@@ -1,17 +1,24 @@
 # ================================================================
-# 04-regressions.R  (v4)
+# 04-regressions.R  (v4b)
 #
-# Per Q in {5,6,7,8} fit four logistic event-history regressions
-# (Adopters, A-Stable, B-Experimental, C-Unstable) with the same
-# 15-predictor set, plus wave fixed effect.
+# Five regression families per Q ∈ {5,6,7,8} = 20 tables total.
 #
-# Adopters / A / B : GLM logistic, cluster-robust SE by record_id.
-# C                : glmer((1|record_id)) for recurrent events.
-#                    Reports rho = ICC = sigma_u^2 / (sigma_u^2 + pi^2/3).
+# §5 Main         : panels=main      , E_D=E_dis,    C window=1, 4 outcomes
+# §6 Alt E_D      : panels=main      , E_D=E_D_alt,  C window=1, 4 outcomes
+# §7 Window sens. : panels=main+Cw2+Cw3, E_D=E_dis, C only (3 W cols)
+# §8 (a) sensit.  : panels=A_with_indet for A; main for the rest
+# §9 (b) sensit.  : panels=obs_jumps , E_D=E_dis, C window=1, 4 outcomes
 #
-# Output: a 17-row x 4-column table per Q (coef + p-value per cell),
-# saved as outputs/tables/v4_regression_table_Q{Q}.csv plus the raw
-# fit objects in outputs/intermediate/v4_results.rds.
+# Estimator:
+#   adopt / A / B  : GLM logistic, wave FE, cluster-robust SE by record_id
+#   C              : lme4::glmer((1 | record_id)), wave FE, report ICC
+#
+# Outputs (per Q):
+#   outputs/tables/v4b_table_5_Q<Q>.csv
+#   outputs/tables/v4b_table_6_Q<Q>.csv
+#   outputs/tables/v4b_table_7_Q<Q>.csv  (3 cols: C_W1, C_W2, C_W3)
+#   outputs/tables/v4b_table_8_Q<Q>.csv
+#   outputs/tables/v4b_table_9_Q<Q>.csv
 # ================================================================
 
 suppressMessages({
@@ -22,21 +29,12 @@ suppressMessages({
 
 source(file.path(here::here(), "R", "00-config.R"))
 
-# Predictors used in every regression.
-# NOTE on ESE: `ese_ecig_pos_no9_mean` and `ese_ecig_neg_no510_mean` are
-# only filled in waves where the student reports e-cig use (and even
-# then ~40% complete). Including them here would force complete-case
-# dropping that biases the sample toward users. We DROP ESE from the
-# main v4 battery and document it as a sensitivity item for a future
-# iteration.
 PRED <- c("cohort", "female", "sex_minority", "par_edu",
           "asian", "hispanic",
           "mdd", "gad",
           "out_degree", "in_degree",
           "friends_use_ecig_lag",
-          "E_users", "E_dis")
-
-# Pretty names for the table.
+          "E_users", "E_D")  # E_D is mapped to E_dis or E_D_alt later
 PRED_LABEL <- c(
   cohort               = "Cohort (2025 vs 2024)",
   female               = "Female",
@@ -50,7 +48,7 @@ PRED_LABEL <- c(
   in_degree            = "In-degree",
   friends_use_ecig_lag = "Perceived Friend Use",
   E_users              = "Network Exposure Users",
-  E_dis                = "Network Exposure Dis-adopters"
+  E_D                  = "Network Exposure Dis-adopters"
 )
 
 fmt_cell <- function(beta, p) {
@@ -58,12 +56,11 @@ fmt_cell <- function(beta, p) {
   sprintf("%.3f (%.3f)", beta, p)
 }
 
-# Fit GLM with cluster-robust SE; return tidy coef table.
+# ----------------------------------------------------------------
+# Fitters
+# ----------------------------------------------------------------
 fit_glm <- function(formula, data) {
-  d <- data
-  d$wave_fe <- factor(d$wave)
-  # Pre-filter to complete cases on outcome + predictors so we can
-  # compute n_id correctly; GLM will agree with this filtering.
+  d <- data; d$wave_fe <- factor(d$wave)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
   fit <- glm(formula, data = d_cc, family = binomial("logit"))
@@ -75,19 +72,15 @@ fit_glm <- function(formula, data) {
        events = sum(fit$model[[1]]),
        n_id = length(unique(d_cc$record_id)))
 }
-
-# Fit GLMER with (1|record_id); return tidy coef table.
 fit_glmer_id <- function(formula, data) {
-  d <- data
-  d$wave_fe <- factor(d$wave)
+  d <- data; d$wave_fe <- factor(d$wave)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
   fit <- lme4::glmer(formula, data = d_cc, family = binomial("logit"),
                      control = lme4::glmerControl(
                        optimizer = "bobyqa",
                        optCtrl   = list(maxfun = 4e5)))
-  ss <- summary(fit)
-  ct <- ss$coefficients
+  ct <- summary(fit)$coefficients
   vc <- lme4::VarCorr(fit)
   sigma2_u <- as.numeric(vc[[1]][1, 1])
   rho <- sigma2_u / (sigma2_u + (pi^2)/3)
@@ -97,8 +90,6 @@ fit_glmer_id <- function(formula, data) {
        n_id = length(unique(d_cc$record_id)),
        sigma2_u = sigma2_u, rho = rho)
 }
-
-# Pull beta + p for a term (or return NA if missing).
 get_bp <- function(ct, term) {
   if (!term %in% rownames(ct)) return(c(NA, NA))
   z <- ct[term, ]
@@ -106,117 +97,176 @@ get_bp <- function(ct, term) {
     unname(z[grep("^Pr", names(z))]))
 }
 
-# Build the regression formula
-make_formula <- function(outcome, with_re = FALSE) {
-  rhs <- paste(c("wave_fe", PRED), collapse = " + ")
-  if (with_re) rhs <- paste(rhs, "+ (1 | record_id)")
-  as.formula(sprintf("%s ~ %s", outcome, rhs))
-}
-
-# Cohort handling: if a Q sample has only one cohort, drop cohort.
-prep_data <- function(p, drop_cohort = FALSE) {
+# ----------------------------------------------------------------
+# Helper to build a regression on a panel given E_D variant
+# ----------------------------------------------------------------
+prep_data <- function(p, E_D_var, drop_cohort = FALSE) {
   d <- p
   d$cohort <- as.integer(d$cohort == "2025")  # 0=2024, 1=2025
   if (drop_cohort) d$cohort <- NULL
+  # Map E_D variant to a unified column "E_D"
+  if (E_D_var == "E_dis") {
+    d$E_D <- d$E_dis
+  } else if (E_D_var == "E_D_alt") {
+    d$E_D <- d$E_D_alt
+  } else stop("Unknown E_D_var: ", E_D_var)
   d
 }
 
-run_one_Q <- function(Q) {
-  cat(sprintf("\n========== Q = %d ==========\n", Q))
-  files <- list(
-    Adopters = sprintf("v4_panel_adopt_Q%d_full.rds", Q),
-    A        = sprintf("v4_panel_A_Q%d_full.rds",     Q),
-    B        = sprintf("v4_panel_B_Q%d_full.rds",     Q),
-    C        = sprintf("v4_panel_C_Q%d_full.rds",     Q)
-  )
-  results <- list()
-  drop_cohort <- (Q == 8)  # Q=8 has only schools 101-105 -> only cohort 2024
-  for (col in names(files)) {
-    p <- readRDS(file.path(INTERMEDIATE, files[[col]]))
-    d <- prep_data(p, drop_cohort = drop_cohort)
-    pred_used <- PRED
-    if (drop_cohort) pred_used <- setdiff(pred_used, "cohort")
-    rhs <- paste(c("wave_fe", pred_used), collapse = " + ")
-    cat(sprintf("  Fitting %s : n=%d events=%d\n",
-                col, nrow(d), sum(d$event)))
-    if (col == "C") {
-      f <- as.formula(sprintf("event ~ %s + (1 | record_id)", rhs))
-      r <- tryCatch(fit_glmer_id(f, d), error = function(e) {
-        cat("    GLMER error:", conditionMessage(e), "\n"); NULL })
-    } else {
-      f <- as.formula(sprintf("event ~ %s", rhs))
-      r <- tryCatch(fit_glm(f, d), error = function(e) {
-        cat("    GLM error:", conditionMessage(e), "\n"); NULL })
-    }
-    results[[col]] <- r
+run_one <- function(panel_obj, outcome, E_D_var, Q) {
+  d <- prep_data(panel_obj, E_D_var = E_D_var, drop_cohort = (Q == 8))
+  pred_used <- if (Q == 8) setdiff(PRED, "cohort") else PRED
+  rhs <- paste(c("wave_fe", pred_used), collapse = " + ")
+  if (outcome == "C") {
+    f <- as.formula(sprintf("event ~ %s + (1 | record_id)", rhs))
+    r <- tryCatch(fit_glmer_id(f, d), error = function(e) {
+      cat(sprintf("    GLMER error: %s\n", conditionMessage(e))); NULL })
+  } else {
+    f <- as.formula(sprintf("event ~ %s", rhs))
+    r <- tryCatch(fit_glm(f, d), error = function(e) {
+      cat(sprintf("    GLM error: %s\n", conditionMessage(e))); NULL })
   }
-  results
+  r
 }
 
 # ----------------------------------------------------------------
-# Run all four Q levels
+# Build a 4-outcome table (cols: Adopt, A, B, C)
 # ----------------------------------------------------------------
-all_results <- list()
-for (Q in c(5, 6, 7, 8)) {
-  all_results[[as.character(Q)]] <- run_one_Q(Q)
-}
-saveRDS(all_results, file.path(INTERMEDIATE, "v4_results.rds"))
-
-# ----------------------------------------------------------------
-# Build the per-Q table: 17 rows x 4 cols (coef (p-value) per cell)
-# Rows: 15 predictors + Rho + N students + N events
-# ----------------------------------------------------------------
-build_table <- function(res, Q) {
-  cols <- c("Adopters", "A", "B", "C")
-  # Predictor rows
-  rows <- list()
+build_table_4 <- function(results, Q) {
+  cols <- c("Adopters", "A", "B", "C"); rows <- list()
   for (var in PRED) {
     cells <- character(4); names(cells) <- cols
     for (col in cols) {
-      r <- res[[col]]
-      if (is.null(r)) { cells[col] <- "—"; next }
-      bp <- get_bp(r$ct, var)
-      cells[col] <- fmt_cell(bp[1], bp[2])
+      r <- results[[col]]; if (is.null(r)) { cells[col] <- "—"; next }
+      bp <- get_bp(r$ct, var); cells[col] <- fmt_cell(bp[1], bp[2])
     }
     rows[[PRED_LABEL[var]]] <- cells
   }
-  # Rho row
-  rho_cells <- c("—", "—", "—", "—"); names(rho_cells) <- cols
-  if (!is.null(res$C)) rho_cells["C"] <- sprintf("%.3f", res$C$rho)
+  rho_cells <- c("—","—","—","—"); names(rho_cells) <- cols
+  if (!is.null(results$C)) rho_cells["C"] <- sprintf("%.3f", results$C$rho)
   rows[["Rho (ICC)"]] <- rho_cells
-  # N students
-  n_cells <- character(4); names(n_cells) <- cols
+  n_cells <- e_cells <- character(4); names(n_cells) <- names(e_cells) <- cols
   for (col in cols) {
-    r <- res[[col]]
-    if (is.null(r)) { n_cells[col] <- "—" } else {
-      n_cells[col] <- as.character(r$n_id)
-    }
+    r <- results[[col]]
+    n_cells[col] <- if (is.null(r)) "—" else as.character(r$n_id)
+    e_cells[col] <- if (is.null(r)) "—" else as.character(r$events)
   }
   rows[["N Students"]] <- n_cells
-  # N events
-  e_cells <- character(4); names(e_cells) <- cols
-  for (col in cols) {
-    r <- res[[col]]
-    if (is.null(r)) { e_cells[col] <- "—" } else {
-      e_cells[col] <- as.character(r$events)
-    }
-  }
-  rows[["N Events"]] <- e_cells
-
-  # Assemble into a data.frame
+  rows[["N Events"]]   <- e_cells
   tab <- do.call(rbind, lapply(rows, function(r) data.frame(
     Adopters = r["Adopters"], A = r["A"], B = r["B"], C = r["C"],
     stringsAsFactors = FALSE)))
-  tab <- cbind(Variable = names(rows), tab)
-  rownames(tab) <- NULL
+  tab <- cbind(Variable = names(rows), tab); rownames(tab) <- NULL
   tab
 }
 
-for (Q in c(5, 6, 7, 8)) {
-  tab <- build_table(all_results[[as.character(Q)]], Q)
-  out_csv <- file.path(TABLES, sprintf("v4_regression_table_Q%d.csv", Q))
-  write.csv(tab, out_csv, row.names = FALSE)
-  cat(sprintf("\n=== Q = %d ===\n", Q))
-  print(tab, row.names = FALSE)
-  cat(sprintf("Saved: %s\n", out_csv))
+# ----------------------------------------------------------------
+# §7 — only-C window-sensitivity table (3 cols: C_W1, C_W2, C_W3)
+# ----------------------------------------------------------------
+build_table_7 <- function(C_W1, C_W2, C_W3) {
+  cols <- c("C_W1", "C_W2", "C_W3"); rows <- list()
+  fits <- list(C_W1 = C_W1, C_W2 = C_W2, C_W3 = C_W3)
+  for (var in PRED) {
+    cells <- character(3); names(cells) <- cols
+    for (col in cols) {
+      r <- fits[[col]]; if (is.null(r)) { cells[col] <- "—"; next }
+      bp <- get_bp(r$ct, var); cells[col] <- fmt_cell(bp[1], bp[2])
+    }
+    rows[[PRED_LABEL[var]]] <- cells
+  }
+  rho_cells <- character(3); names(rho_cells) <- cols
+  for (col in cols) {
+    r <- fits[[col]]; rho_cells[col] <- if (is.null(r)) "—" else sprintf("%.3f", r$rho)
+  }
+  rows[["Rho (ICC)"]] <- rho_cells
+  n_cells <- e_cells <- character(3); names(n_cells) <- names(e_cells) <- cols
+  for (col in cols) {
+    r <- fits[[col]]
+    n_cells[col] <- if (is.null(r)) "—" else as.character(r$n_id)
+    e_cells[col] <- if (is.null(r)) "—" else as.character(r$events)
+  }
+  rows[["N Students"]] <- n_cells
+  rows[["N Events"]]   <- e_cells
+  tab <- do.call(rbind, lapply(rows, function(r) data.frame(
+    C_W1 = r["C_W1"], C_W2 = r["C_W2"], C_W3 = r["C_W3"],
+    stringsAsFactors = FALSE)))
+  tab <- cbind(Variable = names(rows), tab); rownames(tab) <- NULL
+  tab
 }
+
+# ----------------------------------------------------------------
+# Main loop
+# ----------------------------------------------------------------
+load_panel <- function(kind, Q, mode) {
+  f <- file.path(INTERMEDIATE,
+                 sprintf("v4b_panel_%s_Q%d_%s_full.rds", kind, Q, mode))
+  readRDS(f)
+}
+
+all_results <- list()
+for (Q in c(5, 6, 7, 8)) {
+  cat(sprintf("\n========== Q = %d ==========\n", Q))
+  Q_results <- list()
+
+  # §5 Main (mode=main, E_D=E_dis)
+  cat("  §5 main...\n")
+  s5 <- list(
+    Adopters = run_one(load_panel("adopt", Q, "main"), "adopt", "E_dis", Q),
+    A        = run_one(load_panel("A",     Q, "main"), "A",     "E_dis", Q),
+    B        = run_one(load_panel("B",     Q, "main"), "B",     "E_dis", Q),
+    C        = run_one(load_panel("C",     Q, "main"), "C",     "E_dis", Q))
+  Q_results[["s5"]] <- s5
+
+  # §6 Alt E_D (mode=main, E_D=E_D_alt)
+  cat("  §6 alt E_D...\n")
+  s6 <- list(
+    Adopters = run_one(load_panel("adopt", Q, "main"), "adopt", "E_D_alt", Q),
+    A        = run_one(load_panel("A",     Q, "main"), "A",     "E_D_alt", Q),
+    B        = run_one(load_panel("B",     Q, "main"), "B",     "E_D_alt", Q),
+    C        = run_one(load_panel("C",     Q, "main"), "C",     "E_D_alt", Q))
+  Q_results[["s6"]] <- s6
+
+  # §7 Window sensitivity (only C, 3 windows)
+  cat("  §7 window sensitivity...\n")
+  s7 <- list(
+    C_W1 = run_one(load_panel("C", Q, "main"), "C", "E_dis", Q),
+    C_W2 = run_one(load_panel("C", Q, "Cw2"),  "C", "E_dis", Q),
+    C_W3 = run_one(load_panel("C", Q, "Cw3"),  "C", "E_dis", Q))
+  Q_results[["s7"]] <- s7
+
+  # §8 (a) sensitivity: only A panel changes (uses A_with_indet); rest = §5
+  cat("  §8 (a) indet -> A...\n")
+  s8 <- list(
+    Adopters = s5$Adopters,
+    A        = run_one(load_panel("A", Q, "A_with_indet"), "A", "E_dis", Q),
+    B        = s5$B,
+    C        = s5$C)
+  Q_results[["s8"]] <- s8
+
+  # §9 (b) sensitivity: observed-jumps mode for all four
+  cat("  §9 (b) observed jumps...\n")
+  s9 <- list(
+    Adopters = run_one(load_panel("adopt", Q, "obs_jumps"), "adopt", "E_dis", Q),
+    A        = run_one(load_panel("A",     Q, "obs_jumps"), "A",     "E_dis", Q),
+    B        = run_one(load_panel("B",     Q, "obs_jumps"), "B",     "E_dis", Q),
+    C        = run_one(load_panel("C",     Q, "obs_jumps"), "C",     "E_dis", Q))
+  Q_results[["s9"]] <- s9
+
+  all_results[[as.character(Q)]] <- Q_results
+
+  # Build + save tables
+  tab5 <- build_table_4(s5, Q)
+  tab6 <- build_table_4(s6, Q)
+  tab7 <- build_table_7(s7$C_W1, s7$C_W2, s7$C_W3)
+  tab8 <- build_table_4(s8, Q)
+  tab9 <- build_table_4(s9, Q)
+  for (sec in 5:9) {
+    tab <- get(sprintf("tab%d", sec))
+    out_csv <- file.path(TABLES, sprintf("v4b_table_%d_Q%d.csv", sec, Q))
+    write.csv(tab, out_csv, row.names = FALSE)
+  }
+  cat(sprintf("\nQ=%d: 5 tables saved (sec 5..9)\n", Q))
+}
+
+saveRDS(all_results, file.path(INTERMEDIATE, "v4b_results.rds"))
+cat("\nDone. Saved v4b_results.rds and 20 CSVs.\n")
