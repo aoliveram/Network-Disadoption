@@ -71,6 +71,12 @@ Eligibility per $Q \in \{5, 6, 7, 8\}$ requires the student to have at least $Q$
 
 Network alters used to compute $E_{\text{users}}$ and $E_D$ are NOT restricted by Q.
 
+**Friendship-nomination degree distribution (pooled W1-W10).** Each ego nominates up to seven friends per wave; out-degree is the count of valid alters (alter in the panel and responding at $w$); in-degree is how many other egos name a given student.
+
+![Out-degree and in-degree distributions across all valid (ego, wave) cells with non-zero degree.](outputs/figures/sec2_degree_distribution.png){width=95%}
+
+Out-degree is mechanically capped near 7 (questionnaire limit); in-degree has a long right tail (a few students are frequently nominated). Both distributions are right-skewed but well populated.
+
 **Eligible vs effective**: the Q-row above is the count of *eligible* students. The regression in each column then drops rows with NA on any predictor (complete-case). The effective `N Students` reported per column is therefore smaller than the Q-row count. The Adopters column suffers the smallest cut (most predictors are filled at every observed wave); the A / B / C columns work on the much smaller ever-user subset (each column's `N Students` reflects that). E.g., at $Q = 8$ we have 1,040 eligible students; the Adopters regression uses 925 (after complete-case dropping); the A regression uses 83 (ever-users with valid predictors).
 
 # 3. Event definitions
@@ -84,6 +90,12 @@ For each student we define, on consecutive observed waves:
 
 §10 walks through observed waves regardless of calendar gaps (instead of consecutive-calendar pairs).
 
+**Per-wave degree and peer-user count.** For every wave $w \in \{1, \ldots, 10\}$, the figure below shows the distribution of out-degree (bars, left axis) and the **average count of using friends** an ego has at out-degree $k$ (red line, right axis). The "count of using friends" is $k_\text{users} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer): the number of alters of the ego who currently use ecig.
+
+![Per-wave: bars = ego-wave count at each out-degree (capped at 12); red line = mean number of using friends across egos at that out-degree.](outputs/figures/sec3_per_wave_degree_exposure.png){width=95%}
+
+The peer-user count rises monotonically with out-degree at every wave (more friends → more using friends), and the *average* number of using friends grows from W1 to W10 as ecig prevalence rises across the cohort. By W7-W10 the average ego with 7 valid alters has roughly 2 of them currently using.
+
 # 4. Methods
 
 For each regression, the outcome at person-wave $(i, w)$ is binary; the risk-set is the corresponding panel:
@@ -91,7 +103,7 @@ For each regression, the outcome at person-wave $(i, w)$ is binary; the risk-set
 - **Adopters / A / B**: GLM logistic with wave fixed effects and cluster-robust SE by `record_id` (`sandwich::vcovCL`).
 - **C**: `lme4::glmer(... + (1 \mid \text{record\_id}))` with wave FE, since C admits multiple events per person; we report ICC $\rho = \sigma^2_u / (\sigma^2_u + \pi^2/3)$.
 
-**Predictors (13)**: cohort (2025 vs 2024), female, sexual minority, parent education, asian, hispanic/latine, MDD (RCADS Mean), GAD (RCADS Mean), out-degree, in-degree, perceived friend use ($w-1$), network exposure to users ($E_{\text{users}}, w-1$), network exposure to dis-adopters ($E_D, w-1$). The cohort dummy is dropped at $Q=8$ (only cohort 2024 schools 101–105 remain).
+**Predictors (13)**: cohort (2025 vs 2024), female, sexual minority, parent education, asian, hispanic/latine, MDD (RCADS Mean), GAD (RCADS Mean), out-degree, in-degree, perceived friend use ($w-1$), network exposure to users ($E_{\text{users}}, w-1$), network exposure to dis-adopters ($E_D, w-1$). With W9-W10 in the panel, both cohorts are retained at all $Q$ levels: cohort 2024 students with $\ge Q$ consecutive observed waves and cohort 2025 students whose $w \ge 3$ entry leaves them with $\ge Q$ observed waves through W10.
 
 **Note on ESE**: the Early Smoking Experience composites (`ESE_Pos_no9_Mean`, `ESE_Neg_no510_Mean`) are **not used as predictors** in v4b — only ~21% of students have any ESE response, and the missingness is concentrated outside the at-risk-for-disadoption sub-population (see §12). Including ESE forces complete-case dropping that selects toward users and biases the Adopters and A/B/C samples. Sensitivity work on the user-subset is deferred to a later iteration.
 
@@ -136,7 +148,7 @@ The two figures below visualise the same N table. Each bar is **one rectangle pe
 
 \fontsize{8}{10}\selectfont
 
----
+\newpage
 
 # 5. Main results (E_D = peer-flipped 1→0; C window = 1)
 
@@ -146,19 +158,19 @@ OR (p-value). Bold = $p < 0.05$. $E_D$ = peer share who flipped $1 \to 0$ betwee
 
 | Variable | Adopters | A | B | C |
 |:---|:---:|:---:|:---:|:---:|
-| Cohort (2025 vs 2024) | — | — | — | — |
-| Female | 1.620 (0.069) | 0.368 (0.076) | 0.336 (0.056) | 0.403 (0.624) |
-| Sexual Minority | 1.536 (0.089) | 1.043 (0.944) | 1.896 (0.255) | **28.020 (0.042)** |
-| Parent Ed. | 0.961 (0.633) | 1.209 (0.346) | 1.113 (0.631) | 0.324 (0.228) |
-| Asian | 0.568 (0.051) | 0.898 (0.874) | 0.576 (0.395) | 0.242 (0.445) |
-| Hispanic/Latine | 1.019 (0.949) | 0.674 (0.558) | 0.624 (0.496) | 0.021 (0.175) |
-| MDD (Major Depressive S.) | 1.228 (0.401) | 0.514 (0.139) | **0.323 (0.022)** | **0.045 (0.029)** |
-| GAD (Generalized Anxiety Dis.) | 0.883 (0.574) | 2.123 (0.155) | 1.863 (0.202) | 6.669 (0.263) |
-| Out-degree | **0.828 (0.011)** | 1.259 (0.195) | 1.033 (0.876) | 1.644 (0.382) |
-| In-degree | 1.097 (0.058) | 1.152 (0.305) | 1.066 (0.633) | 0.323 (0.113) |
-| **Perceived Friend Use** | **1.471 (0.000)** | 0.886 (0.541) | 1.026 (0.887) | 2.308 (0.236) |
-| **Network Exposure Users** | **3.772 (0.034)** | **0.021 (0.024)** | **0.047 (0.016)** | 0.206 (0.640) |
-| Network Exposure Dis-adopters | 3.027 (0.254) | 2.467 (0.486) | 0.462 (0.494) | 0.015 (0.511) |
+| Cohort (2025 vs 2024) | 0.992 (0.976) | 1.987 (0.320) | 2.378 (0.132) | 22.313 (0.192) |
+| Female | 1.620 (0.070) | 0.363 (0.065) | **0.317 (0.037)** | 0.351 (0.589) |
+| Sexual Minority | 1.535 (0.092) | 1.180 (0.795) | 2.413 (0.132) | **73.516 (0.029)** |
+| Parent Ed. | 0.961 (0.633) | 1.148 (0.505) | 1.056 (0.802) | 0.150 (0.197) |
+| Asian | 0.568 (0.051) | 0.836 (0.789) | 0.519 (0.290) | 0.206 (0.421) |
+| Hispanic/Latine | 1.019 (0.949) | 0.509 (0.365) | 0.450 (0.257) | 0.006 (0.154) |
+| MDD (Major Depressive S.) | 1.227 (0.402) | 0.477 (0.111) | **0.288 (0.019)** | **0.020 (0.020)** |
+| GAD (Generalized Anxiety Dis.) | 0.883 (0.579) | 2.130 (0.150) | 1.798 (0.225) | 9.704 (0.193) |
+| Out-degree | **0.828 (0.011)** | 1.168 (0.384) | 0.949 (0.815) | 1.102 (0.881) |
+| In-degree | 1.097 (0.059) | 1.173 (0.255) | 1.085 (0.543) | 0.272 (0.121) |
+| **Perceived Friend Use** | **1.471 (0.000)** | 0.879 (0.536) | 1.039 (0.832) | 2.846 (0.222) |
+| **Network Exposure Users** | **3.768 (0.036)** | **0.024 (0.026)** | **0.051 (0.013)** | 0.112 (0.512) |
+| Network Exposure Dis-adopters | 3.022 (0.255) | 3.079 (0.403) | 0.535 (0.593) | 0.103 (0.730) |
 | Rho (ICC) | — | — | — | 0.000 |
 | N Students | 925 | 83 | 91 | 83 |
 | N Events | 89 | 52 | 70 | 7 |
@@ -236,19 +248,19 @@ Replaces "peer share who flipped 1→0 between $w-2$ and $w-1$" with $E_D = \max
 
 | Variable | Adopters | A | B | C |
 |:---|:---:|:---:|:---:|:---:|
-| Cohort (2025 vs 2024) | — | — | — | — |
-| Female | 1.628 (0.067) | 0.378 (0.069) | 0.377 (0.087) | 0.487 (0.714) |
-| Sexual Minority | 1.522 (0.095) | 1.075 (0.904) | 1.855 (0.253) | 44.124 (0.063) |
-| Parent Ed. | 0.960 (0.626) | 1.220 (0.307) | 1.142 (0.550) | 0.352 (0.253) |
-| Asian | 0.573 (0.057) | 0.942 (0.931) | 0.542 (0.325) | 0.195 (0.396) |
-| Hispanic/Latine | 1.027 (0.927) | 0.748 (0.678) | 0.638 (0.523) | 0.036 (0.233) |
-| MDD (Major Depressive S.) | 1.236 (0.387) | 0.503 (0.128) | **0.310 (0.014)** | **0.021 (0.041)** |
-| GAD (Generalized Anxiety Dis.) | 0.882 (0.573) | 2.201 (0.144) | 1.916 (0.190) | 12.901 (0.198) |
-| Out-degree | **0.831 (0.012)** | 1.256 (0.197) | 1.071 (0.748) | 1.576 (0.442) |
-| In-degree | **1.101 (0.049)** | 1.154 (0.295) | 1.052 (0.712) | 0.287 (0.069) |
-| **Perceived Friend Use** | **1.467 (0.000)** | 0.885 (0.547) | 1.021 (0.906) | 2.288 (0.242) |
-| **Network Exposure Users** | **3.978 (0.028)** | **0.026 (0.030)** | **0.035 (0.008)** | 0.050 (0.436) |
-| $E_D$ alt | 1.660 (0.488) | 0.907 (0.948) | 0.213 (0.401) | 0.002 (0.373) |
+| Cohort (2025 vs 2024) | 1.005 (0.986) | 1.850 (0.370) | 2.220 (0.166) | 17.764 (0.205) |
+| Female | 1.627 (0.068) | 0.366 (0.053) | 0.349 (0.058) | 0.391 (0.642) |
+| Sexual Minority | 1.522 (0.097) | 1.208 (0.763) | 2.335 (0.140) | **100.516 (0.035)** |
+| Parent Ed. | 0.960 (0.624) | 1.159 (0.455) | 1.080 (0.719) | 0.184 (0.235) |
+| Asian | 0.573 (0.057) | 0.895 (0.871) | 0.497 (0.246) | 0.200 (0.406) |
+| Hispanic/Latine | 1.027 (0.927) | 0.588 (0.479) | 0.465 (0.294) | 0.011 (0.203) |
+| MDD (Major Depressive S.) | 1.237 (0.387) | 0.474 (0.109) | **0.283 (0.014)** | **0.011 (0.032)** |
+| GAD (Generalized Anxiety Dis.) | 0.881 (0.574) | 2.206 (0.140) | 1.840 (0.212) | 15.489 (0.191) |
+| Out-degree | **0.830 (0.012)** | 1.171 (0.379) | 0.984 (0.942) | 1.126 (0.855) |
+| In-degree | 1.100 (0.050) | 1.178 (0.239) | 1.073 (0.607) | 0.247 (0.074) |
+| **Perceived Friend Use** | **1.466 (0.000)** | 0.877 (0.535) | 1.034 (0.854) | 2.770 (0.208) |
+| **Network Exposure Users** | **3.982 (0.030)** | **0.032 (0.036)** | **0.040 (0.007)** | 0.069 (0.448) |
+| $E_D$ alt | 1.664 (0.495) | 1.212 (0.895) | 0.299 (0.517) | 0.012 (0.583) |
 | Rho (ICC) | — | — | — | 0.000 |
 | N Students | 925 | 83 | 91 | 83 |
 | N Events | 89 | 52 | 70 | 7 |
@@ -326,18 +338,18 @@ Replaces "peer share who flipped 1→0 between $w-2$ and $w-1$" with $E_D = \max
 
 | Variable | Adopters | A | B | C |
 |:---|:---:|:---:|:---:|:---:|
-| Cohort (2025 vs 2024) | — | — | — | — |
-| Female | 1.641 (0.061) | 0.375 (0.075) | 0.350 (0.067) | 0.360 (0.574) |
-| Sexual Minority | 1.531 (0.092) | 1.074 (0.904) | 1.844 (0.271) | 25.392 (0.050) |
-| Parent Ed. | 0.962 (0.644) | 1.218 (0.322) | 1.110 (0.643) | 0.286 (0.187) |
-| Asian | **0.558 (0.044)** | 0.943 (0.932) | 0.583 (0.408) | 0.279 (0.474) |
-| Hispanic/Latine | 1.024 (0.936) | 0.745 (0.672) | 0.631 (0.515) | 0.030 (0.185) |
-| MDD (Major Depressive S.) | 1.234 (0.393) | 0.504 (0.126) | **0.324 (0.023)** | **0.046 (0.028)** |
-| GAD (Generalized Anxiety Dis.) | 0.877 (0.557) | 2.195 (0.137) | 1.834 (0.216) | 7.306 (0.220) |
-| Out-degree | **0.828 (0.011)** | 1.255 (0.196) | 1.039 (0.854) | 1.685 (0.365) |
-| In-degree | **1.101 (0.049)** | 1.155 (0.290) | 1.067 (0.628) | 0.302 (0.081) |
-| **Perceived Friend Use** | **1.477 (0.000)** | 0.885 (0.546) | 1.013 (0.943) | 2.025 (0.280) |
-| **Network Exposure Users** | **3.731 (0.034)** | **0.026 (0.030)** | **0.045 (0.013)** | 0.167 (0.586) |
+| Cohort (2025 vs 2024) | 0.981 (0.940) | 1.817 (0.387) | 2.419 (0.123) | 28.215 (0.152) |
+| Female | 1.640 (0.062) | 0.372 (0.065) | **0.328 (0.045)** | 0.327 (0.567) |
+| Sexual Minority | 1.529 (0.095) | 1.204 (0.767) | 2.370 (0.137) | **85.158 (0.029)** |
+| Parent Ed. | 0.962 (0.644) | 1.165 (0.457) | 1.052 (0.814) | 0.134 (0.174) |
+| Asian | **0.559 (0.044)** | 0.895 (0.871) | 0.522 (0.295) | 0.227 (0.443) |
+| Hispanic/Latine | 1.024 (0.935) | 0.598 (0.496) | 0.452 (0.268) | 0.006 (0.154) |
+| MDD (Major Depressive S.) | 1.234 (0.394) | 0.472 (0.103) | **0.286 (0.020)** | **0.018 (0.017)** |
+| GAD (Generalized Anxiety Dis.) | 0.878 (0.564) | 2.220 (0.127) | 1.776 (0.238) | 10.033 (0.178) |
+| Out-degree | **0.828 (0.011)** | 1.175 (0.366) | 0.953 (0.826) | 1.092 (0.894) |
+| In-degree | **1.101 (0.049)** | 1.175 (0.244) | 1.086 (0.538) | 0.249 (0.086) |
+| **Perceived Friend Use** | **1.477 (0.000)** | 0.877 (0.539) | 1.029 (0.876) | 2.848 (0.213) |
+| **Network Exposure Users** | **3.723 (0.036)** | **0.031 (0.034)** | **0.050 (0.012)** | 0.098 (0.475) |
 | Rho (ICC) | — | — | — | 0.000 |
 | N Students | 925 | 83 | 91 | 83 |
 | N Events | 89 | 52 | 70 | 7 |
@@ -425,19 +437,19 @@ The big increment is from $W=1 \to W \le 2$ (~30–40% more events); $W \le 3$ a
 
 | Variable | C, W=1 | C, W ≤ 2 | C, W ≤ 3 |
 |:---|:---:|:---:|:---:|
-| Cohort (2025 vs 2024) | — | — | — |
-| Female | 0.403 (0.624) | 1.132 (0.918) | 1.132 (0.918) |
-| Sexual Minority | **28.020 (0.042)** | **12.456 (0.037)** | **12.456 (0.037)** |
-| Parent Ed. | 0.324 (0.228) | 0.960 (0.926) | 0.960 (0.926) |
-| Asian | 0.242 (0.445) | 0.378 (0.439) | 0.378 (0.439) |
-| Hispanic/Latine | 0.021 (0.175) | 1.270 (0.852) | 1.270 (0.852) |
-| MDD (Major Depressive S.) | **0.045 (0.029)** | 0.373 (0.212) | 0.373 (0.212) |
-| GAD (Generalized Anxiety Dis.) | 6.669 (0.263) | 0.957 (0.966) | 0.957 (0.966) |
-| Out-degree | 1.644 (0.382) | 0.933 (0.831) | 0.933 (0.831) |
-| In-degree | 0.323 (0.113) | 0.727 (0.288) | 0.727 (0.288) |
-| Perceived Friend Use | 2.308 (0.236) | 0.888 (0.775) | 0.888 (0.775) |
-| Network Exposure Users | 0.206 (0.640) | 0.296 (0.604) | 0.296 (0.604) |
-| Network Exposure Dis-adopters | 0.015 (0.511) | 0.801 (0.923) | 0.801 (0.923) |
+| Cohort (2025 vs 2024) | 22.313 (0.192) | 9.951 (0.118) | 9.951 (0.118) |
+| Female | 0.351 (0.589) | 1.024 (0.985) | 1.024 (0.985) |
+| Sexual Minority | **73.516 (0.029)** | **24.637 (0.018)** | **24.637 (0.018)** |
+| Parent Ed. | 0.150 (0.197) | 0.858 (0.750) | 0.858 (0.750) |
+| Asian | 0.206 (0.421) | 0.272 (0.336) | 0.272 (0.336) |
+| Hispanic/Latine | 0.006 (0.154) | 0.648 (0.744) | 0.648 (0.744) |
+| MDD (Major Depressive S.) | **0.020 (0.020)** | 0.230 (0.113) | 0.230 (0.113) |
+| GAD (Generalized Anxiety Dis.) | 9.704 (0.193) | 1.129 (0.911) | 1.129 (0.911) |
+| Out-degree | 1.102 (0.881) | 0.708 (0.346) | 0.708 (0.346) |
+| In-degree | 0.272 (0.121) | 0.737 (0.322) | 0.737 (0.322) |
+| Perceived Friend Use | 2.846 (0.222) | 0.894 (0.790) | 0.894 (0.790) |
+| Network Exposure Users | 0.112 (0.512) | 0.220 (0.505) | 0.220 (0.505) |
+| Network Exposure Dis-adopters | 0.103 (0.730) | 1.912 (0.784) | 1.912 (0.784) |
 | Rho (ICC) | 0.000 | 0.000 | 0.000 |
 | N Students | 83 | 83 | 83 |
 | N Events | 7 | 11 | 11 |
@@ -524,19 +536,19 @@ In §5/§6/§8/§10, $1 \to 0$ events with NA-only future are dropped from A (we
 
 | Variable | Q=8 (orig) | Q=8 (a) | Q=7 (orig) | Q=7 (a) | Q=6 (orig) | Q=6 (a) | Q=5 (orig) | Q=5 (a) |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Cohort (2025 vs 2024) | — | — | 1.835 (0.115) | 1.527 (0.208) | 1.559 (0.191) | 1.453 (0.213) | 1.395 (0.271) | 1.322 (0.288) |
-| Female | 0.368 (0.076) | 0.509 (0.201) | 0.774 (0.496) | 0.922 (0.818) | 0.601 (0.129) | 0.820 (0.521) | 0.553 (0.060) | 0.755 (0.335) |
-| Sexual Minority | 1.043 (0.944) | 0.840 (0.734) | 0.718 (0.382) | 0.780 (0.465) | 0.753 (0.380) | 0.762 (0.354) | 0.839 (0.541) | 0.838 (0.492) |
-| Parent Ed. | 1.209 (0.346) | 1.163 (0.449) | 1.009 (0.950) | 0.970 (0.826) | 1.018 (0.879) | 1.027 (0.816) | 1.003 (0.983) | 1.014 (0.903) |
-| Asian | 0.898 (0.874) | 0.745 (0.589) | 0.883 (0.783) | 1.134 (0.738) | 1.074 (0.855) | 1.177 (0.628) | 1.159 (0.686) | 1.170 (0.614) |
-| Hispanic/Latine | 0.674 (0.558) | 0.884 (0.818) | 0.811 (0.657) | 0.949 (0.889) | 0.866 (0.703) | 0.970 (0.924) | 0.895 (0.742) | 0.974 (0.926) |
-| MDD (Major Depressive S.) | 0.514 (0.139) | 0.598 (0.196) | 0.715 (0.323) | 0.676 (0.205) | 0.733 (0.323) | 0.669 (0.160) | 0.817 (0.477) | 0.718 (0.202) |
-| GAD (Generalized Anxiety Dis.) | 2.123 (0.155) | 1.176 (0.702) | 1.365 (0.364) | 0.999 (0.996) | 1.224 (0.495) | 0.983 (0.950) | 1.175 (0.541) | 0.995 (0.982) |
-| Out-degree | 1.259 (0.195) | 1.176 (0.337) | 1.077 (0.573) | 0.996 (0.974) | 1.103 (0.393) | 1.008 (0.935) | 1.087 (0.427) | 1.017 (0.859) |
-| In-degree | 1.152 (0.305) | 1.066 (0.597) | 1.133 (0.153) | 1.113 (0.150) | 1.079 (0.308) | 1.101 (0.135) | 1.063 (0.370) | 1.096 (0.125) |
-| **Perceived Friend Use** | 0.886 (0.541) | 0.915 (0.562) | **0.724 (0.017)** | **0.733 (0.003)** | **0.704 (0.001)** | **0.726 (0.000)** | **0.737 (0.001)** | **0.757 (0.000)** |
-| **Network Exposure Users** | **0.021 (0.024)** | **0.067 (0.041)** | **0.098 (0.006)** | **0.248 (0.034)** | 0.261 (0.059) | 0.381 (0.100) | 0.432 (0.186) | 0.510 (0.217) |
-| Network Exposure Dis-adopters | 2.467 (0.486) | 2.971 (0.324) | 0.220 (0.304) | 0.939 (0.936) | 0.443 (0.480) | 1.333 (0.687) | 0.723 (0.746) | 1.662 (0.408) |
+| Cohort (2025 vs 2024) | 1.987 (0.320) | 1.141 (0.805) | 1.835 (0.115) | 1.527 (0.208) | 1.559 (0.191) | 1.453 (0.213) | 1.395 (0.271) | 1.322 (0.288) |
+| Female | 0.363 (0.065) | 0.509 (0.198) | 0.774 (0.496) | 0.922 (0.818) | 0.601 (0.129) | 0.820 (0.521) | 0.553 (0.060) | 0.755 (0.335) |
+| Sexual Minority | 1.180 (0.795) | 0.869 (0.797) | 0.718 (0.382) | 0.780 (0.465) | 0.753 (0.380) | 0.762 (0.354) | 0.839 (0.541) | 0.838 (0.492) |
+| Parent Ed. | 1.148 (0.505) | 1.154 (0.474) | 1.009 (0.950) | 0.970 (0.826) | 1.018 (0.879) | 1.027 (0.816) | 1.003 (0.983) | 1.014 (0.903) |
+| Asian | 0.836 (0.789) | 0.739 (0.576) | 0.883 (0.783) | 1.134 (0.738) | 1.074 (0.855) | 1.177 (0.628) | 1.159 (0.686) | 1.170 (0.614) |
+| Hispanic/Latine | 0.509 (0.365) | 0.848 (0.771) | 0.811 (0.657) | 0.949 (0.889) | 0.866 (0.703) | 0.970 (0.924) | 0.895 (0.742) | 0.974 (0.926) |
+| MDD (Major Depressive S.) | 0.477 (0.111) | 0.585 (0.177) | 0.715 (0.323) | 0.676 (0.205) | 0.733 (0.323) | 0.669 (0.160) | 0.817 (0.477) | 0.718 (0.202) |
+| GAD (Generalized Anxiety Dis.) | 2.130 (0.150) | 1.174 (0.705) | 1.365 (0.364) | 0.999 (0.996) | 1.224 (0.495) | 0.983 (0.950) | 1.175 (0.541) | 0.995 (0.982) |
+| Out-degree | 1.168 (0.384) | 1.162 (0.370) | 1.077 (0.573) | 0.996 (0.974) | 1.103 (0.393) | 1.008 (0.935) | 1.087 (0.427) | 1.017 (0.859) |
+| In-degree | 1.173 (0.255) | 1.069 (0.579) | 1.133 (0.153) | 1.113 (0.150) | 1.079 (0.308) | 1.101 (0.135) | 1.063 (0.370) | 1.096 (0.125) |
+| **Perceived Friend Use** | 0.879 (0.536) | 0.918 (0.577) | **0.724 (0.017)** | **0.733 (0.003)** | **0.704 (0.001)** | **0.726 (0.000)** | **0.737 (0.001)** | **0.757 (0.000)** |
+| **Network Exposure Users** | **0.024 (0.026)** | **0.069 (0.044)** | **0.098 (0.006)** | **0.248 (0.034)** | 0.261 (0.059) | 0.381 (0.100) | 0.432 (0.186) | 0.510 (0.217) |
+| Network Exposure Dis-adopters | 3.079 (0.403) | 3.081 (0.317) | 0.220 (0.304) | 0.939 (0.936) | 0.443 (0.480) | 1.333 (0.687) | 0.723 (0.746) | 1.662 (0.408) |
 | N Students | 83 | 96 | 161 | 191 | 206 | 245 | 237 | 283 |
 | N Events | 52 | 66 | 89 | 122 | 108 | 150 | 124 | 169 |
 
@@ -544,19 +556,19 @@ In §5/§6/§8/§10, $1 \to 0$ events with NA-only future are dropped from A (we
 
 | Variable | Q=8 (orig) | Q=8 (a) | Q=7 (orig) | Q=7 (a) | Q=6 (orig) | Q=6 (a) | Q=5 (orig) | Q=5 (a) |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Cohort (2025 vs 2024) | — | — | 1.791 (0.147) | 1.537 (0.211) | 1.479 (0.269) | 1.431 (0.244) | 1.309 (0.383) | 1.260 (0.385) |
-| Female | 0.377 (0.069) | 0.493 (0.172) | 0.830 (0.621) | 0.920 (0.813) | 0.649 (0.196) | 0.820 (0.526) | 0.599 (0.105) | 0.775 (0.389) |
-| Sexual Minority | 1.075 (0.904) | 0.858 (0.766) | 0.672 (0.282) | 0.780 (0.466) | 0.732 (0.327) | 0.766 (0.361) | 0.834 (0.522) | 0.847 (0.517) |
-| Parent Ed. | 1.220 (0.307) | 1.165 (0.434) | 1.018 (0.896) | 0.968 (0.813) | 1.028 (0.809) | 1.030 (0.795) | 1.013 (0.914) | 1.024 (0.834) |
-| Asian | 0.942 (0.931) | 0.790 (0.669) | 0.841 (0.704) | 1.135 (0.739) | 1.013 (0.974) | 1.177 (0.637) | 1.093 (0.811) | 1.136 (0.691) |
-| Hispanic/Latine | 0.748 (0.678) | 0.932 (0.899) | 0.772 (0.579) | 0.946 (0.882) | 0.855 (0.680) | 0.980 (0.949) | 0.914 (0.792) | 0.980 (0.945) |
-| MDD (Major Depressive S.) | 0.503 (0.128) | 0.603 (0.203) | 0.712 (0.313) | 0.677 (0.208) | 0.717 (0.288) | 0.670 (0.161) | 0.796 (0.423) | 0.714 (0.197) |
-| GAD (Generalized Anxiety Dis.) | 2.202 (0.144) | 1.190 (0.683) | 1.360 (0.366) | 1.000 (1.000) | 1.244 (0.459) | 0.980 (0.940) | 1.196 (0.498) | 0.987 (0.958) |
-| Out-degree | 1.256 (0.197) | 1.157 (0.389) | 1.079 (0.569) | 0.996 (0.975) | 1.102 (0.399) | 1.007 (0.949) | 1.088 (0.422) | 1.009 (0.926) |
-| In-degree | 1.154 (0.295) | 1.073 (0.555) | 1.123 (0.191) | 1.113 (0.149) | 1.079 (0.311) | 1.101 (0.136) | 1.065 (0.360) | 1.097 (0.126) |
-| **Perceived Friend Use** | 0.885 (0.547) | 0.915 (0.568) | **0.735 (0.021)** | **0.731 (0.003)** | **0.720 (0.002)** | **0.729 (0.000)** | **0.756 (0.003)** | **0.771 (0.001)** |
-| **Network Exposure Users** | **0.026 (0.030)** | **0.090 (0.065)** | **0.080 (0.004)** | **0.252 (0.045)** | **0.197 (0.034)** | 0.371 (0.119) | 0.316 (0.094) | 0.441 (0.157) |
-| Network Exposure Dis-adopters | 0.908 (0.948) | 1.686 (0.665) | 0.478 (0.434) | 1.060 (0.939) | 0.375 (0.264) | 0.899 (0.872) | 0.265 (0.112) | 0.602 (0.408) |
+| Cohort (2025 vs 2024) | 1.850 (0.370) | 1.125 (0.825) | 1.791 (0.147) | 1.537 (0.211) | 1.479 (0.269) | 1.431 (0.244) | 1.309 (0.383) | 1.260 (0.385) |
+| Female | 0.366 (0.053) | 0.492 (0.168) | 0.830 (0.621) | 0.920 (0.813) | 0.649 (0.196) | 0.820 (0.526) | 0.599 (0.105) | 0.775 (0.389) |
+| Sexual Minority | 1.208 (0.763) | 0.884 (0.823) | 0.672 (0.282) | 0.780 (0.466) | 0.732 (0.327) | 0.766 (0.361) | 0.834 (0.522) | 0.847 (0.517) |
+| Parent Ed. | 1.159 (0.455) | 1.157 (0.455) | 1.018 (0.896) | 0.968 (0.813) | 1.028 (0.809) | 1.030 (0.795) | 1.013 (0.914) | 1.024 (0.834) |
+| Asian | 0.895 (0.871) | 0.785 (0.660) | 0.841 (0.704) | 1.135 (0.739) | 1.013 (0.974) | 1.177 (0.637) | 1.093 (0.811) | 1.136 (0.691) |
+| Hispanic/Latine | 0.588 (0.479) | 0.898 (0.853) | 0.772 (0.579) | 0.946 (0.882) | 0.855 (0.680) | 0.980 (0.949) | 0.914 (0.792) | 0.980 (0.945) |
+| MDD (Major Depressive S.) | 0.474 (0.109) | 0.592 (0.185) | 0.712 (0.313) | 0.677 (0.208) | 0.717 (0.288) | 0.670 (0.161) | 0.796 (0.423) | 0.714 (0.197) |
+| GAD (Generalized Anxiety Dis.) | 2.206 (0.140) | 1.188 (0.686) | 1.360 (0.366) | 1.000 (1.000) | 1.244 (0.459) | 0.980 (0.940) | 1.196 (0.498) | 0.987 (0.958) |
+| Out-degree | 1.171 (0.379) | 1.143 (0.427) | 1.079 (0.569) | 0.996 (0.975) | 1.102 (0.399) | 1.007 (0.949) | 1.088 (0.422) | 1.009 (0.926) |
+| In-degree | 1.178 (0.239) | 1.077 (0.536) | 1.123 (0.191) | 1.113 (0.149) | 1.079 (0.311) | 1.101 (0.136) | 1.065 (0.360) | 1.097 (0.126) |
+| **Perceived Friend Use** | 0.877 (0.535) | 0.917 (0.579) | **0.735 (0.021)** | **0.731 (0.003)** | **0.720 (0.002)** | **0.729 (0.000)** | **0.756 (0.003)** | **0.771 (0.001)** |
+| **Network Exposure Users** | **0.032 (0.036)** | 0.093 (0.069) | **0.080 (0.004)** | **0.252 (0.045)** | **0.197 (0.034)** | 0.371 (0.119) | 0.316 (0.094) | 0.441 (0.157) |
+| Network Exposure Dis-adopters | 1.212 (0.895) | 1.761 (0.643) | 0.478 (0.434) | 1.060 (0.939) | 0.375 (0.264) | 0.899 (0.872) | 0.265 (0.112) | 0.602 (0.408) |
 | N Students | 83 | 96 | 161 | 191 | 206 | 245 | 237 | 283 |
 | N Events | 52 | 66 | 89 | 122 | 108 | 150 | 124 | 169 |
 
@@ -605,7 +617,7 @@ The §5/§9 regressions show **Perceived Friend Use (PFU)** as the cleanest two-
 
 ## 11.1 Event rate by PFU at $w-1$
 
-For each person-wave row eligible for the corresponding risk-set (no Q-restriction; all W1-W10 panel rows with valid lag and outcome). **"Disadoption" here is *any* $1 \to 0$** transition (Model B-style: $\text{ecig}_{w-1}=1$ and $\text{ecig}_w=0$, regardless of return). It is **not** the stable-A definition — there is no requirement that the student stay at 0 in later observed waves.
+For each person-wave row eligible for the corresponding risk-set (no Q-restriction; all W1-W10 panel rows with valid lag and outcome). **Disadoption here is *any* $1 \to 0$** transition (Model B-style: $\text{ecig}_{w-1}=1$ and $\text{ecig}_w=0$, regardless of return). It is **not** the stable-A definition — there is no requirement that the student stay at 0 in later observed waves.
 
 | PFU at $w-1$ | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate |
 |:-:|---:|---:|---:|---:|
@@ -629,8 +641,8 @@ The disadoption signal is large in raw form. Its visibility in §5/§6/§9 depen
 
 | $E_{\text{users}}$ at $w-1$ | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate |
 |:-:|---:|---:|---:|---:|
-| 0 (None)      | 12,223 | 3.14 % |  537 | **52.14 %** |
-| (0, 0.2]      |    683 | 5.12 % |   72 |    58.33 %  |
+| 0 (None)      | 12,223 | 3.14 % |  537 |    52.14 %  |
+| (0, 0.2]      |    683 | 5.12 % |   72 | **58.33 %** |
 | (0.2, 0.4]    |  1,119 | 8.85 % |  160 |    45.00 %  |
 | (0.4, 0.6]    |    406 | 9.36 % |  101 |    32.67 %  |
 | (0.6, 0.8]    |     74 | **12.16 %** |   30 |    43.33 %  |

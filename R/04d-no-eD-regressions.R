@@ -86,8 +86,8 @@ prep_data <- function(p, drop_cohort = FALSE) {
   d
 }
 run_one <- function(panel_obj, outcome, Q) {
-  d <- prep_data(panel_obj, drop_cohort = (Q == 8))
-  pred_used <- if (Q == 8) setdiff(PRED_NO_ED, "cohort") else PRED_NO_ED
+  d <- prep_data(panel_obj, drop_cohort = FALSE)
+  pred_used <- PRED_NO_ED
   rhs <- paste(c("wave_fe", pred_used), collapse = " + ")
   if (outcome == "C") {
     f <- as.formula(sprintf("event ~ %s + (1 | record_id)", rhs))

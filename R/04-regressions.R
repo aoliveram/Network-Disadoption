@@ -114,8 +114,8 @@ prep_data <- function(p, E_D_var, drop_cohort = FALSE) {
 }
 
 run_one <- function(panel_obj, outcome, E_D_var, Q) {
-  d <- prep_data(panel_obj, E_D_var = E_D_var, drop_cohort = (Q == 8))
-  pred_used <- if (Q == 8) setdiff(PRED, "cohort") else PRED
+  d <- prep_data(panel_obj, E_D_var = E_D_var, drop_cohort = FALSE)
+  pred_used <- PRED
   rhs <- paste(c("wave_fe", pred_used), collapse = " + ")
   if (outcome == "C") {
     f <- as.formula(sprintf("event ~ %s + (1 | record_id)", rhs))

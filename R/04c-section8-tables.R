@@ -81,8 +81,8 @@ fits_indet_alt <- list()
 for (Q in c(5, 6, 7, 8)) {
   p <- readRDS(file.path(INTERMEDIATE,
                          sprintf("v4b_panel_A_Q%d_A_with_indet_full.rds", Q)))
-  d <- prep_data(p, E_D_var = "E_D_alt", drop_cohort = (Q == 8))
-  pred <- if (Q == 8) setdiff(PRED, "cohort") else PRED
+  d <- prep_data(p, E_D_var = "E_D_alt", drop_cohort = FALSE)
+  pred <- PRED
   rhs <- paste(c("wave_fe", pred), collapse = " + ")
   f <- as.formula(sprintf("event ~ %s", rhs))
   fits_indet_alt[[as.character(Q)]] <- fit_glm(f, d)
