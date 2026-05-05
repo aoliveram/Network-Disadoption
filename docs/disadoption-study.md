@@ -90,11 +90,11 @@ For each student we define, on consecutive observed waves:
 
 §10 walks through observed waves regardless of calendar gaps (instead of consecutive-calendar pairs).
 
-**Per-wave degree and peer-user count.** For every wave $w \in \{1, \ldots, 10\}$, the figure below shows the distribution of out-degree (bars, left axis) and the **average count of using friends** an ego has at out-degree $k$ (red line, right axis). The "count of using friends" is $k_\text{users} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer): the number of alters of the ego who currently use ecig.
+**Per-wave degree and using-friend count distributions.** For every wave $w \in \{1, \ldots, 10\}$ the figure below overlays *two* distributions: out-degree (blue bars, "how many ego-waves nominate $k$ friends?") and the count of *using* friends per ego (red bars, "how many ego-waves have $k$ friends who currently use ecig?"). The "count of using friends" is $k_{\text{users}} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer): the number of alters of the ego who currently use ecig at that wave.
 
-![Per-wave: bars = ego-wave count at each out-degree (capped at 12); red line = mean number of using friends across egos at that out-degree.](outputs/figures/sec3_per_wave_degree_exposure.png){width=95%}
+![Per-wave: blue = distribution of out-degree (count of friends nominated); red = distribution of $k_\text{users}$ (count of friends who currently use ecig). Both at integer support; bars at the same x-value are overlaid with alpha = 0.55 so overlap is visible.](outputs/figures/sec3_per_wave_degree_exposure.png){width=95%}
 
-The peer-user count rises monotonically with out-degree at every wave (more friends → more using friends), and the *average* number of using friends grows from W1 to W10 as ecig prevalence rises across the cohort. By W7-W10 the average ego with 7 valid alters has roughly 2 of them currently using.
+Two patterns are visible: (i) out-degree is centered around 3-4 friends in every wave (questionnaire cap = 7), confirming a stable nomination structure; (ii) the using-friend distribution is heavily concentrated at $k_\text{users}=0$ in early waves but the right tail thickens steadily from W3 onward. By W6-W8 a substantial slice of egos has 1-2 using friends; very few egos ever exceed 3 using friends.
 
 # 4. Methods
 

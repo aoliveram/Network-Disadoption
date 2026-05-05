@@ -95,50 +95,36 @@ per_wave <- bind_rows(lapply(waves, function(w) {
   filter(out_deg > 0) |>          # only egos with at least one alter
   filter(!is.na(k_users))         # only ego-waves with E_users defined
 
-# Cap degree at 12 for visualisation (very few above)
-per_wave$out_deg_cap <- pmin(per_wave$out_deg, 12L)
+# Two parallel distributions: out-degree and k_users (count of using
+# friends). Both at integer support 0..max_degree.
+per_wave_long <- bind_rows(
+  per_wave |> select(wave, value = out_deg) |>
+    mutate(metric = "Out-degree"),
+  per_wave |> select(wave, value = k_users) |>
+    mutate(metric = "Adopting friends (k_users)")
+)
+per_wave_long$metric <- factor(per_wave_long$metric,
+                                levels = c("Out-degree",
+                                           "Adopting friends (k_users)"))
 
-# We compute degree counts and average k_users per (wave, degree) cell.
-agg <- per_wave |>
-  group_by(wave, out_deg_cap) |>
-  summarise(n         = n(),
-            mean_k_u  = mean(k_users),
-            .groups   = "drop")
+agg <- per_wave_long |>
+  group_by(wave, metric, value) |>
+  summarise(n = n(), .groups = "drop")
 
-# Build double-axis: bars for degree count (left axis), points/line for
-# mean k_users (right axis, scaled).
-max_n   <- max(agg$n)
-max_kmu <- max(agg$mean_k_u, na.rm = TRUE)
-scale_k <- max_n / max_kmu
-
-p2 <- ggplot(agg, aes(x = factor(out_deg_cap))) +
-  geom_col(aes(y = n, fill = "Out-degree count"),
-           alpha = 0.5, width = 0.8) +
-  geom_point(aes(y = mean_k_u * scale_k, colour = "Mean # using friends"),
-             size = 1.8) +
-  geom_line(aes(y = mean_k_u * scale_k,
-                colour = "Mean # using friends",
-                group  = wave),
-            linewidth = 0.5) +
+p2 <- ggplot(agg, aes(x = factor(value), y = n, fill = metric)) +
+  geom_col(alpha = 0.55, position = "identity", width = 0.85) +
   facet_wrap(~ wave, ncol = 5,
              labeller = labeller(wave = function(x) sprintf("W%s", x))) +
-  scale_y_continuous(
-    name = "Number of ego-waves",
-    sec.axis = sec_axis(~ . / scale_k,
-                        name = "Mean # of using friends (k_users)")
-  ) +
-  scale_fill_manual(name = NULL, values = c("Out-degree count" = "#1f77b4")) +
-  scale_colour_manual(name = NULL, values = c("Mean # using friends" = "#d62728")) +
-  labs(x = "Out-degree (capped at 12)",
-       title = "Per-wave degree distribution and average peer-user count",
-       subtitle = "Bars: count of ego-waves at each out-degree. Red line: mean number of alters who currently use ecig.") +
+  scale_fill_manual(name = NULL,
+                    values = c("Out-degree" = "#1f77b4",
+                                "Adopting friends (k_users)" = "#d62728")) +
+  labs(x = "Count (out-degree, or number of friends who currently use ecig)",
+       y = "Number of ego-waves",
+       title = "Per-wave: out-degree distribution vs distribution of using-friend count",
+       subtitle = "Blue: how many ego-waves have each out-degree. Red: how many ego-waves have each count of using friends.") +
   theme_bw(base_size = 10) +
   theme(panel.grid.minor = element_blank(),
         legend.position = "bottom",
-        axis.title.y.right = element_text(colour = "#d62728"),
-        axis.text.y.right  = element_text(colour = "#d62728"),
-        axis.title.y.left  = element_text(colour = "#1f77b4"),
-        axis.text.y.left   = element_text(colour = "#1f77b4"),
         plot.title = element_text(face = "bold"))
 
 ggsave(file.path(FIGURES, "sec3_per_wave_degree_exposure.png"), p2,
