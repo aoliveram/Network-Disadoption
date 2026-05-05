@@ -669,6 +669,26 @@ PFU is correlated with the network-derived exposure measures, as expected:
 
 PFU and $E_{\text{users}}$ overlap (~$r = 0.23$) — both measure peer-user environment. They are not redundant: PFU is self-reported about close friends; $E_{\text{users}}$ is computed from the friendship-nomination network. The §5 regressions show both surviving as significant predictors of adoption (PFU OR $\approx 1.47$–$1.49$, $E_{\text{users}}$ OR $\approx 5.3$–$5.9$), suggesting they capture complementary aspects of peer-user salience.
 
+## 11.3 Event rate by HS grade
+
+Grade is derived from $(\text{cohort}, \text{wave})$ on the standard ADVANCE timeline (W1=Fall 2020 = 9th grade for class of 2024 schools 101–105 and 106–114; W3=Fall 2021 = 9th grade for class of 2025 schools 201–214). Each grade spans two consecutive waves (Fall + Spring semesters).
+
+| Grade | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate (any 1→0) |
+|:-:|---:|---:|---:|---:|
+| 9th    | 1,787 | 2.63 % |  45 | 46.67 % |
+| 10th   | 6,074 | 4.91 % | 322 | 44.10 % |
+| 11th   | 6,134 | **5.15 %** | 535 | 49.91 % |
+| 12th   | 5,335 | 3.39 % | 457 | **51.20 %** |
+
+| Outcome (binary at-risk row) | $r$ (Pearson) | n |
+|:---|---:|---:|
+| Adoption (any 0→1) vs grade   | −0.006 | 19,330 |
+| Any 1→0 transition vs grade   | +0.049 |  1,359 |
+
+![Adoption (left) and disadoption (right) rates by HS grade. Bars labelled with rate and n.](outputs/figures/sec11_grade_rates.png){width=95%}
+
+**Reading.** Adoption shows a small inverted-U with a peak at 11th grade (5.15%), which is consistent with the standard "experimentation peaks in mid-HS" pattern, but the 9th–12th range is narrow (2.6%–5.2%). Disadoption rate is essentially **flat** across grades — 44%–51%, a 7-percentage-point range that point-biserial correlation summarises as $r = +0.049$ (i.e., near-zero). 12th grade sits at 51% disadoption, slightly above 9th-11th, but the difference is small and the grade-level signal is dominated by within-grade variability (driven by the predictors we already model: PFU, $E_{\text{users}}$, MDD, etc.).
+
 ---
 
 # 12. Discussion
