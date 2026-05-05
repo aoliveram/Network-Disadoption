@@ -128,6 +128,12 @@ The cohort dummy is derived from the first non-NA `schoolid` per student (school
 | 6 | 2441 / 449 | 2077 / 232 | 399 / 244 | 206 / 108 | 461 / 384 | 233 / 159 | 399 / 66 | 206 / 21 |
 | 5 | 2919 / 551 | 2404 / 267 | 493 / 288 | 237 / 124 | 568 / 467 | 271 / 185 | 493 / 81 | 237 / 29 |
 
+The two figures below visualise the same N table. Each bar is **one rectangle per (panel, Q)** with `N students` in low-alpha shading and `N events` overlaid in high-alpha shading of the same colour, so the gap between the two values is the count of *at-risk students who never disadopt at the corresponding Q level*.
+
+![Effective N — full at-risk panel (before complete-cases). Each bar shows total at-risk students with events overlaid.](outputs/figures/sec4_N_full.png){width=95%}
+
+![Effective N — after complete.cases on the 13 predictors (= what each regression actually fits).](outputs/figures/sec4_N_cc.png){width=95%}
+
 \fontsize{8}{10}\selectfont
 
 ---
@@ -618,6 +624,24 @@ PFU at $w-1$ moves adoption from 2% → 12% (5.4×) and **moves disadoption from
 | Any 1→0 transition          | **−0.256** |  1,402 |
 
 The disadoption signal is large in raw form. Its visibility in §5/§6/§9 depends on which sub-event we model (A / B / C), the small sub-samples, and the competition with `Network Exposure Users`.
+
+**Same exercise but with the network-derived measure $E_{\text{users}}$ at $w-1$** (peer share who currently use ecig, computed from the friendship-nomination network — *not* the self-report PFU). $E_{\text{users}}$ is binned into 6 categories, parallel to the 0–5 PFU scale. Same denominator definitions as above; "Disadoption rate" is again *any* $1 \to 0$.
+
+| $E_{\text{users}}$ at $w-1$ | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate |
+|:-:|---:|---:|---:|---:|
+| 0 (None)      | 12,223 | 3.14 % |  537 | **52.14 %** |
+| (0, 0.2]      |    683 | 5.12 % |   72 |    58.33 %  |
+| (0.2, 0.4]    |  1,119 | 8.85 % |  160 |    45.00 %  |
+| (0.4, 0.6]    |    406 | 9.36 % |  101 |    32.67 %  |
+| (0.6, 0.8]    |     74 | **12.16 %** |   30 |    43.33 %  |
+| (0.8, 1.0]    |    136 | 8.09 % |   37 |    29.73 %  |
+
+| Outcome (binary at-risk row) | $r$ | n |
+|:---|---:|---:|
+| Adoption (any 0→1)          | **+0.090** | 14,641 |
+| Any 1→0 transition          | **−0.137** |    937 |
+
+The qualitative pattern matches PFU — disadoption falls from ≈52% at $E_{\text{users}}=0$ to ≈30% at $E_{\text{users}}>0.8$ (1.7× lower) — but the gradient is gentler and noisier than the self-reported PFU gradient (54.1% → 20.7%, 2.6×). The $(0, 0.2]$ bin is anomalous (58.3%), but that's just 72 person-waves and overlaps with the 52% in the "none" bin within sampling noise. The point-biserial correlations are correspondingly weaker ($|r|=0.137$ vs $0.256$ for PFU). Two reasons: (i) $E_{\text{users}}$ has a much heavier mass at exactly 0 (12,223 vs 17,492 person-waves), and (ii) sparse out-degree means $E_{\text{users}}$ is a noisy estimator of "what fraction of friends use" — *self-reported* PFU averages over a wider, more salient personal network than the (small) friendship-nomination set captures.
 
 ## 11.2 PFU vs network exposures (Pearson)
 
