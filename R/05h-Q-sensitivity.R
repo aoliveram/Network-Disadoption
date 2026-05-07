@@ -191,34 +191,32 @@ plot_df$outcome <- factor(plot_df$outcome, levels = c("A","B","C"),
                                      "B — Experimental",
                                      "C — Unstable / cyclic"))
 
-# % gain when going from Q+1 (more strict) to Q (less strict): the
-# left-to-right reading on the plot (which is right-to-left in Q).
-# Annotation placed at the smaller-Q endpoint (gain side).
+# Cumulative % gain relative to Q = 8 (the reference / strictest spec).
+# At Q = 8 the gain is 0 by construction; at any Q < 8 the gain is the
+# percentage MORE students/events than at Q = 8.
+ref_df <- plot_df |>
+  filter(Q == 8) |>
+  rename(ref_value = value) |>
+  select(outcome, metric, ref_value)
 gain_df <- plot_df |>
-  arrange(outcome, metric, Q) |>
-  group_by(outcome, metric) |>
-  mutate(prev_value = dplyr::lag(value),
-         gain_pct   = ifelse(is.na(prev_value) | prev_value == 0, NA_real_,
-                             100 * (value - prev_value) / prev_value)) |>
-  ungroup()
-# Bold the largest single-step gain per (outcome, metric)
-gain_df <- gain_df |>
-  group_by(outcome, metric) |>
-  mutate(is_max_gain = !is.na(gain_pct) & gain_pct == max(gain_pct, na.rm = TRUE)) |>
-  ungroup()
-gain_df$gain_lbl <- ifelse(is.na(gain_df$gain_pct), "",
+  left_join(ref_df, by = c("outcome", "metric")) |>
+  mutate(gain_pct = ifelse(ref_value == 0, NA_real_,
+                           100 * (value - ref_value) / ref_value),
+         is_q7    = Q == 7)
+# Hide the Q = 8 label (always 0%) and tag Q = 7 as the highlight
+gain_df$gain_lbl <- ifelse(gain_df$Q == 8 | is.na(gain_df$gain_pct), "",
                            sprintf("%+.0f%%", gain_df$gain_pct))
 
 p <- ggplot(plot_df, aes(x = Q, y = value, colour = metric, group = metric)) +
   geom_line(linewidth = 1.0) +
   geom_point(size = 2.4) +
   geom_text(aes(label = value), vjust = -0.9, size = 3, show.legend = FALSE) +
-  geom_text(data = subset(gain_df, !is_max_gain & gain_lbl != ""),
+  geom_text(data = subset(gain_df, !is_q7 & gain_lbl != ""),
             aes(label = gain_lbl),
             vjust = 1.9, size = 3, show.legend = FALSE) +
-  geom_text(data = subset(gain_df, is_max_gain),
+  geom_text(data = subset(gain_df, is_q7),
             aes(label = gain_lbl),
-            vjust = 1.9, size = 3.4, fontface = "bold", show.legend = FALSE) +
+            vjust = 1.9, size = 4.6, fontface = "bold", show.legend = FALSE) +
   facet_wrap(~ outcome, ncol = 1, scales = "free_y") +
   scale_x_reverse(breaks = 4:8) +
   scale_y_continuous(expand = expansion(mult = c(0.18, 0.18))) +
@@ -228,7 +226,7 @@ p <- ggplot(plot_df, aes(x = Q, y = value, colour = metric, group = metric)) +
   labs(x = "Q (minimum consecutive observed waves of past_6mo_use_3) — strict ← → relaxed",
        y = "Count after complete.cases (CC)",
        title = "Q sensitivity: how N students and N events shrink as Q tightens",
-       subtitle = "After complete-case filter on the 13-variable PRED set. Numbers below each line segment = % gain when relaxing one Q step; bold = the steepest gain.") +
+       subtitle = "After complete-case filter on the 13 predictors. Numbers below each point = cumulative % gain vs Q=8 (the strictest reference). The bold highlight is Q=7, our recommended sweet spot.") +
   theme_bw(base_size = 11) +
   theme(panel.grid.minor = element_blank(),
         legend.position = "bottom",
@@ -236,5 +234,5 @@ p <- ggplot(plot_df, aes(x = Q, y = value, colour = metric, group = metric)) +
         strip.text = element_text(face = "bold"))
 
 ggsave(file.path(FIGURES, "sec11_Q_sensitivity.png"), p,
-       width = 9, height = 8.0, dpi = 220)
+       width = 6.5, height = 8.0, dpi = 220)
 cat("\nWrote outputs/figures/sec11_Q_sensitivity.png\n")

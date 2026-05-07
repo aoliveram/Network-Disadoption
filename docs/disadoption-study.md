@@ -761,11 +761,17 @@ This subsection shows how (effective N students, N events) for the three disadop
 
 (Counts are after `complete.cases` on the 13-variable PRED set. FULL counts before CC are in `outputs/tables/v4b_table_11_5_Q_sensitivity.csv`.)
 
-![Q-sensitivity per outcome. Three stacked subplots: A (top), B (middle), C (bottom). x-axis runs strict-to-relaxed (Q = 8 on the left). Blue line = students, red line = events. Numbers below each line segment = % gain when relaxing one Q step. **Bold** marks the steepest gain step.](outputs/figures/sec11_Q_sensitivity.png){width=85%}
+![Q-sensitivity per outcome. Three stacked subplots: A (top), B (middle), C (bottom). x-axis runs strict-to-relaxed (Q = 8 on the left). Blue line = students, red line = events. Numbers below each point = cumulative % gain vs Q = 8 (the strictest reference). The bold highlight is **Q = 7**, our recommended sweet spot.](outputs/figures/sec11_Q_sensitivity.png){width=70%}
 
-**Reading.** Reading the plot left-to-right (relaxing Q from 8 toward 4), the steepest single-step *gains* — equivalently the steepest one-step losses when tightening — are at **$Q = 8$** (i.e. the $Q = 7 \to 8$ tightening throws away the most events): A loses 42% of events, B loses 46%, C loses 53% (all marked in **bold** on the figure). Every later step ($Q = 7 \to 6$, $Q = 6 \to 5$, $Q = 5 \to 4$) trims only 5–14% per side, an order of magnitude less.
+**Reading.** All gains are reported relative to Q = 8 (the strictest reference, where the gain is zero by construction). Each one-step relaxation buys progressively less per Q step:
 
-**Why $Q = 7$ as the headline.** $Q = 8$ is the most informed sample (students observed across the full HS arc) but its 52–70 events spread over 7 grade-semester dummies + 13 covariates push the small-panel separation problem (visible in §13 below). $Q = 7$ keeps 60% of the $Q = 5$ events on A (89 vs 124) and 70% on B (129 vs 185), restores ~70% more events than $Q = 8$, and avoids the cliff. Going further ($Q = 6, 5, 4$) buys only marginal additions and starts blending in students with thin observation histories. **$Q = 7$ is the sweet spot**, and §13 ("Recommended specification") reads off the §6 alt-$E_D$ fits at $Q = 7$.
+- **A (Stable)**: relaxing $Q = 8 \to 7$ alone gains **+71%** events (52 → 89) and +94% students. Going further ($Q = 6, 5, 4$) only adds another +37–79% on top — the marginal return drops sharply after $Q = 7$.
+- **B (Experimental)**: $Q = 8 \to 7$ gains **+84%** events (70 → 129) and +100% students. Later steps add +43–105% more.
+- **C (Unstable)**: $Q = 8 \to 7$ gains **+114%** events (7 → 15), but C is too sparse at any Q to gain inferential power from further relaxation.
+
+**Why $Q = 7$ as the headline.** The single biggest jump in usable data per Q step is at $Q = 8 \to 7$ (the bold annotations); every later step trades modest extra power for less observed students. $Q = 7$ keeps 60% of the $Q = 5$ events on A (89 vs 124) and 70% on B (129 vs 185), more than doubles the events from $Q = 8$, and avoids the small-panel separation problem visible in §13 (the gs_fe block at Q = 8 explodes due to event sparsity). Going further ($Q = 6, 5, 4$) buys only marginal additions and blends in students with thin observation histories. **$Q = 7$ is the sweet spot**, and §13 ("Recommended specification") reads off the §6 alt-$E_D$ fits at $Q = 7$.
+
+\newpage
 
 ---
 
