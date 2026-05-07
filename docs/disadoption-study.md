@@ -619,14 +619,14 @@ The §5/§9 regressions show **Perceived Friend Use (PFU)** as the cleanest two-
 
 For each person-wave row eligible for the corresponding risk-set (no Q-restriction; all W1-W10 panel rows with valid lag and outcome). **Disadoption here is *any* $1 \to 0$** transition (Model B-style: $\text{ecig}_{w-1}=1$ and $\text{ecig}_w=0$, regardless of return). It is **not** the stable-A definition — there is no requirement that the student stay at 0 in later observed waves.
 
-| PFU at $w-1$ | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate |
-|:-:|---:|---:|---:|---:|
-| 0 (None)     | 17,492 | 2.15 % | 388 | **54.12 %** |
-| 1            |  2,067 | 5.13 % | 224 |    42.41 %  |
-| 2            |  1,246 | 8.91 % | 247 |    31.17 %  |
-| 3            |    652 | 9.51 % | 223 |    27.35 %  |
-| 4            |    214 | 9.35 % | 127 |    21.26 %  |
-| 5            |    269 |**11.52 %** | 193 |    20.73 %  |
+| PFU at $w-1$ | At risk (adopt) | N adopted | Adoption rate | At risk (disad) | N disadopted | Disadoption rate |
+|:-:|---:|---:|---:|---:|---:|---:|
+| 0 (None) | 17,492 | 376 | 2.15 % | 388 | 210 | **54.12 %** |
+| 1        |  2,067 | 106 | 5.13 % | 224 |  95 |    42.41 %  |
+| 2        |  1,246 | 111 | 8.91 % | 247 |  77 |    31.17 %  |
+| 3        |    652 |  62 | 9.51 % | 223 |  61 |    27.35 %  |
+| 4        |    214 |  20 | 9.35 % | 127 |  27 |    21.26 %  |
+| 5        |    269 |  31 | **11.52 %** | 193 |  40 |    20.73 %  |
 
 PFU at $w-1$ moves adoption from 2% → 12% (5.4×) and **moves disadoption from 54% → 21%** (2.6× lower). Point-biserial correlations with the binary outcomes:
 
@@ -639,14 +639,14 @@ The disadoption signal is large in raw form. Its visibility in §5/§6/§9 depen
 
 **Same exercise but with the network-derived measure $E_{\text{users}}$ at $w-1$** (peer share who currently use ecig, computed from the friendship-nomination network — *not* the self-report PFU). $E_{\text{users}}$ is binned into 6 categories, parallel to the 0–5 PFU scale. Same denominator definitions as above; "Disadoption rate" is again *any* $1 \to 0$.
 
-| $E_{\text{users}}$ at $w-1$ | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate |
-|:-:|---:|---:|---:|---:|
-| 0 (None)      | 12,223 | 3.14 % |  537 |    52.14 %  |
-| (0, 0.2]      |    683 | 5.12 % |   72 | **58.33 %** |
-| (0.2, 0.4]    |  1,119 | 8.85 % |  160 |    45.00 %  |
-| (0.4, 0.6]    |    406 | 9.36 % |  101 |    32.67 %  |
-| (0.6, 0.8]    |     74 | **12.16 %** |   30 |    43.33 %  |
-| (0.8, 1.0]    |    136 | 8.09 % |   37 |    29.73 %  |
+| $E_{\text{users}}$ at $w-1$ | At risk (adopt) | N adopted | Adoption rate | At risk (disad) | N disadopted | Disadoption rate |
+|:-:|---:|---:|---:|---:|---:|---:|
+| 0 (None)   | 12,223 | 384 | 3.14 % | 537 | 280 |    52.14 %  |
+| (0, 0.2]   |    683 |  35 | 5.12 % |  72 |  42 | **58.33 %** |
+| (0.2, 0.4] |  1,119 |  99 | 8.85 % | 160 |  72 |    45.00 %  |
+| (0.4, 0.6] |    406 |  38 | 9.36 % | 101 |  33 |    32.67 %  |
+| (0.6, 0.8] |     74 |   9 | **12.16 %** |  30 |  13 |    43.33 %  |
+| (0.8, 1.0] |    136 |  11 | 8.09 % |  37 |  11 |    29.73 %  |
 
 | Outcome (binary at-risk row) | $r$ | n |
 |:---|---:|---:|
@@ -655,7 +655,7 @@ The disadoption signal is large in raw form. Its visibility in §5/§6/§9 depen
 
 The qualitative pattern matches PFU — disadoption falls from ≈52% at $E_{\text{users}}=0$ to ≈30% at $E_{\text{users}}>0.8$ (1.7× lower) — but the gradient is gentler and noisier than the self-reported PFU gradient (54.1% → 20.7%, 2.6×). The $(0, 0.2]$ bin is anomalous (58.3%), but that's just 72 person-waves and overlaps with the 52% in the "none" bin within sampling noise. The point-biserial correlations are correspondingly weaker ($|r|=0.137$ vs $0.256$ for PFU). Two reasons: (i) $E_{\text{users}}$ has a much heavier mass at exactly 0 (12,223 vs 17,492 person-waves), and (ii) sparse out-degree means $E_{\text{users}}$ is a noisy estimator of "what fraction of friends use" — *self-reported* PFU averages over a wider, more salient personal network than the (small) friendship-nomination set captures.
 
-**Same exercise but with the network-derived measure as a *count* of using friends** (Tom's request). We bin $k_{\text{users}} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer) — i.e. how many friends the ego nominated who currently use ecig. We add explicit event-count columns so the rate is fully auditable per cell.
+**Same exercise but with the network-derived measure as a *count* of using friends**. We bin $k_{\text{users}} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer) — i.e. how many friends the ego nominated who currently use ecig. We add explicit event-count columns so the rate is fully auditable per cell.
 
 | # using friends $w-1$ | At risk (adopt) | N adopted | Adoption rate | At risk (disad) | N disadopted | Disadoption rate |
 |:-:|---:|---:|---:|---:|---:|---:|
@@ -687,25 +687,37 @@ PFU is correlated with the network-derived exposure measures, as expected:
 
 PFU and $E_{\text{users}}$ overlap (~$r = 0.23$) — both measure peer-user environment. They are not redundant: PFU is self-reported about close friends; $E_{\text{users}}$ is computed from the friendship-nomination network. The §5 regressions show both surviving as significant predictors of adoption (PFU OR $\approx 1.47$–$1.49$, $E_{\text{users}}$ OR $\approx 5.3$–$5.9$), suggesting they capture complementary aspects of peer-user salience.
 
-## 11.3 Event rate by HS grade
+## 11.3 Event rate by HS grade-semester
 
-Grade is derived from $(\text{cohort}, \text{wave})$ on the standard ADVANCE timeline (W1=Fall 2020 = 9th grade for class of 2024 schools 101–105 and 106–114; W3=Fall 2021 = 9th grade for class of 2025 schools 201–214). Each grade spans two consecutive waves (Fall + Spring semesters).
+Grade-semester is derived from $(\text{cohort}, \text{wave})$ on the standard ADVANCE timeline. Eight semesters span fall 9th (gs=1) through spring 12th (gs=8):
 
-| Grade | n (at risk for adoption) | Adoption rate | n (at risk for disadoption) | Disadoption rate (any 1→0) |
-|:-:|---:|---:|---:|---:|
-| 9th    | 1,787 | 2.63 % |  45 | 46.67 % |
-| 10th   | 6,074 | 4.91 % | 322 | 44.10 % |
-| 11th   | 6,134 | **5.15 %** | 535 | 49.91 % |
-| 12th   | 5,335 | 3.39 % | 457 | **51.20 %** |
+- **Class of 2024** (schools 101–114): W1=fall 9th (gs=1), W2=spring 9th (gs=2), …, W8=spring 12th (gs=8). W9–W10 are post-HS and excluded.
+- **Class of 2025** (schools 201–214): W3=gs=1, W4=gs=2, …, W10=gs=8.
+
+The first observed wave for each cohort produces no at-risk rows because the lag is undefined, so gs=1 (fall 9th) has zero rows and is omitted; the table starts at gs=2 (spring 9th).
+
+| Grade-semester | At risk (adopt) | N adopted | Adoption rate | At risk (disad) | N disadopted | Disadoption rate (any 1→0) |
+|:-:|---:|---:|---:|---:|---:|---:|
+| 2 (spring 9th)   | 1,787 |  47 | 2.63 % |  45 |  21 | 46.67 % |
+| 3 (fall 10th)    | 2,865 | 126 | 4.40 % | 111 |  43 | 38.74 % |
+| 4 (spring 10th)  | 3,209 | 172 | **5.36 %** | 211 |  99 | 46.92 % |
+| 5 (fall 11th)    | 3,157 | 150 | 4.75 % | 273 | 138 | 50.55 % |
+| 6 (spring 11th)  | 2,977 | 166 | **5.58 %** | 262 | 129 | 49.24 % |
+| 7 (fall 12th)    | 2,715 | 100 | 3.68 % | 249 | 130 | **52.21 %** |
+| 8 (spring 12th)  | 2,620 |  81 | 3.09 % | 208 | 104 | 50.00 % |
 
 | Outcome (binary at-risk row) | $r$ (Pearson) | n |
 |:---|---:|---:|
-| Adoption (any 0→1) vs grade   | −0.006 | 19,330 |
-| Any 1→0 transition vs grade   | +0.049 |  1,359 |
+| Adoption (any 0→1) vs grade-semester   | −0.006 | 19,330 |
+| Any 1→0 transition vs grade-semester   | +0.048 |  1,359 |
 
-![Adoption (left) and disadoption (right) rates by HS grade. Bars labelled with rate and n.](outputs/figures/sec11_grade_rates.png){width=95%}
+![Adoption (left) and disadoption (right) rates by HS grade-semester. Bars labelled with rate and n.](outputs/figures/sec11_grade_rates.png){width=95%}
 
-**Reading.** Adoption shows a small inverted-U with a peak at 11th grade (5.15%), which is consistent with the standard "experimentation peaks in mid-HS" pattern, but the 9th–12th range is narrow (2.6%–5.2%). Disadoption rate is essentially **flat** across grades — 44%–51%, a 7-percentage-point range that point-biserial correlation summarises as $r = +0.049$ (i.e., near-zero). 12th grade sits at 51% disadoption, slightly above 9th-11th, but the difference is small and the grade-level signal is dominated by within-grade variability (driven by the predictors we already model: PFU, $E_{\text{users}}$, MDD, etc.).
+The line graph below puts both trajectories on the same x-axis (dual y-axis: green = disadoption on the left, blue = adoption on the right) so the developmental shape is directly visible:
+
+![Adoption and disadoption trajectories across the high-school years. Dual y-axes (left: disadoption %, right: adoption %).](outputs/figures/sec11_grade_rates_line.png){width=95%}
+
+**Reading.** Adoption follows an inverted-U with a peak around **spring 11th** (gs=6, 5.6%) and the conventional "experimentation peaks mid-HS" pattern — adoption climbs from 2.6% in spring 9th to 5%–5.6% across the gs=4–6 plateau, then falls to 3.1% by spring 12th. Disadoption (any 1→0) drifts gently *upward* from spring 9th (47%) through 12th grade (50%–52%) — the highest semester-level disadoption rate is fall 12th (52.2%). But the spread is narrow: 39%–52% across all seven semesters, summarised by point-biserial correlation $r = +0.048$ (i.e., almost no monotonic trend on the rate). Most variation in both outcomes is across-bin noise rather than a clean grade-semester gradient.
 
 ---
 
