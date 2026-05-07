@@ -12,7 +12,7 @@
 #
 # Outputs:
 #   outputs/tables/v4b_table_11_4_outdegree_distribution.csv
-#   outputs/figures/sec11_outdegree_distribution.png
+#   outputs/figures/sec11_outdegree_distribution.pdf
 # ================================================================
 suppressMessages({
   library(dplyr); library(ggplot2); library(tidyr)
@@ -111,6 +111,6 @@ p <- ggplot(plot_df, aes(x = factor(out_deg), y = share, fill = subset)) +
         legend.position = "bottom",
         plot.title = element_text(face = "bold"))
 
-ggsave(file.path(FIGURES, "sec11_outdegree_distribution.png"), p,
+ggsave(file.path(FIGURES, "sec11_outdegree_distribution.pdf"), p,
        width = 10, height = 4.4, dpi = 220)
-cat("\nWrote outputs/figures/sec11_outdegree_distribution.png\n")
+cat("\nWrote outputs/figures/sec11_outdegree_distribution.pdf\n")

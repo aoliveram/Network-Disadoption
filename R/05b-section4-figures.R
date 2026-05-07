@@ -2,8 +2,8 @@
 # 05b-section4-figures.R  (v4b)
 #
 # Figures for §4 "Effective sample size by panel × Q":
-#   - sec4_N_full.png : students/events overlay, full panels
-#   - sec4_N_cc.png   : students/events overlay, complete-cases (CC)
+#   - sec4_N_full.pdf : students/events overlay, full panels
+#   - sec4_N_cc.pdf   : students/events overlay, complete-cases (CC)
 #
 # Within each PNG: 4 facets (one per outcome panel) and 4 bars per
 # facet (one per Q ∈ {5,6,7,8}). Each bar is a single rectangle with
@@ -82,11 +82,11 @@ long_cc <- df |>
 p_full <- make_plot(long_full, "Effective N — full at-risk panel")
 p_cc   <- make_plot(long_cc,   "Effective N — after complete.cases on the 13 predictors (CC)")
 
-ggsave(file.path(FIGURES, "sec4_N_full.png"), p_full,
+ggsave(file.path(FIGURES, "sec4_N_full.pdf"), p_full,
        width = 9, height = 3.6, dpi = 220)
-ggsave(file.path(FIGURES, "sec4_N_cc.png"),   p_cc,
+ggsave(file.path(FIGURES, "sec4_N_cc.pdf"),   p_cc,
        width = 9, height = 3.6, dpi = 220)
 
 cat("Wrote:\n  ",
-    file.path(FIGURES, "sec4_N_full.png"), "\n  ",
-    file.path(FIGURES, "sec4_N_cc.png"), "\n")
+    file.path(FIGURES, "sec4_N_full.pdf"), "\n  ",
+    file.path(FIGURES, "sec4_N_cc.pdf"), "\n")

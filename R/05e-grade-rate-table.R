@@ -16,8 +16,8 @@
 #
 # Outputs:
 #   outputs/tables/v4b_table_11_3_grade.csv
-#   outputs/figures/sec11_grade_rates.png    (8-bin bar version)
-#   outputs/figures/sec11_grade_rates_line.png (line-graph version)
+#   outputs/figures/sec11_grade_rates.pdf    (8-bin bar version)
+#   outputs/figures/sec11_grade_rates_line.pdf (line-graph version)
 # ================================================================
 suppressMessages({
   library(dplyr)
@@ -115,9 +115,9 @@ p_bar <- ggplot(plot_df, aes(x = gs_lab, y = rate, fill = kind)) +
         plot.title = element_text(face = "bold"),
         axis.text.x = element_text(size = 8))
 
-ggsave(file.path(FIGURES, "sec11_grade_rates.png"), p_bar,
+ggsave(file.path(FIGURES, "sec11_grade_rates.pdf"), p_bar,
        width = 10, height = 4.0, dpi = 220)
-cat("\nWrote outputs/figures/sec11_grade_rates.png\n")
+cat("\nWrote outputs/figures/sec11_grade_rates.pdf\n")
 
 # ---------------------------------------------------------------
 # (b) Line graph — both rates on the same plot, dual y-axes
@@ -167,6 +167,6 @@ p_line <- ggplot(tab, aes(x = gs)) +
         plot.title = element_text(face = "bold"),
         axis.text.x = element_text(size = 8))
 
-ggsave(file.path(FIGURES, "sec11_grade_rates_line.png"), p_line,
+ggsave(file.path(FIGURES, "sec11_grade_rates_line.pdf"), p_line,
        width = 10, height = 4.6, dpi = 220)
-cat("Wrote outputs/figures/sec11_grade_rates_line.png\n")
+cat("Wrote outputs/figures/sec11_grade_rates_line.pdf\n")

@@ -1,6 +1,6 @@
 ---
 title: "ADVANCE Disadoption Study v5"
-subtitle: "Behavioural correlates of e-cigarette adoption and disadoption (W1-W10, grade-semester FE, 6 result families)"
+subtitle: "Behavioural correlates of e-cigarette adoption and disadoption (W1-W10)"
 author: "A. Olivera, T. Valente, K. Miljkovic, Y. Cao"
 date: \today
 geometry: "margin=2.5cm"
@@ -73,7 +73,7 @@ Network alters used to compute $E_{\text{users}}$ and $E_D$ are NOT restricted b
 
 **Friendship-nomination degree distribution (pooled W1-W10).** Each ego nominates up to seven friends per wave; out-degree is the count of valid alters (alter in the panel and responding at $w$); in-degree is how many other egos name a given student.
 
-![Out-degree and in-degree distributions across all valid (ego, wave) cells with non-zero degree.](outputs/figures/sec2_degree_distribution.png){width=95%}
+![Out-degree and in-degree distributions across all valid (ego, wave) cells with non-zero degree.](outputs/figures/sec2_degree_distribution.pdf){width=95%}
 
 Out-degree is mechanically capped near 7 (questionnaire limit); in-degree has a long right tail (a few students are frequently nominated). Both distributions are right-skewed but well populated.
 
@@ -92,7 +92,7 @@ For each student we define, on consecutive observed waves:
 
 **Per-wave degree and using-friend count distributions.** For every wave $w \in \{1, \ldots, 10\}$ the figure below overlays *two* distributions: out-degree (blue bars, "how many ego-waves nominate $k$ friends?") and the count of *using* friends per ego (red bars, "how many ego-waves have $k$ friends who currently use ecig?"). The "count of using friends" is $k_{\text{users}} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer): the number of alters of the ego who currently use ecig at that wave.
 
-![Per-wave: blue = distribution of out-degree (count of friends nominated); red = distribution of $k_\text{users}$ (count of friends who currently use ecig). Both at integer support; bars at the same x-value are overlaid with alpha = 0.55 so overlap is visible.](outputs/figures/sec3_per_wave_degree_exposure.png){width=95%}
+![Per-wave: blue = distribution of out-degree (count of friends nominated); red = distribution of $k_\text{users}$ (count of friends who currently use ecig). Both at integer support; bars at the same x-value are overlaid with alpha = 0.55 so overlap is visible.](outputs/figures/sec3_per_wave_degree_exposure.pdf){width=95%}
 
 Two patterns are visible: (i) out-degree is centered around 3-4 friends in every wave (questionnaire cap = 7), confirming a stable nomination structure; (ii) the using-friend distribution is heavily concentrated at $k_\text{users}=0$ in early waves but the right tail thickens steadily from W3 onward. By W6-W8 a substantial slice of egos has 1-2 using friends; very few egos ever exceed 3 using friends.
 
@@ -144,9 +144,9 @@ The cohort dummy is derived from the first non-NA `schoolid` per student (school
 
 The two figures below visualise the same N table. Each bar is **one rectangle per (panel, Q)** with `N students` in low-alpha shading and `N events` overlaid in high-alpha shading of the same colour, so the gap between the two values is the count of *at-risk students who never disadopt at the corresponding Q level*.
 
-![Effective N — full at-risk panel (before complete-cases). Each bar shows total at-risk students with events overlaid.](outputs/figures/sec4_N_full.png){width=95%}
+![Effective N — full at-risk panel (before complete-cases). Each bar shows total at-risk students with events overlaid.](outputs/figures/sec4_N_full.pdf){width=95%}
 
-![Effective N — after complete.cases on the 13 predictors (= what each regression actually fits).](outputs/figures/sec4_N_cc.png){width=95%}
+![Effective N — after complete.cases on the 13 predictors (= what each regression actually fits).](outputs/figures/sec4_N_cc.pdf){width=95%}
 
 \fontsize{8}{10}\selectfont
 
@@ -639,7 +639,7 @@ Out-degree = number of friends an ego nominated whose nomination survives the pa
 
 Mean out-degree: 3.31 (all) / 3.06 (users) / 3.33 (non-users). Median is 3 in all three subsets.
 
-![Out-degree distribution by ego e-cigarette status. Bars dodge per subset; share within subset on the y-axis, raw n on top of each bar.](outputs/figures/sec11_outdegree_distribution.png){width=95%}
+![Out-degree distribution by ego e-cigarette status. Bars dodge per subset; share within subset on the y-axis, raw n on top of each bar.](outputs/figures/sec11_outdegree_distribution.pdf){width=95%}
 
 **Reading.** Users are slightly *less* connected than non-users: the user distribution leans toward out-degree 1–3 (62.6% of users vs 56.9% of non-users), and away from out-degree 5–7 (19.2% of users vs 24.5% of non-users). The mean out-degree gap is 0.27 friends. This is a small but substantively interesting fact — a higher-density friendship network is not what predicts ecig use here; rather, *who* the friends are (PFU, $E_{\text{users}}$) matters. The distribution shape is very stable across the three subsets, which is reassuring for the network exposure measures: $E_{\text{users}}$ is computed on a denominator that varies little between users and non-users.
 
@@ -739,11 +739,11 @@ The first observed wave for each cohort produces no at-risk rows because the lag
 | Adoption (any 0→1) vs grade-semester   | −0.006 | 19,330 |
 | Any 1→0 transition vs grade-semester   | +0.048 |  1,359 |
 
-![Adoption (left) and disadoption (right) rates by HS grade-semester. Bars labelled with rate and n.](outputs/figures/sec11_grade_rates.png){width=95%}
+![Adoption (left) and disadoption (right) rates by HS grade-semester. Bars labelled with rate and n.](outputs/figures/sec11_grade_rates.pdf){width=95%}
 
 The line graph below puts both trajectories on the same x-axis (dual y-axis: green = disadoption on the left, blue = adoption on the right) so the developmental shape is directly visible:
 
-![Adoption and disadoption trajectories across the high-school years. Dual y-axes (left: disadoption %, right: adoption %).](outputs/figures/sec11_grade_rates_line.png){width=95%}
+![Adoption and disadoption trajectories across the high-school years. Dual y-axes (left: disadoption %, right: adoption %).](outputs/figures/sec11_grade_rates_line.pdf){width=95%}
 
 **Reading.** Adoption follows an inverted-U with a peak around **spring 11th** (gs=6, 5.6%) and the conventional "experimentation peaks mid-HS" pattern — adoption climbs from 2.6% in spring 9th to 5%–5.6% across the gs=4–6 plateau, then falls to 3.1% by spring 12th. Disadoption (any 1→0) drifts gently *upward* from spring 9th (47%) through 12th grade (50%–52%) — the highest semester-level disadoption rate is fall 12th (52.2%). But the spread is narrow: 39%–52% across all seven semesters, summarised by point-biserial correlation $r = +0.048$ (i.e., almost no monotonic trend on the rate). Most variation in both outcomes is across-bin noise rather than a clean grade-semester gradient.
 
@@ -761,13 +761,13 @@ This subsection shows how (effective N students, N events) for the three disadop
 
 (Counts are after `complete.cases` on the 13-variable PRED set. FULL counts before CC are in `outputs/tables/v4b_table_11_5_Q_sensitivity.csv`.)
 
-![Q-sensitivity per outcome. Three stacked subplots: A (top), B (middle), C (bottom). x-axis runs strict-to-relaxed (Q = 8 on the left). Blue line = students, red line = events. Numbers below each point = cumulative % gain vs Q = 8 (the strictest reference). The bold highlight is **Q = 7**, our recommended sweet spot.](outputs/figures/sec11_Q_sensitivity.png){width=70%}
+![Q-sensitivity per outcome. Three stacked subplots: A (top), B (middle), C (bottom). x-axis runs strict-to-relaxed (Q = 8 on the left). Blue line = students, red line = events. Numbers below each point = % gain vs the immediately stricter Q (per-step relaxation). The bold highlight is **Q = 7**, our recommended sweet spot.](outputs/figures/sec11_Q_sensitivity.pdf){width=70%}
 
-**Reading.** All gains are reported relative to Q = 8 (the strictest reference, where the gain is zero by construction). Each one-step relaxation buys progressively less per Q step:
+**Reading.** Each label below a point is the *one-step* % gain when relaxing Q from the next-stricter value (e.g. the label at Q = 7 is the gain going from Q = 8 to Q = 7). The single biggest one-step jump is at $Q = 8 \to 7$ across all three outcomes — bolded on the figure:
 
-- **A (Stable)**: relaxing $Q = 8 \to 7$ alone gains **+71%** events (52 → 89) and +94% students. Going further ($Q = 6, 5, 4$) only adds another +37–79% on top — the marginal return drops sharply after $Q = 7$.
-- **B (Experimental)**: $Q = 8 \to 7$ gains **+84%** events (70 → 129) and +100% students. Later steps add +43–105% more.
-- **C (Unstable)**: $Q = 8 \to 7$ gains **+114%** events (7 → 15), but C is too sparse at any Q to gain inferential power from further relaxation.
+- **A (Stable)**: $Q = 8 \to 7$ adds **+71%** events (52 → 89) and **+94%** students. Subsequent steps add only +14% to +21% per side.
+- **B (Experimental)**: $Q = 8 \to 7$ adds **+84%** events (70 → 129) and **+100%** students. Later steps add +14% to +28% per side.
+- **C (Unstable)**: $Q = 8 \to 7$ doubles events (**+114%**, 7 → 15). C is too sparse at any Q for further relaxation to buy inferential power.
 
 **Why $Q = 7$ as the headline.** The single biggest jump in usable data per Q step is at $Q = 8 \to 7$ (the bold annotations); every later step trades modest extra power for less observed students. $Q = 7$ keeps 60% of the $Q = 5$ events on A (89 vs 124) and 70% on B (129 vs 185), more than doubles the events from $Q = 8$, and avoids the small-panel separation problem visible in §13 (the gs_fe block at Q = 8 explodes due to event sparsity). Going further ($Q = 6, 5, 4$) buys only marginal additions and blends in students with thin observation histories. **$Q = 7$ is the sweet spot**, and §13 ("Recommended specification") reads off the §6 alt-$E_D$ fits at $Q = 7$.
 

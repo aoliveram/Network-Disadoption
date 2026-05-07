@@ -3,11 +3,11 @@
 #
 # Two figures:
 #
-#   (1) sec2_degree_distribution.png — overall in/out-degree
+#   (1) sec2_degree_distribution.pdf — overall in/out-degree
 #       distributions across all (record_id, wave) cells (one
 #       observation per ego-wave). Goes in §2 Data.
 #
-#   (2) sec3_per_wave_degree_exposure.png — 10 subplots, one per
+#   (2) sec3_per_wave_degree_exposure.pdf — 10 subplots, one per
 #       wave. Each subplot shows:
 #         - histogram of out-degree at that wave
 #         - overlaid scatter (or 2nd-axis) of "k_users" =
@@ -65,9 +65,9 @@ p1 <- ggplot(deg_df, aes(x = value, fill = kind)) +
   theme(panel.grid.minor = element_blank(),
         plot.title = element_text(face = "bold"))
 
-ggsave(file.path(FIGURES, "sec2_degree_distribution.png"), p1,
+ggsave(file.path(FIGURES, "sec2_degree_distribution.pdf"), p1,
        width = 9, height = 4.0, dpi = 220)
-cat("Wrote outputs/figures/sec2_degree_distribution.png\n")
+cat("Wrote outputs/figures/sec2_degree_distribution.pdf\n")
 
 # Also print summary statistics
 out_deg_v <- as.vector(out_deg); out_deg_v <- out_deg_v[out_deg_v > 0]
@@ -127,6 +127,6 @@ p2 <- ggplot(agg, aes(x = factor(value), y = n, fill = metric)) +
         legend.position = "bottom",
         plot.title = element_text(face = "bold"))
 
-ggsave(file.path(FIGURES, "sec3_per_wave_degree_exposure.png"), p2,
+ggsave(file.path(FIGURES, "sec3_per_wave_degree_exposure.pdf"), p2,
        width = 12, height = 5.5, dpi = 200)
-cat("Wrote outputs/figures/sec3_per_wave_degree_exposure.png\n")
+cat("Wrote outputs/figures/sec3_per_wave_degree_exposure.pdf\n")
