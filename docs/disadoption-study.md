@@ -655,6 +655,24 @@ The disadoption signal is large in raw form. Its visibility in §5/§6/§9 depen
 
 The qualitative pattern matches PFU — disadoption falls from ≈52% at $E_{\text{users}}=0$ to ≈30% at $E_{\text{users}}>0.8$ (1.7× lower) — but the gradient is gentler and noisier than the self-reported PFU gradient (54.1% → 20.7%, 2.6×). The $(0, 0.2]$ bin is anomalous (58.3%), but that's just 72 person-waves and overlaps with the 52% in the "none" bin within sampling noise. The point-biserial correlations are correspondingly weaker ($|r|=0.137$ vs $0.256$ for PFU). Two reasons: (i) $E_{\text{users}}$ has a much heavier mass at exactly 0 (12,223 vs 17,492 person-waves), and (ii) sparse out-degree means $E_{\text{users}}$ is a noisy estimator of "what fraction of friends use" — *self-reported* PFU averages over a wider, more salient personal network than the (small) friendship-nomination set captures.
 
+**Same exercise but with the network-derived measure as a *count* of using friends** (Tom's request). We bin $k_{\text{users}} = E_{\text{users}} \times \text{out\_degree}$ (rounded to integer) — i.e. how many friends the ego nominated who currently use ecig. We add explicit event-count columns so the rate is fully auditable per cell.
+
+| # using friends $w-1$ | At risk (adopt) | N adopted | Adoption rate | At risk (disad) | N disadopted | Disadoption rate |
+|:-:|---:|---:|---:|---:|---:|---:|
+| 0  | 12,223 | 384 | 3.14 % | 537 | 280 | **52.14 %** |
+| 1  |  2,024 | 154 | 7.61 % | 285 | 130 |    45.61 %  |
+| 2  |    342 |  31 | 9.06 % |  91 |  34 |    37.36 %  |
+| 3  |     45 |   6 | **13.33 %** |  17 |   5 |    29.41 %  |
+| 4  |      6 |   1 | 16.67 % |   5 |   2 |    40.00 %  |
+| 5+ |      1 |   0 | 0.00 %  |   2 |   0 |     0.00 %  |
+
+| Outcome (binary at-risk row) | $r$ vs $k_{\text{users}}$ | n |
+|:---|---:|---:|
+| Adoption (any 0→1)          | **+0.092** | 14,641 |
+| Any 1→0 transition          | **−0.113** |    937 |
+
+Reading the count version directly: a single using friend cuts disadoption from 52% to 46%; two using friends cuts it to 37%; three to 29%. The downward gradient is monotonic from $k=0$ to $k=3$ (where most of the data sit) and then becomes erratic at $k \ge 4$ because there are very few egos with that many using friends per wave (51 person-waves total above $k=3$). Same caveat as the proportion table: $E_{\text{users}}$ is a noisier proxy of peer-use environment than self-reported PFU, because the friendship-nomination network averages over only ~3 alters per ego.
+
 ## 11.2 PFU vs network exposures (Pearson)
 
 PFU is correlated with the network-derived exposure measures, as expected:
