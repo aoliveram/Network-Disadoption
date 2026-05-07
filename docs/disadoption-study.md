@@ -719,6 +719,52 @@ The line graph below puts both trajectories on the same x-axis (dual y-axis: gre
 
 **Reading.** Adoption follows an inverted-U with a peak around **spring 11th** (gs=6, 5.6%) and the conventional "experimentation peaks mid-HS" pattern — adoption climbs from 2.6% in spring 9th to 5%–5.6% across the gs=4–6 plateau, then falls to 3.1% by spring 12th. Disadoption (any 1→0) drifts gently *upward* from spring 9th (47%) through 12th grade (50%–52%) — the highest semester-level disadoption rate is fall 12th (52.2%). But the spread is narrow: 39%–52% across all seven semesters, summarised by point-biserial correlation $r = +0.048$ (i.e., almost no monotonic trend on the rate). Most variation in both outcomes is across-bin noise rather than a clean grade-semester gradient.
 
+## 11.4 Out-degree distribution by ego status
+
+Out-degree = number of friends an ego nominated whose nomination survives the panel-hygiene rules (alter in panel and responding at the same wave). The maximum out-degree is 7 by questionnaire design.
+
+| Out-degree | n (all ego-waves) | n (current user, ecig=1) | n (current non-user, ecig=0) |
+|:-:|---:|---:|---:|
+| 1 |  2,956 |   235 |  2,716 |
+| 2 |  3,815 |   267 |  3,541 |
+| 3 |  4,195 |   264 |  3,922 |
+| 4 |  3,840 |   228 |  3,602 |
+| 5 |  2,708 |   153 |  2,550 |
+| 6 |  1,533 |    60 |  1,470 |
+| 7 |    481 |    24 |    456 |
+| **Total** | **19,528** | **1,231** | **18,257** |
+
+Mean out-degree: 3.31 (all) / 3.06 (users) / 3.33 (non-users). Median is 3 in all three subsets.
+
+![Out-degree distribution by ego e-cigarette status. Bars dodge per subset; share within subset on the y-axis, raw n on top of each bar.](outputs/figures/sec11_outdegree_distribution.png){width=95%}
+
+**Reading.** Users are slightly *less* connected than non-users: the user distribution leans toward out-degree 1–3 (62.6% of users vs 56.9% of non-users), and away from out-degree 5–7 (19.2% of users vs 24.5% of non-users). The mean out-degree gap is 0.27 friends. This is a small but substantively interesting fact — a higher-density friendship network is not what predicts ecig use here; rather, *who* the friends are (PFU, $E_{\text{users}}$) matters. The distribution shape is very stable across the three subsets, which is reassuring for the network exposure measures: $E_{\text{users}}$ is computed on a denominator that varies little between users and non-users.
+
+## 11.5 Q-sensitivity: how N students and N events shrink as Q tightens
+
+We chose $Q \in \{5, 6, 7, 8\}$ in the main analysis without an explicit power-vs-restriction tradeoff figure. This subsection shows how (effective N students, N events) for the three disadoption outcomes A / B / C move as Q tightens. The maximum admissible Q in v4b is 8 — *no* student in the panel has 9 consecutive observed waves of `past_6mo_use_3` (because the W1-W10 observation cadence has too many NA gaps for any cohort to chain 9 in a row), so $Q \in \{9, 10\}$ collapse to zero. The cliff at $Q = 9$ is therefore an upper bound, not a power loss to "tightening".
+
+| Q | A (CC: students / events) | B (CC: students / events) | C (CC: students / events) |
+|:-:|:---:|:---:|:---:|
+| 5 | 237 / 124 | 271 / 185 | 237 / 29 |
+| 6 | 206 / 108 | 233 / 159 | 206 / 21 |
+| 7 | 161 /  89 | 182 / 129 | 161 / 15 |
+| 8 |  83 /  52 |  91 /  70 |  83 /  7 |
+| 9 |   0 /   0 |   0 /   0 |   0 /  0 |
+|10 |   0 /   0 |   0 /   0 |   0 /  0 |
+
+(Counts are after `complete.cases` on the 13-variable PRED set. FULL counts before CC are in `outputs/tables/v4b_table_11_5_Q_sensitivity.csv`.)
+
+![Q-sensitivity per outcome. Three stacked subplots: A (top), B (middle), C (bottom). Blue line = students, red line = events; both after complete-case filter on the 13 predictors. The drop at Q = 9 is the data wall (no student has 9 consecutive observed waves), not a complete-case loss.](outputs/figures/sec11_Q_sensitivity.png){width=85%}
+
+**Reading.** The slopes between $Q$ and $Q+1$ tell you how much information each consecutive-wave restriction is throwing away:
+
+- **A (Stable)**: 124 → 108 → 89 → 52 events. The biggest single drop is **$Q=7 \to 8$** (89→52, −42%). $Q=5$ vs $Q=6$ also costs 16 events (−13%), $Q=6$ vs $Q=7$ another 19 events (−18%). 
+- **B (Experimental)**: 185 → 159 → 129 → 70 events. Same pattern — biggest drop at $Q=7 \to 8$ (−46%), with smaller drops earlier.
+- **C (Unstable)**: 29 → 21 → 15 → 7 events. C is too sparse at any Q: even at $Q=5$ we only have 29 events spread over 237 students. The $Q=7 \to 8$ drop here halves the events again.
+
+**Optimal Q.** $Q = 7$ looks like the sweet spot for the disadoption analyses: it requires only one wave less than the maximum, retains 60–70% of the events available at $Q = 5$, and avoids the ~45% one-step event loss going from $Q = 7$ to $Q = 8$. For the **headline** specification (which fixed-effect block to inspect in detail) I recommend reading the §6 (alt $E_D$) results at **$Q = 7$** — that's the cleanest combined view across the four columns. The $Q = 8$ tables remain useful as a stress test (most-informed students) but the small-event count makes individual coefficients (e.g., grade-semester FE block) noisy.
+
 ---
 
 # 12. Discussion
