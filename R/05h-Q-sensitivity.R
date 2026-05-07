@@ -165,9 +165,9 @@ build_counts_for_Q <- function(Q) {
   do.call(rbind, out)
 }
 
-cat("Computing Q-sensitivity table (Q = 5..10)...\n")
+cat("Computing Q-sensitivity table (Q = 4..8)...\n")
 all_rows <- list()
-for (Q in 5:10) {
+for (Q in 4:8) {
   cat(sprintf("  Q = %d\n", Q))
   all_rows[[length(all_rows) + 1]] <- build_counts_for_Q(Q)
 }
@@ -179,7 +179,9 @@ write.csv(tab, file.path(TABLES, "v4b_table_11_5_Q_sensitivity.csv"),
 
 # ----------------------------------------------------------------
 # Plot: 3 stacked subplots (one per outcome A/B/C). Each subplot has
-# two lines: students (CC) and events (CC). Q on x-axis.
+# two lines: students (CC) and events (CC). x-axis runs Q = 8..4
+# (descending). Annotate % change between consecutive Q steps and
+# bold the steepest single-step drop per metric.
 # ----------------------------------------------------------------
 plot_df <- tab |>
   select(Q, outcome, Students = cc_n, Events = cc_ev) |>
@@ -189,20 +191,44 @@ plot_df$outcome <- factor(plot_df$outcome, levels = c("A","B","C"),
                                      "B — Experimental",
                                      "C — Unstable / cyclic"))
 
+# % gain when going from Q+1 (more strict) to Q (less strict): the
+# left-to-right reading on the plot (which is right-to-left in Q).
+# Annotation placed at the smaller-Q endpoint (gain side).
+gain_df <- plot_df |>
+  arrange(outcome, metric, Q) |>
+  group_by(outcome, metric) |>
+  mutate(prev_value = dplyr::lag(value),
+         gain_pct   = ifelse(is.na(prev_value) | prev_value == 0, NA_real_,
+                             100 * (value - prev_value) / prev_value)) |>
+  ungroup()
+# Bold the largest single-step gain per (outcome, metric)
+gain_df <- gain_df |>
+  group_by(outcome, metric) |>
+  mutate(is_max_gain = !is.na(gain_pct) & gain_pct == max(gain_pct, na.rm = TRUE)) |>
+  ungroup()
+gain_df$gain_lbl <- ifelse(is.na(gain_df$gain_pct), "",
+                           sprintf("%+.0f%%", gain_df$gain_pct))
+
 p <- ggplot(plot_df, aes(x = Q, y = value, colour = metric, group = metric)) +
   geom_line(linewidth = 1.0) +
   geom_point(size = 2.4) +
   geom_text(aes(label = value), vjust = -0.9, size = 3, show.legend = FALSE) +
+  geom_text(data = subset(gain_df, !is_max_gain & gain_lbl != ""),
+            aes(label = gain_lbl),
+            vjust = 1.9, size = 3, show.legend = FALSE) +
+  geom_text(data = subset(gain_df, is_max_gain),
+            aes(label = gain_lbl),
+            vjust = 1.9, size = 3.4, fontface = "bold", show.legend = FALSE) +
   facet_wrap(~ outcome, ncol = 1, scales = "free_y") +
-  scale_x_continuous(breaks = 5:10) +
-  scale_y_continuous(expand = expansion(mult = c(0.08, 0.18))) +
+  scale_x_reverse(breaks = 4:8) +
+  scale_y_continuous(expand = expansion(mult = c(0.18, 0.18))) +
   scale_colour_manual(values = c("Students" = "#1f77b4",
                                   "Events"   = "#d62728"),
                       name = NULL) +
-  labs(x = "Q (minimum consecutive observed waves of past_6mo_use_3)",
+  labs(x = "Q (minimum consecutive observed waves of past_6mo_use_3) — strict ← → relaxed",
        y = "Count after complete.cases (CC)",
        title = "Q sensitivity: how N students and N events shrink as Q tightens",
-       subtitle = "After complete-case filter on the 13-variable PRED set. Steeper drops mark the Q at which we lose the most.") +
+       subtitle = "After complete-case filter on the 13-variable PRED set. Numbers below each line segment = % gain when relaxing one Q step; bold = the steepest gain.") +
   theme_bw(base_size = 11) +
   theme(panel.grid.minor = element_blank(),
         legend.position = "bottom",

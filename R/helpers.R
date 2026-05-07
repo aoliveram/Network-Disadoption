@@ -62,6 +62,22 @@ make_emax_edis <- function(M) {
   list(Emax = Emax, EDis = Emax - M)
 }
 
+# ---- ADVANCE grade-semester from (cohort, wave) ----
+# Class of 2024 (schools 101..114): W1..W8 -> gs 1..8 (fall 9th .. spring 12th).
+# W9, W10 are post-HS for cohort 2024, encoded as NA (excluded from gs_fe).
+# Class of 2025 (schools 201..214): W3..W10 -> gs 1..8.
+attach_gs <- function(d) {
+  gs_2024 <- c(`1`=1L,`2`=2L,`3`=3L,`4`=4L,`5`=5L,`6`=6L,`7`=7L,`8`=8L,
+               `9`=NA_integer_,`10`=NA_integer_)
+  gs_2025 <- c(`3`=1L,`4`=2L,`5`=3L,`6`=4L,`7`=5L,`8`=6L,`9`=7L,`10`=8L)
+  d$gs <- NA_integer_
+  i24 <- !is.na(d$cohort) & d$cohort == "2024"
+  i25 <- !is.na(d$cohort) & d$cohort == "2025"
+  d$gs[i24] <- as.integer(gs_2024[as.character(d$wave[i24])])
+  d$gs[i25] <- as.integer(gs_2025[as.character(d$wave[i25])])
+  d
+}
+
 # ---- row-normalised adjacency W = D^{-1} A ----
 build_W <- function(A) {
   n <- nrow(A)

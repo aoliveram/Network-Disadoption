@@ -28,6 +28,7 @@ suppressMessages({
 })
 
 source(file.path(here::here(), "R", "00-config.R"))
+source(file.path(here::here(), "R", "helpers.R"))
 
 PRED <- c("cohort", "female", "sex_minority", "par_edu",
           "asian", "hispanic",
@@ -60,9 +61,10 @@ fmt_cell <- function(beta, p) {
 # Fitters
 # ----------------------------------------------------------------
 fit_glm <- function(formula, data) {
-  d <- data; d$wave_fe <- factor(d$wave)
+  d <- data; d$gs_fe <- factor(d$gs)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
+  d_cc <- d_cc[!is.na(d_cc$gs), ]
   fit <- glm(formula, data = d_cc, family = binomial("logit"))
   vc  <- tryCatch(sandwich::vcovCL(fit, cluster = d_cc$record_id, type = "HC0"),
                   error = function(e) sandwich::vcovHC(fit, type = "HC0"))
@@ -73,9 +75,10 @@ fit_glm <- function(formula, data) {
        n_id = length(unique(d_cc$record_id)))
 }
 fit_glmer_id <- function(formula, data) {
-  d <- data; d$wave_fe <- factor(d$wave)
+  d <- data; d$gs_fe <- factor(d$gs)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
+  d_cc <- d_cc[!is.na(d_cc$gs), ]
   fit <- lme4::glmer(formula, data = d_cc, family = binomial("logit"),
                      control = lme4::glmerControl(
                        optimizer = "bobyqa",
@@ -102,7 +105,8 @@ get_bp <- function(ct, term) {
 # ----------------------------------------------------------------
 prep_data <- function(p, E_D_var, drop_cohort = FALSE) {
   d <- p
-  d$cohort <- as.integer(d$cohort == "2025")  # 0=2024, 1=2025
+  d <- attach_gs(d)                           # add gs from (cohort, wave) FIRST
+  d$cohort <- as.integer(d$cohort == "2025")  # then encode 0/1
   if (drop_cohort) d$cohort <- NULL
   # Map E_D variant to a unified column "E_D"
   if (E_D_var == "E_dis") {
@@ -116,7 +120,7 @@ prep_data <- function(p, E_D_var, drop_cohort = FALSE) {
 run_one <- function(panel_obj, outcome, E_D_var, Q) {
   d <- prep_data(panel_obj, E_D_var = E_D_var, drop_cohort = FALSE)
   pred_used <- PRED
-  rhs <- paste(c("wave_fe", pred_used), collapse = " + ")
+  rhs <- paste(c("gs_fe", pred_used), collapse = " + ")
   if (outcome == "C") {
     f <- as.formula(sprintf("event ~ %s + (1 | record_id)", rhs))
     r <- tryCatch(fit_glmer_id(f, d), error = function(e) {

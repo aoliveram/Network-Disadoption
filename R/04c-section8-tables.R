@@ -19,6 +19,7 @@ suppressMessages({
   library(lmtest)
 })
 source(file.path(here::here(), "R", "00-config.R"))
+source(file.path(here::here(), "R", "helpers.R"))
 
 PRED <- c("cohort", "female", "sex_minority", "par_edu",
           "asian", "hispanic",
@@ -54,9 +55,10 @@ get_bp <- function(ct, term) {
 }
 
 fit_glm <- function(formula, data) {
-  d <- data; d$wave_fe <- factor(d$wave)
+  d <- data; d$gs_fe <- factor(d$gs)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
+  d_cc <- d_cc[!is.na(d_cc$gs), ]
   fit <- glm(formula, data = d_cc, family = binomial("logit"))
   vc  <- tryCatch(sandwich::vcovCL(fit, cluster = d_cc$record_id, type = "HC0"),
                   error = function(e) sandwich::vcovHC(fit, type = "HC0"))
@@ -68,6 +70,7 @@ fit_glm <- function(formula, data) {
 }
 prep_data <- function(p, E_D_var, drop_cohort = FALSE) {
   d <- p
+  d <- attach_gs(d)
   d$cohort <- as.integer(d$cohort == "2025")
   if (drop_cohort) d$cohort <- NULL
   d$E_D <- if (E_D_var == "E_dis") d$E_dis else d$E_D_alt
@@ -83,7 +86,7 @@ for (Q in c(5, 6, 7, 8)) {
                          sprintf("v4b_panel_A_Q%d_A_with_indet_full.rds", Q)))
   d <- prep_data(p, E_D_var = "E_D_alt", drop_cohort = FALSE)
   pred <- PRED
-  rhs <- paste(c("wave_fe", pred), collapse = " + ")
+  rhs <- paste(c("gs_fe", pred), collapse = " + ")
   f <- as.formula(sprintf("event ~ %s", rhs))
   fits_indet_alt[[as.character(Q)]] <- fit_glm(f, d)
   cat(sprintf("Q=%d  A indet × E_alt :  n=%d  ev=%d  n_id=%d\n",

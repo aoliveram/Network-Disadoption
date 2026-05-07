@@ -18,6 +18,7 @@ suppressMessages({
   library(lme4)
 })
 source(file.path(here::here(), "R", "00-config.R"))
+source(file.path(here::here(), "R", "helpers.R"))
 
 PRED_NO_ED <- c("cohort", "female", "sex_minority", "par_edu",
                 "asian", "hispanic", "mdd", "gad",
@@ -49,9 +50,10 @@ get_bp <- function(ct, term) {
     unname(z[grep("^Pr", names(z))]))
 }
 fit_glm <- function(formula, data) {
-  d <- data; d$wave_fe <- factor(d$wave)
+  d <- data; d$gs_fe <- factor(d$gs)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
+  d_cc <- d_cc[!is.na(d_cc$gs), ]
   fit <- glm(formula, data = d_cc, family = binomial("logit"))
   vc  <- tryCatch(sandwich::vcovCL(fit, cluster = d_cc$record_id, type = "HC0"),
                   error = function(e) sandwich::vcovHC(fit, type = "HC0"))
@@ -62,9 +64,10 @@ fit_glm <- function(formula, data) {
        n_id = length(unique(d_cc$record_id)))
 }
 fit_glmer_id <- function(formula, data) {
-  d <- data; d$wave_fe <- factor(d$wave)
+  d <- data; d$gs_fe <- factor(d$gs)
   vars <- all.vars(formula)
   d_cc <- d[complete.cases(d[, intersect(vars, names(d)), drop = FALSE]), ]
+  d_cc <- d_cc[!is.na(d_cc$gs), ]
   fit <- lme4::glmer(formula, data = d_cc, family = binomial("logit"),
                      control = lme4::glmerControl(optimizer = "bobyqa",
                                                    optCtrl = list(maxfun = 4e5)))
@@ -81,6 +84,7 @@ fit_glmer_id <- function(formula, data) {
 
 prep_data <- function(p, drop_cohort = FALSE) {
   d <- p
+  d <- attach_gs(d)
   d$cohort <- as.integer(d$cohort == "2025")
   if (drop_cohort) d$cohort <- NULL
   d
@@ -88,7 +92,7 @@ prep_data <- function(p, drop_cohort = FALSE) {
 run_one <- function(panel_obj, outcome, Q) {
   d <- prep_data(panel_obj, drop_cohort = FALSE)
   pred_used <- PRED_NO_ED
-  rhs <- paste(c("wave_fe", pred_used), collapse = " + ")
+  rhs <- paste(c("gs_fe", pred_used), collapse = " + ")
   if (outcome == "C") {
     f <- as.formula(sprintf("event ~ %s + (1 | record_id)", rhs))
     tryCatch(fit_glmer_id(f, d), error = function(e) {
