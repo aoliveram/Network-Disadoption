@@ -79,6 +79,24 @@ Out-degree is mechanically capped near 7 (questionnaire limit); in-degree has a 
 
 **Eligible vs effective**: the Q-row above is the count of *eligible* students. The regression in each column then drops rows with NA on any predictor (complete-case). The effective `N Students` reported per column is therefore smaller than the Q-row count. The Adopters column suffers the smallest cut (most predictors are filled at every observed wave); the A / B / C columns work on the much smaller ever-user subset (each column's `N Students` reflects that). E.g., at $Q = 8$ we have 1,040 eligible students; the Adopters regression uses 925 (after complete-case dropping); the A regression uses 83 (ever-users with valid predictors).
 
+## 2.3 Parent education — scale harmonisation and per-student LOCF
+
+Parent education is the only covariate that required non-trivial cross-wave handling: the questionnaire scale itself **changed mid-panel**, from a 7-level scale in W1–W6 to a 9-level scale in W7–W10. We harmonise to the legacy 7-level scale and then carry forward each student's most recent observation to fill the gaps.
+
+**Step 1 — Raw column.** Each wave has the column `w{w}_dem_high_par_edu` (highest parental education level reported by the student). It is read selectively by [`R/01-advance-panel.R`](R/01-advance-panel.R) (line 30) into the long panel as `par_edu_raw` (line 139 in the wide→long step).
+
+**Step 2 — Scale change at W7.** From W7 onward the questionnaire was extended to 9 categories (additional fine-grained options between "some college" and "bachelor's"). Codes 1–4 are stable across versions; the legacy "4" category was split into three (4, 5, 6) in the new scale; legacy 5/6/7 map to new 7/8/9. We collapse the new scale to the legacy scale via the deterministic remap below ([`R/01-advance-panel.R:103-114`](R/01-advance-panel.R)):
+
+| New scale (W7-W10) | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Legacy scale (W1-W6) | 1 | 2 | 3 | 4 | **4** | **4** | 5 | 6 | 7 |
+
+The collapse of new codes 4/5/6 onto legacy 4 is information-losing (three categories become one) but is the only mapping that produces a unified ordinal scale across all ten waves. After remapping, `par_edu_raw` is bounded in $\{1, \ldots, 7\}$ at every wave.
+
+**Step 3 — Per-student last-observation-carried-forward (LOCF).** Because students do not refresh their parental-education report every wave, many person-waves have `par_edu_raw = NA` between two observed values. We treat parent education as **slowly-varying (or effectively time-invariant) within student** and carry the most recent observed value forward to fill subsequent NAs. The LOCF function in [`R/01-advance-panel.R:191-198`](R/01-advance-panel.R) is applied per `record_id`, producing the final regression-ready `par_edu` column. LOCF only overwrites NAs; observed values are never replaced by earlier observations.
+
+**Resulting time profile.** This pipeline produces a small but real cross-wave shift in the panel mean: at gs = 2 (spring 9th, mostly W2 observations on the legacy 7-level scale) the mean `par_edu` is 5.07; at gs = 8 (spring 12th, mostly W8 observations on the remapped 9-level scale) it falls to 3.82 because the three new-scale categories 4/5/6 all collapse to legacy 4, pulling the upper tail down. **This is a measurement artifact, not a behavioural shift in family socioeconomic status.** Within-student variation in `par_edu` over time is small (most students report the same value across waves) and the regression specifications include grade-semester FE that absorb mean shifts of this kind, so the artefact does not contaminate the per-predictor ORs. The artefact would matter if we treated `par_edu` as a *time-varying* shock — we don't.
+
 # 3. Event definitions
 
 For each student we define, on consecutive observed waves:
