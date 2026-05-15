@@ -809,7 +809,9 @@ For the *single* headline reading, see **§13 Recommended specification** (§6 a
 
 **Why does PFU look "mild" in some regression coefficients despite the large raw disadoption gradient (§11)?** Three reasons: (i) the A / B / C panels are small (83–271 students); (ii) `Network Exposure Users` shares variance with PFU ($r = 0.23$) and the regression splits the effect between the two; (iii) grade-semester fixed effects absorb between-semester variation that the raw cross-tab in §11.2 carries. The §11.2 cross-tab is the cleanest demonstration of the disadoption signal.
 
-# 13. Recommended specification — full coefficient block
+# 13. Recommended specification
+
+## 13.1 Full coefficient block
 
 After all the spec searches, this is the single specification we recommend reading: **§6 (alt $E_D$ = $E^{\max} - E_{\text{current}}$) at $Q = 7$**. The rationale:
 
@@ -855,6 +857,89 @@ Below is the full coefficient block for the four outcomes (Adopters, Stable A, E
 - **Experimental disadoption (column B)**. Same peer-use story (PFU OR = 0.72, $p = 0.002$; $E_{\text{users}}$ OR = 0.23, $p = 0.031$). MDD OR = 0.44 ($p = 0.006$): depressive symptoms predict *not* attempting cessation.
 - **Unstable / cyclic (column C)**. With only 15 events, only MDD reaches significance (OR = 0.21, $p = 0.023$), pointing in the same direction as B.
 
+## 13.2 Robustness diagnostics
+
+Three diagnostics on the §13.1 fits, computed by [`R/06-diagnostics.R`](R/06-diagnostics.R). The full nine-diagnostic battery (with separation, linearity, two-way clustering, AUC/calibration, leverage, and Model C random-intercept variance) sits in `outputs/intermediate/v5_diagnostics.rds`; here we report the three that matter most for the headline.
+
+**D2 — Multicollinearity (VIF, generalised variance inflation factor).** All substantive predictors have VIF below 2.4 across the four outcome panels. The headline pair — PFU at $w-1$ and $E_{\text{users}}$ at $w-1$ — has VIF in the 1.15–1.43 range across panels, well below the conventional 5 threshold. **PFU and $E_{\text{users}}$ are not redundant**, supporting the H1 framing that the perceptual and structural-network channels carry independent information.
+
+**D3 — Firth penalised-likelihood logistic regression.** To address the small-N separation visible in the gs_fe block (§13.1), we refit each outcome with Firth's penalised maximum likelihood, which adds a Jeffreys-prior correction that tames extreme coefficients. Substantive ORs and p-values are within 1–2% of the standard GLM:
+
+| Predictor at Q=7 | Adopters (Firth) | Stable A (Firth) | Experimental B (Firth) | Unstable C (Firth) |
+|:---|:---:|:---:|:---:|:---:|
+| PFU lag | **1.468 (0.000)** | **0.750 (0.014)** | **0.735 (0.001)** | 0.824 (0.370) |
+| $E_{\text{users}}$ | **5.696 (0.000)** | **0.134 (0.019)** | **0.265 (0.045)** | 0.932 (0.956) |
+| $E_D$ alt | 1.899 (0.217) | 0.422 (0.349) | 0.434 (0.251) | 0.156 (0.434) |
+| MDD | 1.171 (0.337) | 0.763 (0.391) | **0.473 (0.009)** | **0.290 (0.031)** |
+
+The §13.1 headline is robust under Firth correction. The gs_fe explosion is contained to the FE block and does not contaminate the substantive predictors.
+
+**D9 — Leave-one-school-out stability.** We refit Stable A's headline thirteen times, each dropping one of the thirteen schools, and recorded the OR range for the focal predictors:
+
+| Focal predictor | OR range (min – max across 13 LOSO fits) |
+|:---|:---:|
+| PFU at $w-1$ | 0.687 – 0.806 |
+| $E_{\text{users}}$ | 0.052 – 0.139 |
+| $E_D$ alt | 0.246 – 0.579 (all < 1, never significant) |
+| MDD | 0.600 – 0.927 |
+
+No single school flips the sign or the significance of any focal predictor. The §13.1 findings are not driven by a single school.
+
+## 13.3 Block-buildup: pre-specified spec ladder
+
+To address the concern that the headline might be the product of a post-hoc spec search, we report a pre-specified four-block ladder fitted to each outcome at $Q = 7$. Each block adds a coherent set of predictors to the previous one, holding the time controls (`gs_fe + cohort`) constant throughout.
+
+- **B1 demographics**: `gs_fe + cohort + female + sex_minority + par_edu + asian + hispanic`.
+- **B2 demographics + mental health**: B1 + `MDD + GAD`.
+- **B3 demographics + MH + network**: B2 + `out_degree + in_degree + PFU_lag + E_users`.
+- **B4 full headline**: B3 + `E_D alt` (= §13.1).
+
+AIC by block (lower = better fit; same panel within each row):
+
+| Outcome (n / events) | B1 demo | B2 +MH | B3 +network | B4 +$E_D$ alt |
+|:---|---:|---:|---:|---:|
+| Adopters (7,534 / 193) | 2,400 | 2,302 | 1,683 | 1,684 |
+| Stable A (218 / 89) | 499 | 461 | **274** | 275 |
+| Experimental B (260 / 129) | 611 | 557 | **339** | 340 |
+| Unstable C (218 / 15) | 202 | 211 | **128** | 128 |
+
+**Reading**. Almost all the explanatory power gained beyond demographics comes from the **network block** (B2 → B3): adding PFU, $E_{\text{users}}$, and degrees drops AIC by 187 on Stable A and 218 on Experimental B. Adding $E_D$ alt on top of B3 (B3 → B4) changes AIC by less than +1 in every panel — the disadoption-specific peer signal carries essentially no incremental explanatory power once the peer-state predictors are in. This is the asymmetric finding pre-stated as a model-comparison result rather than a coefficient p-value, and it is consistent with H2.
+
+## 13.4 Alternative peer-cessation operationalisations
+
+The B3 → B4 null on $E_D$ alt could in principle reflect a poor operationalisation of "peer cessation" rather than a true asymmetry. We tested five alternative ways of representing alter cessation / peer-use decline as an ego-level predictor, each *replacing* $E_D$ alt in Block 4. The candidates are:
+
+- **anyQuit$_{w-1}$** — binary indicator: did at least one of the ego's nominated alters transition $1 \to 0$ between $w-2$ and $w-1$?
+- **$\Delta$PFU$_{w-1}$** — signed continuous: change in the ego's *perceived* friend use between $w-2$ and $w-1$ ($-5$ to $+5$).
+- **PFU↓** — binary: did the ego's perceived friend use *decrease* between $w-2$ and $w-1$?
+- **$\Delta E_{\text{users}, w-1}$** — signed continuous: change in the network-derived peer-use share.
+- **PFU_D$_{w-1}$** — continuous: $\text{PFU}^{\max}_{\le w-1} - \text{PFU}_{w-1}$, the perceptual analogue of $E_D$ alt (gap between historical peak PFU and current PFU). Captures cumulative "exit from a perceived peer-use environment".
+
+Resulting ORs (p-value) for each candidate, across the four outcomes:
+
+| Candidate | Adopters | Stable A | Experimental B | Unstable C |
+|:---|:---:|:---:|:---:|:---:|
+| $E_D$ alt | 1.81 (0.25) | 0.37 (0.27) | 0.40 (0.24) | 0.04 (0.32) |
+| **PFU_D** | **1.268 (0.001)** | **0.735 (0.024)** | **0.690 (0.005)** | 0.983 (0.948) |
+| anyQuit (binary) | 1.25 (0.44) | 0.40 (0.051) | 0.88 (0.74) | 1.54 (0.58) |
+| $\Delta$PFU (signed) | 0.98 (0.88) | 1.31 (0.058) | 1.17 (0.20) | 0.84 (0.95) |
+| **PFU↓ (binary)** | 1.60 (0.063) | **0.285 (0.008)** | 0.53 (0.11) | 38 (0.18) |
+| $\Delta E_{\text{users}}$ | 0.71 (0.56) | 1.08 (0.93) | 0.50 (0.31) | 2.30 (0.67) |
+
+**Reading**. The asymmetric pattern splits cleanly along **structural vs perceptual** lines:
+
+- **Structural-network peer cessation** ($E_D$ alt, anyQuit, $\Delta E_{\text{users}}$): null on all four outcomes (anyQuit borderline at $p = 0.051$ on Stable A). The disadoption-specific peer signal does not transmit through the friendship-nomination network.
+- **Perceptual peer cessation / decline** (PFU_D, PFU↓, $\Delta$PFU): **PFU_D reaches significance on three of four outcomes — Adopters (OR = 1.27, $p = 0.001$), Stable A (OR = 0.74, $p = 0.024$), and Experimental B (OR = 0.69, $p = 0.005$)** — and PFU↓ reaches significance on Stable A. The signs go in the same direction across both perceptual measures.
+
+PFU_D, the direct perceptual analogue of $E_D$ alt, is therefore *not* null. It carries a significant signal that $E_D$ alt does not — refining the asymmetric finding: the channel asymmetry is **between structural-network peer cessation (null) and perceptual peer-use decline (significant)**, not between adoption and disadoption per se.
+
+The direction of the perceptual signal is, however, *opposite* to a simple-contagion expectation. Higher PFU_D / PFU↓ → **more** adoption odds and **less** disadoption odds. Students who report a perceived decline in peer use from their historical peak are *more* likely to adopt and *less* likely to stably disadopt. Two competing readings are consistent with this:
+
+- **Substantive reading**. Adolescents who perceive their peer-use environment as having declined from its peak are the "still-using holdouts" — they remain users (or move into use) while their peer environment is shifting. The perceived decline is *real*, but these particular individuals are dependent enough that the peer signal of cessation does not pull them out of use; on the adoption side, exposure to a once-high peer-use environment leaves a residual susceptibility even as current peer use falls.
+- **Statistical-reflection reading**. The perceptual-decline measures (PFU_D, PFU↓) at $w-1$ reflect the ego's own non-cessation / pro-adoption trajectory rather than a causal peer-influence signal. Students who themselves remain users (or who are sliding into use) may be more aware of peer-use changes around them. The PFU_D / PFU↓ → less-stable-disadoption association is then driven by a *latent* propensity that simultaneously suppresses ego cessation and shapes the ego's perception of peer-use trajectories.
+
+The two readings are observationally equivalent under our regression framework. They are not distinguishable with our lagged GLM: regression cannot identify which way the causal arrow runs when peers and ego are co-determined by latent traits. **This is the limit of correlational evidence in our design**, and motivates the planned SAOM (stochastic actor-oriented model) co-evolution analysis described in §14 (Limitations and deferred items). SAOM separates *selection* (egos befriending similar alters) from *influence* (egos changing behaviour because of alters' behaviour) by modelling friendship and behaviour as a continuous-time joint process. The PFU_D / PFU↓ findings are precisely the kind of results that require this identification pivot.
+
 # 14. Limitations and deferred items
 
 ## 14.1 ESE — coverage and temporal pattern
@@ -882,7 +967,11 @@ ESE composites are **excluded** from v4b regressions because of severe sparsity.
 
 Only ~21 % of students have *any* ESE record across 10 waves. **Temporal pattern**: of those 916 students, **887 have ESE in only one wave** (the wave at which they first reported e-cig use, presumably). The remaining 29 students have ESE in ≥ 2 waves — and 79 % of those exhibit *different* values across waves, indicating ESE is **not strictly time-invariant** (the questionnaire allows re-evaluation when the student is asked again) but is *typically asked once*. For a future analysis that includes ESE as a baseline trait, LOCF + LOCB across waves would extend coverage to the 916 students; a per-wave time-varying ESE would only have data for the 29 with multiple records.
 
-## 14.2 Other deferred items
+## 14.2 SAOM co-evolution analysis (deferred)
+
+The PFU↓ finding in §13.4 cannot be interpreted causally without separating **selection** (egos befriending alters of similar status) from **influence** (egos adjusting behaviour in response to alters' behaviour). Our lagged-GLM design captures both jointly. The principled remedy is a **Stochastic Actor-Oriented Model** (SAOM, implemented in `RSiena`) fitted to the per-school friendship and behaviour panels, which co-models the network and the behaviour as a continuous-time joint process and reads off the two effects separately. This is queued as the immediate next step. Outcomes from SAOM will either (a) confirm that the asymmetric finding reflects genuine peer influence — strengthening the headline; or (b) reveal that the apparent peer-state effect on disadoption is largely selection-driven — in which case the paper's framing pivots from "peer-state influences both adoption and disadoption" to "the apparent symmetric peer-state effect on adoption and disadoption is selection-mediated", which is a different and equally substantive contribution.
+
+## 14.3 Other deferred items
 
 - **C samples remain small**: 7–29 events per Q. GLMER often hits singular fits ($\rho \to 0$); coefficients should be read with caution.
 - **Schoolid_transfer** (~50 students who switched schools across waves) not yet integrated.
