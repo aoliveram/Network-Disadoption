@@ -857,7 +857,86 @@ Below is the full coefficient block for the four outcomes (Adopters, Stable A, E
 - **Experimental disadoption (column B)**. Same peer-use story (PFU OR = 0.72, $p = 0.002$; $E_{\text{users}}$ OR = 0.23, $p = 0.031$). MDD OR = 0.44 ($p = 0.006$): depressive symptoms predict *not* attempting cessation.
 - **Unstable / cyclic (column C)**. With only 15 events, only MDD reaches significance (OR = 0.21, $p = 0.023$), pointing in the same direction as B.
 
-## 13.2 Robustness diagnostics
+## 13.2 Sample characteristics
+
+The §13.1 fit summarises a single analytic sample (Q = 7, $n = 161$ students for the Stable A panel, $n = 1{,}711$ for Adopters). Tables 13.2.a–c below characterise the underlying student-level distributions at two reference timepoints — **baseline = spring 9th grade (gs = 2)** and **follow-up = spring 12th grade (gs = 8)** — at three nested levels of sample specificity. The three tables differ only in *which students* contribute to each column; reading them side-by-side lets you see how the analytic sample (Table 13.2.c) compares to the broader study panel (Table 13.2.a) and to the matched-longitudinal subset (Table 13.2.b).
+
+A pedagogical guide to which sample each table describes:
+
+- **Table 13.2.a — All panel students at each timepoint (broadest).** Different students populate the "Baseline" and "Follow-up" columns; the two columns are subject to attrition between gs = 2 and gs = 8 (e.g. the cohort 2024 students who exit the W9–W10 release). This is the broadest cross-sectional picture of the cohort.
+- **Table 13.2.b — Paired same-students observed at *both* timepoints (longitudinal).** Restricted to students observed at both gs = 2 *and* gs = 8 ($n = 2{,}522$). The two columns describe the *same* individuals at two ages — this is the textbook "Table 1" for a longitudinal study.
+- **Table 13.2.c — Q = 7 analytic sample (narrowest).** Restricted to the $n = 1{,}962$ students who satisfy the $Q = 7$ consecutive-wave rule. This is the sample that actually feeds the headline regression in §13.1 — comparing its baseline and follow-up demographic distributions to Tables 13.2.a and 13.2.b lets the reader assess selection bias from the Q-restriction.
+
+### Table 13.2.a — All panel students at gs = 2 vs gs = 8 (broadest)
+
+| Variable | Baseline (gs = 2) Mean / % | SD | Follow-up (gs = 8) Mean / % | SD |
+|:---|---:|---:|---:|---:|
+| N Students (different subsets) | 3,401 | — | 3,105 | — |
+| % E-cigarette Users | 4.0 | 19.5 | 7.2 | 25.9 |
+| % E-cig Quitters (this wave) | 1.0 | 10.2 | 3.2 | 17.6 |
+| % Cohort 2 (class of 2025) | 28.2 | 45.0 | 28.2 | 45.0 |
+| % Female | 56.9 | 49.5 | 55.5 | 49.7 |
+| % Sexual Minority | 23.9 | 42.6 | 23.5 | 42.4 |
+| Parent Education (mean, 1–7) | 5.08 | 1.92 | 3.94 | 1.30 |
+| % Asian | 37.3 | 48.4 | 50.1 | 50.0 |
+| % Hispanic/Latine | 46.4 | 49.9 | 48.4 | 50.0 |
+| MDD (RCADS Mean) | 0.955 | 0.714 | 0.917 | 0.668 |
+| GAD (RCADS Mean) | 1.133 | 0.762 | 0.957 | 0.718 |
+| Average Out-degree | 1.78 | 2.00 | 1.59 | 1.90 |
+| Average In-degree | 1.78 | 2.19 | 1.59 | 1.99 |
+| Perceived Friend Use (mean, 0–5) | 0.49 | 1.10 | 0.48 | 1.04 |
+| Network Exposure Users (lagged) | 0.025 | 0.106 | 0.075 | 0.178 |
+| Network Exposure Dis-adopters (lagged) | 0.000 | 0.000 | 0.040 | 0.126 |
+
+### Table 13.2.b — Paired same-students at gs = 2 AND gs = 8 (longitudinal cohort)
+
+| Variable | Baseline Mean / % | SD | Follow-up Mean / % | SD |
+|:---|---:|---:|---:|---:|
+| N Students (paired) | 2,522 | — | 2,522 | — |
+| % E-cigarette Users | 2.7 | 16.1 | 6.7 | 25.1 |
+| % E-cig Quitters (this wave) | 0.8 | 8.8 | 3.7 | 18.9 |
+| % Cohort 2 (class of 2025) | 36.9 | 48.3 | 36.9 | 48.3 |
+| % Female | 57.7 | 49.4 | 58.1 | 49.4 |
+| % Sexual Minority | 24.8 | 43.2 | 23.8 | 42.6 |
+| Parent Education (mean, 1–7) | 5.14 | 1.87 | 3.85 | 0.99 |
+| % Asian | 41.9 | 49.3 | 54.2 | 49.8 |
+| % Hispanic/Latine | 43.0 | 49.5 | 43.9 | 49.6 |
+| MDD (RCADS Mean) | 0.950 | 0.708 | 0.930 | 0.674 |
+| GAD (RCADS Mean) | 1.147 | 0.759 | 0.966 | 0.721 |
+| Average Out-degree | 2.51 | 2.01 | 2.42 | 1.90 |
+| Average In-degree | 2.48 | 2.29 | 2.42 | 2.07 |
+| Perceived Friend Use (mean, 0–5) | 0.42 | 1.03 | 0.47 | 1.04 |
+| Network Exposure Users (lagged) | 0.022 | 0.101 | 0.069 | 0.168 |
+| Network Exposure Dis-adopters (lagged) | 0.000 | 0.000 | 0.038 | 0.123 |
+
+### Table 13.2.c — Q = 7 analytic sample at gs = 2 vs gs = 8 (narrowest; matches §13.1)
+
+| Variable | Baseline Mean / % | SD | Follow-up Mean / % | SD |
+|:---|---:|---:|---:|---:|
+| N Students (Q = 7 eligible) | 1,962 | — | 1,962 | — |
+| % E-cigarette Users | 2.1 | 14.3 | 5.6 | 23.0 |
+| % E-cig Quitters (this wave) | 0.5 | 7.3 | 3.3 | 18.0 |
+| % Cohort 2 (class of 2025) | 37.4 | 48.4 | 37.4 | 48.4 |
+| % Female | 57.7 | 49.4 | 58.2 | 49.3 |
+| % Sexual Minority | 24.7 | 43.2 | 24.0 | 42.7 |
+| Parent Education (mean, 1–7) | 5.17 | 1.81 | 3.88 | 0.97 |
+| % Asian | 45.6 | 49.8 | 58.3 | 49.3 |
+| % Hispanic/Latine | 39.2 | 48.8 | 39.8 | 49.0 |
+| MDD (RCADS Mean) | 0.945 | 0.696 | 0.941 | 0.666 |
+| GAD (RCADS Mean) | 1.159 | 0.752 | 0.982 | 0.716 |
+| Average Out-degree | 2.62 | 2.03 | 2.49 | 1.93 |
+| Average In-degree | 2.57 | 2.34 | 2.45 | 2.10 |
+| Perceived Friend Use (mean, 0–5) | 0.38 | 0.98 | 0.42 | 0.96 |
+| Network Exposure Users (lagged) | 0.020 | 0.096 | 0.066 | 0.163 |
+| Network Exposure Dis-adopters (lagged) | 0.000 | 0.000 | 0.036 | 0.114 |
+
+**Notes on three apparent shifts that are *not* substantive changes**:
+
+- *Parent education declines across the panel* (e.g. 5.17 → 3.88 in Table 13.2.c). This is a measurement artefact of the W7–W10 questionnaire scale change: the new 9-level scale collapses three of its categories (4 / 5 / 6) onto legacy 4 (see §2.3), pulling the upper tail of the distribution down at later waves. Not a real SES drop.
+- *% Asian rises across the panel* (37.3% → 50.1% in 13.2.a; 41.9% → 54.2% in 13.2.b; 45.6% → 58.3% in 13.2.c). Differential attrition — Asian-majority schools retained students at higher rates through W9–W10. The full cohort's true % Asian is closer to the baseline number.
+- *Network Exposure Dis-adopters $= 0$ at baseline* in all three tables. By construction, $E_D$ at $w-1$ requires a peer transition between $w-2$ and $w-1$, and at gs = 2 (spring 9th, the second observed semester) the relevant $w-2$ is before the panel starts. Use only the follow-up value.
+
+## 13.3 Robustness diagnostics
 
 Three diagnostics on the §13.1 fits, computed by [`R/06-diagnostics.R`](R/06-diagnostics.R). The full nine-diagnostic battery (with separation, linearity, two-way clustering, AUC/calibration, leverage, and Model C random-intercept variance) sits in `outputs/intermediate/v5_diagnostics.rds`; here we report the three that matter most for the headline.
 
@@ -885,7 +964,7 @@ The §13.1 headline is robust under Firth correction. The gs_fe explosion is con
 
 No single school flips the sign or the significance of any focal predictor. The §13.1 findings are not driven by a single school.
 
-## 13.3 Block-buildup: pre-specified spec ladder
+## 13.4 Block-buildup: pre-specified spec ladder
 
 To address the concern that the headline might be the product of a post-hoc spec search, we report a pre-specified four-block ladder fitted to each outcome at $Q = 7$. Each block adds a coherent set of predictors to the previous one, holding the time controls (`gs_fe + cohort`) constant throughout.
 
@@ -905,7 +984,7 @@ AIC by block (lower = better fit; same panel within each row):
 
 **Reading**. Almost all the explanatory power gained beyond demographics comes from the **network block** (B2 → B3): adding PFU, $E_{\text{users}}$, and degrees drops AIC by 187 on Stable A and 218 on Experimental B. Adding $E_D$ alt on top of B3 (B3 → B4) changes AIC by less than +1 in every panel — the disadoption-specific peer signal carries essentially no incremental explanatory power once the peer-state predictors are in. This is the asymmetric finding pre-stated as a model-comparison result rather than a coefficient p-value, and it is consistent with H2.
 
-## 13.4 Alternative peer-cessation operationalisations
+## 13.5 Alternative peer-cessation operationalisations
 
 The B3 → B4 null on $E_D$ alt could in principle reflect a poor operationalisation of "peer cessation" rather than a true asymmetry. We tested five alternative ways of representing alter cessation / peer-use decline as an ego-level predictor, each *replacing* $E_D$ alt in Block 4. The candidates are:
 
@@ -969,7 +1048,7 @@ Only ~21 % of students have *any* ESE record across 10 waves. **Temporal pattern
 
 ## 14.2 SAOM co-evolution analysis (deferred)
 
-The PFU↓ finding in §13.4 cannot be interpreted causally without separating **selection** (egos befriending alters of similar status) from **influence** (egos adjusting behaviour in response to alters' behaviour). Our lagged-GLM design captures both jointly. The principled remedy is a **Stochastic Actor-Oriented Model** (SAOM, implemented in `RSiena`) fitted to the per-school friendship and behaviour panels, which co-models the network and the behaviour as a continuous-time joint process and reads off the two effects separately. This is queued as the immediate next step. Outcomes from SAOM will either (a) confirm that the asymmetric finding reflects genuine peer influence — strengthening the headline; or (b) reveal that the apparent peer-state effect on disadoption is largely selection-driven — in which case the paper's framing pivots from "peer-state influences both adoption and disadoption" to "the apparent symmetric peer-state effect on adoption and disadoption is selection-mediated", which is a different and equally substantive contribution.
+The PFU↓ finding in §13.5 cannot be interpreted causally without separating **selection** (egos befriending alters of similar status) from **influence** (egos adjusting behaviour in response to alters' behaviour). Our lagged-GLM design captures both jointly. The principled remedy is a **Stochastic Actor-Oriented Model** (SAOM, implemented in `RSiena`) fitted to the per-school friendship and behaviour panels, which co-models the network and the behaviour as a continuous-time joint process and reads off the two effects separately. This is queued as the immediate next step. Outcomes from SAOM will either (a) confirm that the asymmetric finding reflects genuine peer influence — strengthening the headline; or (b) reveal that the apparent peer-state effect on disadoption is largely selection-driven — in which case the paper's framing pivots from "peer-state influences both adoption and disadoption" to "the apparent symmetric peer-state effect on adoption and disadoption is selection-mediated", which is a different and equally substantive contribution.
 
 ## 14.3 Other deferred items
 
