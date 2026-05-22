@@ -185,18 +185,30 @@ build_wave_graph <- function(k) {
   g
 }
 
+wave_label <- function(w, cohort) {
+  # Map a panel wave number to a "Fall|Spring Nth grade" label, using
+  # the grade-semester axis (gs) defined in §13.2/§6:
+  #   cohort 2024:  gs = w        (W1=gs1 -> fall 9th,  W8=gs8 -> spring 12th)
+  #   cohort 2025:  gs = w - 2    (W3=gs1 -> fall 9th, W10=gs8 -> spring 12th)
+  gs    <- if (cohort == "2024") w else w - 2L
+  grade <- 9L + (gs - 1L) %/% 2L
+  term  <- if (gs %% 2L == 1L) "Fall" else "Spring"
+  sprintf("%s %dth grade", term, grade)
+}
+
 plot_wave <- function(k, main_size = 1.1, vsize = GRID_VSIZE, esize = GRID_ESIZE,
                      show_counts = TRUE, layout = layout_xy) {
-  w  <- WAVES[k]
-  g  <- build_wave_graph(k)
+  w   <- WAVES[k]
+  lbl <- wave_label(w, COHORT)
+  g   <- build_wave_graph(k)
   V(g)$size <- vsize
   st <- status_mat[, k]
   ttl <- if (show_counts) {
-    sprintf("W%d  (current=%d, past=%d, never=%d, NA=%d)",
-            w, sum(st == "current"), sum(st == "past"),
+    sprintf("%s  (current=%d, past=%d, never=%d, NA=%d)",
+            lbl, sum(st == "current"), sum(st == "past"),
             sum(st == "never"),   sum(st == "na"))
   } else {
-    sprintf("W%d", w)
+    lbl
   }
   plot(g,
        layout          = layout[V(g)$name, ],
@@ -208,9 +220,10 @@ plot_wave <- function(k, main_size = 1.1, vsize = GRID_VSIZE, esize = GRID_ESIZE
        cex.main        = main_size)
 }
 
-legend_panel <- function(cex = 0.95, horiz = TRUE) {
+legend_panel <- function(cex = 0.95, horiz = TRUE, title = NULL) {
   plot.new()
   legend(if (horiz) "center" else "left",
+         title  = title,
          legend = c("Current user (ecig=1)",
                     "Disadopter (was 1, now 0)",
                     "Never-user",
@@ -221,7 +234,7 @@ legend_panel <- function(cex = 0.95, horiz = TRUE) {
          col    = c(BORDERS["current"], BORDERS["past"],
                     BORDERS["never"],   BORDERS["na"]),
          pt.cex = 1.8, cex = cex, horiz = horiz, bty = "n",
-         x.intersp = 1.1, y.intersp = 1.4)
+         x.intersp = 1.1, y.intersp = 1.4, title.adj = 0)
 }
 
 # ----------------------------------------------------------------
@@ -251,18 +264,19 @@ paper_idx   <- match(PAPER_WAVES, WAVES)
 stopifnot(all(!is.na(paper_idx)))
 
 render_2x2 <- function(out_path, layout_to_use) {
-  pdf(out_path, width = 11.5, height = 8.4)
+  pdf(out_path, width = 11.0, height = 8.4)
   op <- par(oma = c(0.5, 0.5, 0.5, 0.5))
   layout(rbind(c(1, 2, 5),
                c(3, 4, 5)),
-         widths = c(1, 1, 0.55))
+         widths = c(1, 1, 0.45))
   par(mar = c(0.5, 0.5, 2.0, 0.5))
   for (k in paper_idx) plot_wave(k, main_size = 1.4,
                                   vsize = TWO_VSIZE, esize = TWO_ESIZE,
                                   show_counts = FALSE,
                                   layout = layout_to_use)
   par(mar = c(0.5, 0.5, 0.5, 0.5))
-  legend_panel(cex = 1.0, horiz = FALSE)
+  legend_panel(cex = 1.0, horiz = FALSE,
+               title = sprintf("School %d", FOCAL_SCHOOL))
   par(op); dev.off()
 }
 

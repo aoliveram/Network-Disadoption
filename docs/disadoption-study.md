@@ -791,6 +791,20 @@ This subsection shows how (effective N students, N events) for the three disadop
 
 \newpage
 
+## 11.6 Network visualization: focal-school dynamics across HS grade-semesters
+
+To visualise the joint adoption / dis-adoption dynamics that §§5–10 fit numerically, we render the friendship network of one focal high school at four half-year snapshots (Spring 9th → Spring 12th grade). The focal school is **School 114** (cohort 2024) — the panel's highest-event school: 115 adoption events ($0 \to 1$) and 81 dis-adoption events ($1 \to 0$) across W2–W8 over 375 students. We restrict the visualisation to the 358 students with at least one friendship tie observed at any wave (17 isolates dropped). Node positions are held fixed across the four panels using two complementary layouts: a force-directed Fruchterman-Reingold layout (Figure 11.6.a) and a community-ordered circular layout (Figure 11.6.b) in which the 9 Louvain communities of the union graph are arranged largest-first around the circle and sorted within community by degree, so intra-community ties become short arcs and inter-community ties cross the centre.
+
+![Figure 11.6.a — Friendship-network co-evolution and e-cigarette use, School 114 (cohort 2024), at four half-year snapshots from Spring 9th through Spring 12th grade. Nodes are the 358 students with at least one observed friendship tie across W2–W8 (17 isolates omitted). Node colour encodes each student's e-cigarette status at the displayed wave: blue = current user (past-6-month use); red = dis-adopter (used at a previous wave but not at this one); grey = never-user; white = item-missing. Node positions are held fixed using a Fruchterman-Reingold layout computed once on the union of all observed friendship nominations. The active-user pool (blue) grows from Spring 9th through Spring 11th and then contracts at Spring 12th as dis-adopters (red) accumulate — at Spring 12th, dis-adopters outnumber current users (43 vs 24).](outputs/figures/network_panel_school114_2x2.pdf){width=95%}
+
+\newpage
+
+![Figure 11.6.b — Same data, colour coding, and time slices as Figure 11.6.a, but with a community-ordered circular layout. Louvain community detection on the union graph yields 9 communities (sizes 62, 54, 50, 48, 44, 29, 27, 25, 19); these are arranged clockwise around the circle, largest first, and within each community nodes are ordered by degree (high → low). The construction puts intra-community ties as short arcs near the perimeter and forces inter-community ties through the centre, making between-community contagion visible at a glance.](outputs/figures/network_panel_school114_2x2_circular.pdf){width=95%}
+
+All per-wave PDFs (eight standalone wave snapshots and a full 4×2 grid covering every observed wave) are available in the repository at <https://github.com/aoliveram/Network-Disadoption/tree/main/outputs/figures>.
+
+\newpage
+
 ---
 
 # 12. Discussion
