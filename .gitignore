@@ -30,7 +30,7 @@ data/advance/Data/
 
 # Generated tables/figures (regeneratable)
 outputs/tables/*
-outputs/figures/*
+#outputs/figures/*
 !outputs/tables/.gitkeep
 !outputs/figures/.gitkeep
 
