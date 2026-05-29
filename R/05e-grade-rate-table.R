@@ -133,18 +133,18 @@ p_line <- ggplot(tab, aes(x = gs)) +
                 colour = "Adoption (0→1)"),
             linewidth = 1.1) +
   geom_point(aes(y = rate_adopt_pct * scale_factor,
-                 colour = "Adoption (0→1)"), size = 2.6) +
+                 colour = "Adoption (0→1)"), size = 3.4) +
   geom_text(aes(y = rate_adopt_pct * scale_factor,
                 label = sprintf("%.1f%%", rate_adopt_pct)),
-            colour = "#1f77b4", vjust = -1.0, size = 3) +
+            colour = "#1f77b4", vjust = -1.0, size = 3.8) +
   geom_line(aes(y = rate_disad_pct,
                 colour = "Disadoption (any 1→0)"),
             linewidth = 1.1) +
   geom_point(aes(y = rate_disad_pct,
-                 colour = "Disadoption (any 1→0)"), size = 2.6) +
+                 colour = "Disadoption (any 1→0)"), size = 3.4) +
   geom_text(aes(y = rate_disad_pct,
                 label = sprintf("%.1f%%", rate_disad_pct)),
-            colour = "#2ca02c", vjust = 1.7, size = 3) +
+            colour = "#2ca02c", vjust = 1.7, size = 3.8) +
   scale_x_continuous(breaks = 1:8, labels = gs_label) +
   scale_y_continuous(
     name = "Disadoption rate (%)",
@@ -155,18 +155,19 @@ p_line <- ggplot(tab, aes(x = gs)) +
                       values = c("Adoption (0→1)" = "#1f77b4",
                                   "Disadoption (any 1→0)" = "#2ca02c")) +
   labs(x = "HS grade-semester (1 = fall 9th, 8 = spring 12th)",
-       title = "Adoption and disadoption trajectories across the high-school years",
-       subtitle = "Adoption (blue) follows an inverted-U with the peak around fall 11th. Disadoption (green) drifts up from 9th to 12th.") +
-  theme_bw(base_size = 11) +
+       title = "Adoption and disadoption trajectories across the high-school years") +
+  theme_bw(base_size = 12) +
   theme(panel.grid.minor = element_blank(),
         legend.position = "bottom",
+        legend.text = element_text(size = 11),
+        #legend.key.size = unit(1.2, "cm"),
         axis.title.y.left  = element_text(colour = "#2ca02c"),
         axis.text.y.left   = element_text(colour = "#2ca02c"),
         axis.title.y.right = element_text(colour = "#1f77b4"),
         axis.text.y.right  = element_text(colour = "#1f77b4"),
         plot.title = element_text(face = "bold"),
-        axis.text.x = element_text(size = 8))
+        axis.text.x = element_text(size = 11))
 
 ggsave(file.path(FIGURES, "sec11_grade_rates_line.pdf"), p_line,
-       width = 10, height = 4.6, dpi = 220)
+       width = 9, height = 4.5, dpi = 220)
 cat("Wrote outputs/figures/sec11_grade_rates_line.pdf\n")

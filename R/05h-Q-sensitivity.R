@@ -222,10 +222,9 @@ p <- ggplot(plot_df, aes(x = Q, y = value, colour = metric, group = metric)) +
   scale_colour_manual(values = c("Students" = "#1f77b4",
                                   "Events"   = "#d62728"),
                       name = NULL) +
-  labs(x = "Q (minimum consecutive observed waves of past_6mo_use_3) — strict ← → relaxed",
+  labs(x = "Q — strict ← → relaxed",
        y = "Count after complete.cases (CC)",
-       title = "Q sensitivity: how N students and N events shrink as Q tightens",
-       subtitle = "After complete-case filter on the 13 predictors. Numbers below each point = % gain vs the immediately stricter Q. The bold highlight is Q=7, our recommended sweet spot.") +
+       title = "Q sensitivity: how N students and N events shrink as Q tightens") +
   theme_bw(base_size = 11) +
   theme(panel.grid.minor = element_blank(),
         legend.position = "bottom",
