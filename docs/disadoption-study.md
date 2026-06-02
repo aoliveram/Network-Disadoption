@@ -891,7 +891,7 @@ A pedagogical guide to which sample each table describes:
 | % Cohort 2 (class of 2025) | 28.2 | 45.0 | 28.2 | 45.0 |
 | % Female | 56.9 | 49.5 | 55.5 | 49.7 |
 | % Sexual Minority | 23.9 | 42.6 | 23.5 | 42.4 |
-| Parent Education (mean, 1–7) | 5.08 | 1.92 | 3.94 | 1.30 |
+| Parent Education (mean, 1–6) | 4.46 | 1.33 | 4.47 | 1.33 |
 | % Asian | 37.3 | 48.4 | 50.1 | 50.0 |
 | % Hispanic/Latine | 46.4 | 49.9 | 48.4 | 50.0 |
 | MDD (RCADS Mean) | 0.955 | 0.714 | 0.917 | 0.668 |
@@ -912,7 +912,7 @@ A pedagogical guide to which sample each table describes:
 | % Cohort 2 (class of 2025) | 36.9 | 48.3 | 36.9 | 48.3 |
 | % Female | 57.7 | 49.4 | 58.1 | 49.4 |
 | % Sexual Minority | 24.8 | 43.2 | 23.8 | 42.6 |
-| Parent Education (mean, 1–7) | 5.14 | 1.87 | 3.85 | 0.99 |
+| Parent Education (mean, 1–6) | 4.54 | 1.30 | 4.54 | 1.30 |
 | % Asian | 41.9 | 49.3 | 54.2 | 49.8 |
 | % Hispanic/Latine | 43.0 | 49.5 | 43.9 | 49.6 |
 | MDD (RCADS Mean) | 0.950 | 0.708 | 0.930 | 0.674 |
@@ -933,7 +933,7 @@ A pedagogical guide to which sample each table describes:
 | % Cohort 2 (class of 2025) | 37.4 | 48.4 | 37.4 | 48.4 |
 | % Female | 57.7 | 49.4 | 58.2 | 49.3 |
 | % Sexual Minority | 24.7 | 43.2 | 24.0 | 42.7 |
-| Parent Education (mean, 1–7) | 5.17 | 1.81 | 3.88 | 0.97 |
+| Parent Education (mean, 1–6) | 4.60 | 1.26 | 4.60 | 1.26 |
 | % Asian | 45.6 | 49.8 | 58.3 | 49.3 |
 | % Hispanic/Latine | 39.2 | 48.8 | 39.8 | 49.0 |
 | MDD (RCADS Mean) | 0.945 | 0.696 | 0.941 | 0.666 |
