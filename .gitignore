@@ -47,4 +47,7 @@ prompts/
 *.fdb_latexmk
 *.fls
 
+# PPTs
+.pptx
+
 # We DO commit outputs/intermediate/*.rds (per project convention).
