@@ -48,6 +48,9 @@ prompts/
 *.fls
 
 # PPTs
-.pptx
+*.pptx
+
+# Playground
+playground/SAOM/
 
 # We DO commit outputs/intermediate/*.rds (per project convention).
