@@ -22,6 +22,9 @@ data/kfp/*.rds
 # Papers / literature (local-only, copyrighted)
 papers/
 
+# Archived study reports (local only)
+reports/
+
 # KFP archive (frozen v3 analysis; lives locally only)
 KFP-study/
 
