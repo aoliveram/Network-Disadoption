@@ -1,15 +1,14 @@
 # ================================================================
 # 06-diagnostics.R  (v5)
 #
-# All-in-one diagnostics script for the headline specification
-# (§6 alt E_D at Q=7, gs_fe + cohort). Runs the 9 checks listed in
-# papers/disadoption-study-draft/04-analysis-plan-3.1-diagnostics.md
-# on the four outcomes (Adopters, Stable A, Experimental B,
-# Unstable C) and writes a combined report.
+# All-in-one diagnostics script for the paper specification
+# (E_D = E_D_alt at Q=7, gs_fe + cohort; see 04-regressions.R). Runs
+# 9 checks on the four outcomes (Adopters, Stable A, Temporary B,
+# Unstable C). Supplementary S3 reports D2 (VIF) and D9 (leave-one-
+# school-out); D8 is the random-intercept variance of C (rho = 0).
 #
 # Outputs:
-#   outputs/intermediate/v5_diagnostics.rds    (all numeric results)
-#   outputs/diagnostics/v5_diagnostics.md      (human-readable summary)
+#   INTERMEDIATE/v5_diagnostics.rds    (all numeric results)
 #
 # Run with: Rscript R/06-diagnostics.R
 # ================================================================
@@ -24,20 +23,16 @@ suppressMessages({
 source(file.path(here::here(), "R", "00-config.R"))
 source(file.path(here::here(), "R", "helpers.R"))
 
-DIAG_DIR <- file.path(here::here(), "outputs", "diagnostics")
-dir.create(DIAG_DIR, recursive = TRUE, showWarnings = FALSE)
-
 PRED <- c("cohort", "female", "sex_minority", "par_edu",
           "asian", "hispanic", "mdd", "gad",
           "out_degree", "in_degree",
           "friends_use_ecig_lag", "E_users", "E_D")
 
-prep_data <- function(p, E_D_var = "E_D_alt") {
+prep_data <- function(p) {
   d <- p
   d <- attach_gs(d)
   d$cohort <- as.integer(d$cohort == "2025")
-  if (E_D_var == "E_dis")        d$E_D <- d$E_dis
-  else if (E_D_var == "E_D_alt") d$E_D <- d$E_D_alt
+  d$E_D    <- d$E_D_alt
   d$gs_fe <- factor(d$gs)
   cc <- complete.cases(d[, c(PRED, "gs", "event"), drop = FALSE])
   d_cc <- d[cc, ]
@@ -48,20 +43,6 @@ prep_data <- function(p, E_D_var = "E_D_alt") {
 load_panel <- function(kind, Q = 7, mode = "main") {
   readRDS(file.path(INTERMEDIATE,
     sprintf("v4b_panel_%s_Q%d_%s_full.rds", kind, Q, mode)))
-}
-
-fit_headline <- function(d, outcome) {
-  rhs <- paste(c("gs_fe", PRED), collapse = " + ")
-  f <- as.formula(sprintf("event ~ %s", rhs))
-  if (outcome == "C") {
-    fit <- glmer(as.formula(sprintf("event ~ %s + (1 | record_id)", rhs)),
-                 data = d, family = binomial("logit"),
-                 control = glmerControl(optimizer = "bobyqa",
-                                         optCtrl = list(maxfun = 4e5)))
-  } else {
-    fit <- glm(f, data = d, family = binomial("logit"))
-  }
-  fit
 }
 
 # ----------------------------------------------------------------
@@ -257,7 +238,7 @@ for (outcome in c("Adopters", "A", "B", "C")) {
   cat(sprintf("\n===================== %s =====================\n", outcome))
   kind <- if (outcome == "Adopters") "adopt" else outcome
   p <- load_panel(kind, Q = 7, mode = "main")
-  d <- prep_data(p, E_D_var = "E_D_alt")
+  d <- prep_data(p)
   cat(sprintf("  n = %d  events = %d  n_id = %d\n",
               nrow(d), sum(d$event), length(unique(d$record_id))))
   r <- list()
