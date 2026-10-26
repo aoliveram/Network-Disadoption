@@ -22,8 +22,11 @@ data/kfp/*.rds
 # Papers / literature (local-only, copyrighted)
 papers/
 
-# Archived study reports (local only)
+# Archived study reports and report-support material (local only):
+# scripts and intermediate files behind the internal reports, not the paper.
 reports/
+report-support/
+docs/
 
 # KFP archive (frozen v3 analysis; lives locally only)
 KFP-study/
@@ -39,7 +42,6 @@ outputs/tables/*
 
 # Claude doc
 CLAUDE.md
-prompts/
 
 # Build artefacts
 *.aux
@@ -54,6 +56,5 @@ prompts/
 *.pptx
 
 # Playground
-playground/SAOM/
+playground/
 
-# We DO commit outputs/intermediate/*.rds (per project convention).
