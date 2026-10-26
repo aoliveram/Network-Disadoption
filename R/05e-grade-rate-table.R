@@ -17,7 +17,8 @@
 # Outputs:
 #   outputs/tables/v4b_table_11_3_grade.csv
 #   outputs/figures/sec11_grade_rates.pdf    (8-bin bar version)
-#   outputs/figures/sec11_grade_rates_line.pdf (line-graph version)
+#
+# Paper Figure 1 (two-panel line graph) is drawn by R/10-figure1-plos.R.
 # ================================================================
 suppressMessages({
   library(dplyr)
@@ -118,56 +119,3 @@ p_bar <- ggplot(plot_df, aes(x = gs_lab, y = rate, fill = kind)) +
 ggsave(file.path(FIGURES, "sec11_grade_rates.pdf"), p_bar,
        width = 10, height = 4.0, dpi = 220)
 cat("\nWrote outputs/figures/sec11_grade_rates.pdf\n")
-
-# ---------------------------------------------------------------
-# (b) Line graph — both rates on the same plot, dual y-axes
-# ---------------------------------------------------------------
-# Use a scaling trick so adoption (small %) and disadoption (large %)
-# share the x-axis with two y-axes that line up cleanly.
-max_a <- max(tab$rate_adopt_pct)
-max_d <- max(tab$rate_disad_pct)
-scale_factor <- max_d / max_a
-
-p_line <- ggplot(tab, aes(x = gs)) +
-  geom_line(aes(y = rate_adopt_pct * scale_factor,
-                colour = "Adoption (0→1)"),
-            linewidth = 1.1) +
-  geom_point(aes(y = rate_adopt_pct * scale_factor,
-                 colour = "Adoption (0→1)"), size = 3.4) +
-  geom_text(aes(y = rate_adopt_pct * scale_factor,
-                label = sprintf("%.1f%%", rate_adopt_pct)),
-            colour = "#1f77b4", vjust = -1.0, size = 3.8) +
-  geom_line(aes(y = rate_disad_pct,
-                colour = "Disadoption (any 1→0)"),
-            linewidth = 1.1) +
-  geom_point(aes(y = rate_disad_pct,
-                 colour = "Disadoption (any 1→0)"), size = 3.4) +
-  geom_text(aes(y = rate_disad_pct,
-                label = sprintf("%.1f%%", rate_disad_pct)),
-            colour = "#2ca02c", vjust = 1.7, size = 3.8) +
-  scale_x_continuous(breaks = 1:8, labels = gs_label) +
-  scale_y_continuous(
-    name = "Disadoption rate (%)",
-    sec.axis = sec_axis(~ . / scale_factor, name = "Adoption rate (%)"),
-    expand = expansion(mult = c(0.08, 0.10))
-  ) +
-  scale_colour_manual(name = NULL,
-                      values = c("Adoption (0→1)" = "#1f77b4",
-                                  "Disadoption (any 1→0)" = "#2ca02c")) +
-  labs(x = "HS grade-semester (1 = fall 9th, 8 = spring 12th)",
-       title = "Adoption and disadoption trajectories across the high-school years") +
-  theme_bw(base_size = 12) +
-  theme(panel.grid.minor = element_blank(),
-        legend.position = "bottom",
-        legend.text = element_text(size = 11),
-        #legend.key.size = unit(1.2, "cm"),
-        axis.title.y.left  = element_text(colour = "#2ca02c"),
-        axis.text.y.left   = element_text(colour = "#2ca02c"),
-        axis.title.y.right = element_text(colour = "#1f77b4"),
-        axis.text.y.right  = element_text(colour = "#1f77b4"),
-        plot.title = element_text(face = "bold"),
-        axis.text.x = element_text(size = 11))
-
-ggsave(file.path(FIGURES, "sec11_grade_rates_line.pdf"), p_line,
-       width = 9, height = 4.5, dpi = 220)
-cat("Wrote outputs/figures/sec11_grade_rates_line.pdf\n")

@@ -16,7 +16,8 @@ ADVANCE_DATA <- Sys.getenv("ND_ADVANCE_DATA",
                            file.path(DATA, "advance", "Cleaned-Data"))
 
 OUTPUTS      <- file.path(ROOT, "outputs")
-INTERMEDIATE <- file.path(OUTPUTS, "intermediate")
+# Intermediate .rds files live in the local, gitignored report-support/ folder.
+INTERMEDIATE <- file.path(ROOT, "report-support", "intermediate")
 TABLES       <- file.path(OUTPUTS, "tables")
 FIGURES      <- file.path(OUTPUTS, "figures")
 
