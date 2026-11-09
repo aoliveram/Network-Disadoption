@@ -20,6 +20,8 @@ OUTPUTS      <- file.path(ROOT, "outputs")
 INTERMEDIATE <- file.path(ROOT, "report-support", "intermediate")
 TABLES       <- file.path(OUTPUTS, "tables")
 FIGURES      <- file.path(OUTPUTS, "figures")
+# Submission-ready TIFFs, named by their number in the paper (Fig1.tif, ...)
+PLOS_FIGURES <- file.path(FIGURES, "plos")
 
 dir.create(INTERMEDIATE, showWarnings = FALSE, recursive = TRUE)
 dir.create(TABLES,       showWarnings = FALSE, recursive = TRUE)

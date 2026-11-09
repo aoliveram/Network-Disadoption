@@ -234,3 +234,53 @@ p <- ggplot(plot_df, aes(x = Q, y = value, colour = metric, group = metric)) +
 ggsave(file.path(FIGURES, "sec11_Q_sensitivity.pdf"), p,
        width = 6.5, height = 8.0, dpi = 220)
 cat("\nWrote outputs/figures/sec11_Q_sensitivity.pdf\n")
+
+# ----------------------------------------------------------------
+# PLOS ONE version (Supplementary Figure S1): paper terminology,
+# no title (the caption carries it), 600 dpi TIFF.
+# ----------------------------------------------------------------
+lab_out <- c("A" = "Stable disadoption", "B" = "Temporary disadoption",
+             "C" = "Unstable disadoption")
+plos_df  <- plot_df
+plos_df$outcome <- factor(lab_out[as.character(factor(plos_df$outcome,
+                     labels = c("A", "B", "C")))], levels = lab_out)
+plos_gain <- gain_df
+plos_gain$outcome <- factor(lab_out[as.character(factor(plos_gain$outcome,
+                       labels = c("A", "B", "C")))], levels = lab_out)
+plos_df$metric   <- factor(plos_df$metric, levels = c("Students", "Events"),
+                           labels = c("Students at risk", "Events"))
+plos_gain$metric <- factor(plos_gain$metric, levels = c("Students", "Events"),
+                           labels = c("Students at risk", "Events"))
+
+p_plos <- ggplot(plos_df, aes(x = Q, y = value, colour = metric, group = metric)) +
+  geom_vline(xintercept = 7, linetype = "dashed", colour = "grey60", linewidth = 0.4) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  # Students sit above events in every panel, so student labels go above
+  # the point and event labels below it: "count (gain vs. Q + 1)".
+  geom_text(data = subset(plos_gain, metric == "Students at risk"),
+            aes(label = ifelse(gain_lbl == "", value, sprintf("%d (%s)", value, gain_lbl)),
+                fontface = ifelse(is_q7, "bold", "plain")),
+            vjust = -0.9, size = 2.6, show.legend = FALSE) +
+  geom_text(data = subset(plos_gain, metric == "Events"),
+            aes(label = ifelse(gain_lbl == "", value, sprintf("%d (%s)", value, gain_lbl)),
+                fontface = ifelse(is_q7, "bold", "plain")),
+            vjust = 1.9, size = 2.6, show.legend = FALSE) +
+  facet_wrap(~ outcome, ncol = 1, scales = "free_y") +
+  scale_x_reverse(breaks = 4:8, expand = expansion(add = c(0.45, 0.45))) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0.12, 0.18))) +
+  scale_colour_manual(values = c("Students at risk" = "#1f77b4",
+                                  "Events"           = "#d62728"),
+                      name = NULL) +
+  labs(x = "Minimum number of consecutive waves (Q)",
+       y = "Number (complete cases)") +
+  theme_bw(base_size = 10) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        strip.background = element_blank(),
+        strip.text = element_text(face = "bold", hjust = 0, size = 10))
+
+dir.create(PLOS_FIGURES, showWarnings = FALSE, recursive = TRUE)
+ggsave(file.path(PLOS_FIGURES, "FigS1.tif"), p_plos, width = 5.2, height = 6.5,
+       dpi = 600, compression = "lzw", bg = "white")
+cat("Wrote outputs/figures/plos/FigS1.tif\n")

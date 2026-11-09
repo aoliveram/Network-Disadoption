@@ -98,3 +98,8 @@ ggsave(file.path(FIGURES, "sec11_grade_rates_line.pdf"), p, width = 5.2, height 
 ggsave(file.path(FIGURES, "sec11_grade_rates_line.tif"), p, width = 5.2, height = 5.2,
        dpi = 600, compression = "lzw")
 cat("Wrote outputs/figures/sec11_grade_rates_line.{pdf,tif}\n")
+
+dir.create(PLOS_FIGURES, showWarnings = FALSE, recursive = TRUE)
+ggsave(file.path(PLOS_FIGURES, "Fig1.tif"), p, width = 5.2, height = 5.2,
+       dpi = 600, compression = "lzw", bg = "white")
+cat("Wrote outputs/figures/plos/Fig1.tif\n")
