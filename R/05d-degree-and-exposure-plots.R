@@ -130,3 +130,53 @@ p2 <- ggplot(agg, aes(x = factor(value), y = n, fill = metric)) +
 ggsave(file.path(FIGURES, "sec3_per_wave_degree_exposure.pdf"), p2,
        width = 12, height = 5.5, dpi = 200)
 cat("Wrote outputs/figures/sec3_per_wave_degree_exposure.pdf\n")
+
+# ----------------------------------------------------------------
+# PLOS ONE versions (Supplementary Figures S6a and S6b): same data,
+# plain labels, no titles (the captions carry them), 600 dpi TIFF.
+# ----------------------------------------------------------------
+dir.create(PLOS_FIGURES, showWarnings = FALSE, recursive = TRUE)
+
+deg_df$kind <- factor(deg_df$kind, levels = c("Out-degree", "In-degree"))
+p1_plos <- ggplot(deg_df, aes(x = value, fill = kind)) +
+  geom_histogram(binwidth = 1, position = "identity",
+                 colour = "white", linewidth = 0.1) +
+  facet_wrap(~ kind, ncol = 2, scales = "free_y") +
+  scale_fill_manual(values = c("Out-degree" = "#6fa8d6",
+                                "In-degree"  = "#e58a8b"),
+                    guide = "none") +
+  scale_x_continuous(breaks = seq(0, 25, by = 2)) +
+  labs(x = "Number of friendship ties",
+       y = "Student-waves") +
+  theme_bw(base_size = 10) +
+  theme(panel.grid.minor = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(face = "bold", hjust = 0, size = 10))
+ggsave(file.path(PLOS_FIGURES, "FigS6a.tif"), p1_plos, width = 7.0, height = 3.2,
+       dpi = 600, compression = "lzw", bg = "white")
+cat("Wrote outputs/figures/plos/FigS6a.tif\n")
+
+agg_plos <- agg
+agg_plos$metric <- factor(agg_plos$metric,
+                          levels = c("Out-degree", "Adopting friends (k_users)"),
+                          labels = c("Nominated friends (out-degree)",
+                                     "Nominated friends who use e-cigarettes"))
+agg_plos$value <- factor(agg_plos$value, levels = sort(unique(agg_plos$value)))
+# Same look as the original figure (overlaid semi-transparent bars, grey
+# strips). Transparency is flattened when saving, so the TIFF is plain RGB.
+p2_plos <- ggplot(agg_plos, aes(x = value, y = n, fill = metric)) +
+  geom_col(alpha = 0.55, position = "identity", width = 0.85) +
+  facet_wrap(~ wave, ncol = 5,
+             labeller = labeller(wave = function(x) sprintf("Wave %s", x))) +
+  scale_x_discrete(drop = FALSE) +
+  scale_fill_manual(name = NULL,
+                    values = c("Nominated friends (out-degree)"         = "#1f77b4",
+                               "Nominated friends who use e-cigarettes" = "#d62728")) +
+  labs(x = "Number of friends",
+       y = "Student-waves") +
+  theme_bw(base_size = 9) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom")
+ggsave(file.path(PLOS_FIGURES, "FigS6b.tif"), p2_plos, width = 7.5, height = 3.8,
+       dpi = 600, compression = "lzw", bg = "white")
+cat("Wrote outputs/figures/plos/FigS6b.tif\n")

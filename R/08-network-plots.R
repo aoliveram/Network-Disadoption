@@ -220,14 +220,21 @@ plot_wave <- function(k, main_size = 1.1, vsize = GRID_VSIZE, esize = GRID_ESIZE
        cex.main        = main_size)
 }
 
-legend_panel <- function(cex = 0.95, horiz = TRUE, title = NULL) {
+LEGEND_LABELS <- c("Current user (ecig=1)",
+                   "Disadopter (was 1, now 0)",
+                   "Never-user",
+                   "Missing (NA)")
+PLOS_LABELS   <- c("Current user",
+                   "Quitter (former user)",
+                   "Never user",
+                   "Not observed")
+
+legend_panel <- function(cex = 0.95, horiz = TRUE, title = NULL,
+                         labels = LEGEND_LABELS) {
   plot.new()
   legend(if (horiz) "center" else "left",
          title  = title,
-         legend = c("Current user (ecig=1)",
-                    "Disadopter (was 1, now 0)",
-                    "Never-user",
-                    "Missing (NA)"),
+         legend = labels,
          pch    = 21,
          pt.bg  = c(COLORS["current"], COLORS["past"],
                     COLORS["never"],   COLORS["na"]),
@@ -287,6 +294,21 @@ out_2x2_circ <- file.path(FIGURES,
                                   FOCAL_SCHOOL))
 render_2x2(out_2x2,      layout_xy)
 cat(sprintf("Wrote %s\n", out_2x2))
+
+# PLOS ONE version (Figure 2): 7.5 in wide, 600 dpi TIFF, plain labels
+dir.create(PLOS_FIGURES, showWarnings = FALSE, recursive = TRUE)
+out_fig2 <- file.path(PLOS_FIGURES, "Fig2.tif")
+tiff(out_fig2, width = 7.5, height = 6.2, units = "in", res = 600,
+     compression = "lzw", type = "cairo", bg = "white", family = "Arial")
+op <- par(oma = c(0, 0, 0, 0))
+layout(rbind(c(1, 2), c(3, 4), c(5, 5)), heights = c(1, 1, 0.12))
+par(mar = c(0.2, 0.2, 1.4, 0.2))
+for (k in paper_idx) plot_wave(k, main_size = 1.0, vsize = 2.6, esize = 0.4,
+                                show_counts = FALSE, layout = layout_xy)
+par(mar = c(0, 0, 0, 0))
+legend_panel(cex = 0.85, horiz = TRUE, labels = PLOS_LABELS)
+par(op); dev.off()
+cat(sprintf("Wrote %s\n", out_fig2))
 
 # ----------------------------------------------------------------
 # 5c) Paper-ready 2x2 figure on CIRCULAR community-ordered layout
