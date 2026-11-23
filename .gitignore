@@ -58,3 +58,6 @@ CLAUDE.md
 # Playground
 playground/
 
+
+# Local list of files to delete after the paper
+cleanup-candidates.txt

@@ -27,20 +27,20 @@ panel$pfu_bin <- factor(panel$pfu_lag, levels = 0:5)
 
 # Adoption: at risk = prev_ecig == 0; event = ecig == 1
 adopt_tab <- panel |>
-  filter(!is.na(prev_ecig), prev_ecig == 0, !is.na(ecig), !is.na(pfu_bin)) |>
+  filter(!is.na(prev_ecig), prev_ecig == 0, !is.na(pfu_bin)) |>
   group_by(pfu_bin) |>
   summarise(n_adopt   = n(),
-            n_event_a = sum(ecig == 1),
-            rate_adopt = mean(ecig == 1),
+            n_event_a = sum(ecig %in% 1),
+            rate_adopt = mean(ecig %in% 1),
             .groups   = "drop")
 
 # Disadoption: at risk = prev_ecig == 1; event = ecig == 0  (any 1->0)
 disad_tab <- panel |>
-  filter(!is.na(prev_ecig), prev_ecig == 1, !is.na(ecig), !is.na(pfu_bin)) |>
+  filter(!is.na(prev_ecig), prev_ecig == 1, !is.na(pfu_bin)) |>
   group_by(pfu_bin) |>
   summarise(n_disad   = n(),
-            n_event_d = sum(ecig == 0),
-            rate_disad_pct = 100 * mean(ecig == 0),
+            n_event_d = sum(ecig %in% 0),
+            rate_disad_pct = 100 * mean(ecig %in% 0),
             .groups   = "drop")
 
 tab <- full_join(adopt_tab, disad_tab, by = "pfu_bin") |> arrange(pfu_bin)
