@@ -82,8 +82,8 @@ mapping used by the regression scripts.
 Intermediate `.rds` files are written to `report-support/intermediate/`
 (gitignored). `outputs/tables/` is gitignored; figures are committed.
 
-A full run from a clean checkout takes about 5-10 minutes,
-most of it in `01b-edges-rebuild.R` (~3 min) and `12-network-coverage.R`
+A full run takes about 5-10 minutes once the restricted ADVANCE data are in
+place (see Data), most of it in `01b-edges-rebuild.R` (~3 min) and `12-network-coverage.R`
 (~3 min). It writes about 30 MB: 24 MB of intermediate `.rds` files,
 5.6 MB of figures and 0.1 MB of tables.
 
